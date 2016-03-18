@@ -1,0 +1,38 @@
+<center>
+    <div class="header">UI-GAI</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo" ng-click="usersCtrl.goToBack()">
+    <hr>
+    <div class="header" ng-click="usersCtrl.goToBack()">
+        {{usersCtrl.title}} ({{usersFilter.length}} / {{usersCtrl.users.length}})
+    </div>
+    <div>
+        <input type="text" class="form-control input"
+               placeholder="Search here"
+               ng-model="usersCtrl.query.name">
+    </div>
+    <table class="table table-striped input">
+        <tr ng-repeat="item in filteredUsers
+				| orderBy:usersCtrl.sort:usersCtrl.rev |
+				filter:usersCtrl.query as usersFilter
+				track by $index">
+            <td ng-click="usersCtrl.usersEditForm(item)" class="input">
+                <div class="name-div">
+                    {{item.name}}
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr class="fix-hr">
+		<span class="label label-primary per-page">Items per page:
+			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
+		</span>
+
+    <div>
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm"
+                    boundary-links="true"></pagination>
+    </div>
+    <button class="btn btn-primary button" ng-click="usersCtrl.usersAdd()">Add</button>&nbsp
+    <button class="btn btn-primary button" ng-click="usersCtrl.usersBack()" scroll-here>Back</button>
+    <br><br>
+</center>

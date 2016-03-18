@@ -1,0 +1,30 @@
+<center>
+    <div class="header">UI-GAI</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo" ng-click="itemsCtrl.goToBack()">
+    <hr>
+    <form ng-submit="itemsEditCtrl.itemsEditBack()" novalidate name="itemsEditCtrl.form">
+        <div class="header">&nbsp;{{itemsEditCtrl.regnum}}</div>
+        <br><br>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+					<textarea rows=5 type="text" class="form-control input"
+                              placeholder="Description" name="description"
+                              ng-model="itemsEditCtrl.description">
+					</textarea>
+
+                    <div ng-if="itemsEditCtrl.form.$submitted">
+                        <div ng-show="itemsEditCtrl.form.description.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-primary button">Cancel</button>&nbsp
+        <button type="button" class="btn btn-primary button" ng-click="itemsEditCtrl.itemsDialog()">Delete</button>
+        <br><br>
+        <button type="button" class="btn btn-primary button" ng-click="itemsEditCtrl.itemsEditBack()">Back</button>
+    </form>
+    <br><br>
+</center>

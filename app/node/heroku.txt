@@ -1,0 +1,46 @@
+-----------------------------------------------------------------------------------------------------
+mongoose.connect('mongodb://admin:admin@ds011238.mongolab.com:11238/ui-gai');
+-----------------------------------------------------------------------------------------------------
+node index.js
+
+mongod.exe --dbpath d:/MongoDB/db
+mongod.exe --dbpath d:/MongoDB/db --repair
+
+-----------------------------------------------------------------------------------------------------
+mongo shell
+show dbs
+use test
+show collections
+db.dropDatabase()
+
+-----------------------------------------------------------------------------------------------------
+mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin --file gai_100_000_mongo.json
+
+-----------------------------------------------------------------------------------------------------
+mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin --file items.json
+mongoexport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin -o items1.json
+
+mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c users -u admin -p admin --file users.json
+mongoexport -h ds011238.mongolab.com:11238 -d ui-gai -c users -u admin -p admin -o users1.json
+
+-----------------------------------------------------------------------------------------------------
+mongoose.connect('mongodb://localhost:27017/ui-gai');
+
+mongoimport --db ui-gai --collection items --file items.json
+mongoexport --db ui-gai --collection items -o items1.json
+
+mongoimport --db ui-gai --collection users --file users.json
+mongoexport --db ui-gai --collection users -o users1.json
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+SELECT * INTO gai_100_000
+FROM частные
+WHERE id between 1 and 100000
+-----------------------------------------------------------------------------------------------------
+Notepad++ - convert to UTF-8 // ONLY )))))))))
+-----------------------------------------------------------------------------------------------------
+SELECT * INTO gai_500_000
+FROM частные
+WHERE id between 493000 and 494000; //493565

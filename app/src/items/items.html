@@ -1,0 +1,41 @@
+<center>
+    <div class="header">UI-GAI</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo" ng-click="itemsCtrl.goToBack()">
+    <hr>
+    <div class="header" ng-click="itemsCtrl.goToBack()">
+        {{itemsCtrl.title}} ({{itemsFilter.length}} / {{itemsCtrl.items.length}})
+    </div>
+    <div>
+        <input type="text" class="form-control input"
+               placeholder="Search here"
+               ng-model="itemsCtrl.query">
+    </div>
+    <table class="table table-striped input">
+        <tr ng-repeat="item in filteredItems
+			| orderBy:itemsCtrl.sort:itemsCtrl.rev |
+			filter:itemsCtrl.query as itemsFilter
+			track by $index">
+            <td ng-click="itemsCtrl.itemsEditForm(item)" class="input">
+                <div class="name-div">
+                    {{item.name}}&nbsp {{item.name1}}&nbsp {{item.name2}}<br>
+                    {{item.model}}<br>
+                    {{item.regnum}}
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr class="fix-hr">
+		<span class="label label-primary per-page">Items per page:
+			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}
+                   ng-change="itemsCtrl.updateChange()">
+		</span>
+
+    <div>
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm"
+                    boundary-links="true"></pagination>
+    </div>
+    <button class="btn btn-primary button" ng-click="itemsCtrl.itemsAdd()">Add</button>&nbsp
+    <button class="btn btn-primary button" ng-click="itemsCtrl.itemsBack()" scroll-here>Back</button>
+    <br><br>
+</center>

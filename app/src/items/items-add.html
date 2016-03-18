@@ -1,0 +1,40 @@
+<center>
+    <div class="header">UI-Base</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo" ng-click="itemsCtrl.goToBack()">
+    <hr>
+    <form ng-submit="itemsAddCtrl.itemsAddSubmit()" novalidate name="itemsAddCtrl.form">
+        <div class="header">New record</div>
+        <br><br>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <input type="text" class="form-control input" required
+                           placeholder="Name" name="name"
+                           ng-model="itemsAddCtrl.name">
+
+                    <div ng-if="itemsAddCtrl.form.$submitted">
+                        <div ng-show="itemsAddCtrl.form.name.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+					<textarea rows=5 type="text" class="form-control input" required
+                              placeholder="Description" name="description"
+                              ng-model="itemsAddCtrl.description">
+					</textarea>
+
+                    <div ng-if="itemsAddCtrl.form.$submitted">
+                        <div ng-show="itemsAddCtrl.form.description.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+        <button type="button" class="btn btn-primary button" ng-click="itemsAddCtrl.itemsAddBack()">Back</button>
+    </form>
+    <br><br>
+</center>
