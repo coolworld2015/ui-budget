@@ -1,313 +1,647 @@
 (function () {
-        'use strict';
+    'use strict';
 
-        angular
-            .module('app')
-            .config(routeConfig);
+    angular
+        .module('app')
+        .config(routeConfig);
 
-        routeConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+    routeConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-        function routeConfig($stateProvider, $urlRouterProvider) {
+    function routeConfig($stateProvider, $urlRouterProvider) {
 
-            function resolveResource(url, state, sort) {
-                resolver.$inject = ['$http', '$q', '$rootScope', 'ItemsLocalStorage', 'ItemsService',
-                    'UsersLocalStorage', 'UsersService'];
-                function resolver($http, $q, $rootScope, ItemsLocalStorage, ItemsService,
-                                  UsersLocalStorage, UsersService) {
-                    var data;
-                    var webUrl;
+        function resolveResource(url, state, sort) {
+            resolver.$inject = ['$http', '$q', '$rootScope', 'ClientsLocalStorage', 'ClientsService',
+                'GoodsLocalStorage', 'GoodsService', 'UsersLocalStorage', 'UsersService',
+                'InputsLocalStorage', 'InputsService', 'OutputsLocalStorage', 'OutputsService',
+                'InputsInvoiceLocalStorage', 'InputsInvoiceService',
+                'OutputsInvoiceLocalStorage', 'OutputsInvoiceService'];
+            function resolver($http, $q, $rootScope, ClientsLocalStorage, ClientsService,
+                              GoodsLocalStorage, GoodsService, UsersLocalStorage, UsersService,
+                              InputsLocalStorage, InputsService, OutputsLocalStorage, OutputsService,
+                              InputsInvoiceLocalStorage, InputsInvoiceService,
+                              OutputsInvoiceLocalStorage, OutputsInvoiceService) {
 
-                    if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
-                        switch (state) {
-                            case 'items':
-                                data = ItemsLocalStorage.getItems();
-                                return data;
-                                break;
+                var data;
+                var webUrl = $rootScope.myConfig.webUrl;
 
-                            case 'users':
-                                data = UsersLocalStorage.getUsers();
-                                return data;
-                                break;
-                        }
-                    } else {
-                        switch (state) {
-                            case 'items':
-                                if ($rootScope.items === undefined) {
-                                    webUrl = $rootScope.myConfig.webUrl + url;
-                                    return $http.get(webUrl)
-                                        .then(function (result) {
-                                            ItemsService.items = result.data;
-                                            $rootScope.items = true;
-                                            $rootScope.loading = false;
-                                            return ItemsService.items.sort(sort);
-                                        })
-                                        .catch(function (reject) {
-                                            $rootScope.loading = false;
-                                            $rootScope.myError = true;
-                                            return $q.reject(reject);
-                                        });
-                                } else {
-                                    return ItemsService.items.sort(sort);
-                                }
-                                break;
+                if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
+                    switch (state) {
+                        case 'store':
+                            data = GoodsLocalStorage.getGoods();
+                            return data;
+                            break;
 
-                            case 'users':
-                                if ($rootScope.users === undefined) {
-                                    webUrl = $rootScope.myConfig.webUrl + url;
-                                    return $http.get(webUrl)
-                                        .then(function (result) {
-                                            UsersService.users = result.data;
-                                            $rootScope.users = true;
-                                            $rootScope.loading = false;
-                                            return UsersService.users.sort(sort);
-                                        })
-                                        .catch(function (reject) {
-                                            $rootScope.loading = false;
-                                            $rootScope.myError = true;
-                                            return $q.reject(reject);
-                                        });
-                                } else {
-                                    return UsersService.users.sort(sort);
-                                }
-                                break;
+                        case 'goods':
+                            data = GoodsLocalStorage.getGoods();
+                            return data;
+                            break;
 
-                            case 'audit':
-                                webUrl = $rootScope.myConfig.webUrl + url;
-                                return $http.get(webUrl)
+                        case 'clients':
+                            data = ClientsLocalStorage.getClients();
+                            return data;
+                            break;
+
+                        case 'users':
+                            data = UsersLocalStorage.getUsers();
+                            return data;
+                            break;
+
+                        case 'inputs':
+                            data = InputsLocalStorage.getInputs();
+                            return data;
+                            break;
+
+                        case 'outputs':
+                            data = OutputsLocalStorage.getOutputs();
+                            return data;
+                            break;
+
+                        case 'inputInvoices':
+                            data = InputsInvoiceLocalStorage.getInputInvoice();
+                            return data;
+                            break;
+
+                        case 'outputInvoices':
+                            data = OutputsInvoiceLocalStorage.getOutputInvoice();
+                            return data;
+                            break;
+                    }
+                } else {
+                    switch (state) {
+                        case 'goods':
+                            if ($rootScope.goods === undefined) {
+                                return $http.get(webUrl + url)
                                     .then(function (result) {
+                                        GoodsService.goods = result.data;
+                                        $rootScope.goods = true;
                                         $rootScope.loading = false;
-                                        return result.data;
+                                        return GoodsService.goods.sort(sort);
                                     })
                                     .catch(function (reject) {
                                         $rootScope.loading = false;
                                         $rootScope.myError = true;
                                         return $q.reject(reject);
                                     });
-                                break;
-                        }
+                            } else {
+                                return GoodsService.goods.sort(sort);
+                            }
+                            break;
+
+                        case 'clients':
+                            if ($rootScope.clients === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        ClientsService.clients = result.data;
+                                        $rootScope.clients = true;
+                                        $rootScope.loading = false;
+                                        return ClientsService.clients.sort(sort);
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return ClientsService.clients.sort(sort);
+                            }
+                            break;
+
+                        case 'users':
+                            if ($rootScope.users === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        UsersService.users = result.data;
+                                        $rootScope.users = true;
+                                        $rootScope.loading = false;
+                                        return UsersService.users.sort(sort);
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return UsersService.users.sort(sort);
+                            }
+                            break;
+
+                        case 'inputs':
+                            if ($rootScope.inputs === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        InputsService.inputs = result.data;
+                                        $rootScope.inputs = true;
+                                        $rootScope.loading = false;
+                                        return InputsService.inputs;
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return InputsService.inputs;
+                            }
+                            break;
+
+                        case 'outputs':
+                            if ($rootScope.outputs === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        OutputsService.outputs = result.data;
+                                        $rootScope.outputs = true;
+                                        $rootScope.loading = false;
+                                        return OutputsService.outputs;
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return OutputsService.outputs;
+                            }
+                            break;
+
+                        case 'inputInvoices':
+                            if ($rootScope.inputInvoices === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        InputsInvoiceService.inputInvoices = result.data;
+                                        $rootScope.inputInvoices = true;
+                                        $rootScope.loading = false;
+                                        return InputsInvoiceService.inputInvoices;
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return InputsInvoiceService.inputInvoices;
+                            }
+                            break;
+
+                        case 'outputInvoices':
+                            if ($rootScope.outputInvoices === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        OutputsInvoiceService.outputInvoices = result.data;
+                                        $rootScope.outputInvoices = true;
+                                        $rootScope.loading = false;
+                                        return OutputsInvoiceService.outputInvoices;
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return OutputsInvoiceService.outputInvoices;
+                            }
+                            break;
+
+                        case 'audit':
+                            webUrl = $rootScope.myConfig.webUrl + url;
+                            return $http.get(webUrl)
+                                .then(function (result) {
+                                    $rootScope.loading = false;
+                                    return result.data;
+                                })
+                                .catch(function (reject) {
+                                    $rootScope.loading = false;
+                                    $rootScope.myError = true;
+                                    return $q.reject(reject);
+                                });
+                            break;
                     }
+
                 }
-                return resolver;
             }
 
-            function sort(a, b) {
-                var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-                if (nameA < nameB) {
-                    return -1
-                }
-                if (nameA > nameB) {
-                    return 1
-                }
-                return 0;
-            }
-
-            function sortNumber(a, b) {
-                return parseInt(a.number) - parseInt(b.number);
-            }
-
-            //$urlRouterProvider.otherwise('/login');  //TODO Change to Login
-            $urlRouterProvider.otherwise('/main');
-
-            $stateProvider
-                .state('main', {
-                    url: '/main',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'app/main.html',
-                    controller: 'MainCtrl',
-                    controllerAs: 'mainCtrl'
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('login', {
-                    url: '/login',
-                    data: {
-                        requireLogin: false
-                    },
-                    templateUrl: 'login/login.html',
-                    controller: 'LoginCtrl',
-                    controllerAs: 'loginCtrl'
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('audit', {
-                    url: '/audit',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'audit/audit.html',
-                    controller: 'AuditCtrl',
-                    controllerAs: 'auditCtrl',
-                    resolve: {
-                        audit: resolveResource('api/audit/get', 'audit', sort)
-                    }
-                })
-
-                .state('audit-edit', {
-                    url: '/audit-edit',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'audit/audit-edit.html',
-                    controller: 'AuditEditCtrl',
-                    controllerAs: 'auditEditCtrl'
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('config', {
-                    url: '/config',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'config/config.html',
-                    controller: 'ConfigCtrl',
-                    controllerAs: 'configCtrl'
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('search', {
-                    url: '/search',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'search/search.html',
-                    controller: 'SearchCtrl',
-                    controllerAs: 'searchCtrl'
-                })
-
-                .state('search-results', {
-                    url: '/search-results?name?search?finds',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'search/search-results.html',
-                    controller: 'SearchResultsCtrl',
-                    controllerAs: 'searchResultsCtrl',
-                    resolve: {
-                        items: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
-                            function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
-                                var api;
-                                var name = $stateParams.name;
-                                var type = $stateParams.search;
-                                if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
-                                    var data = ItemsLocalStorage.findByName(name);
-                                    return data;
-                                } else {
-                                    if (type == 'Search by Name') {
-                                        api = 'api/items/findByName/';
-                                    } else {
-                                        api = 'api/items/findByRegNum/';
-                                    }
-
-                                    var webUrl = $rootScope.myConfig.webUrl + api;
-                                    return $http.get(webUrl + name)
-                                        .then(function (data) {
-                                            return data.data;
-                                        })
-                                        .catch(function () {
-                                            $rootScope.loading = false;
-                                            $rootScope.error = true;
-                                            return [];
-                                        });
-                                }
-                            }]
-                    }
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('items', {
-                    url: '/items',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'items/items.html',
-                    controller: 'ItemsCtrl',
-                    controllerAs: 'itemsCtrl',
-                    resolve: {
-                        items: resolveResource('api/items/get', 'items', sort)
-                    }
-                })
-
-                .state('items-add', {
-                    url: '/items-add',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'items/items-add.html',
-                    controller: 'ItemsAddCtrl',
-                    controllerAs: 'itemsAddCtrl',
-                    resolve: {
-                        categories: resolveResource('api/categories/get', 'categories', sort),
-                        groups: resolveResource('api/groups/get', 'groups', sort)
-                    }
-                })
-
-                .state('items-edit', {
-                    url: '/items-edit?finds',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'items/items-edit.html',
-                    controller: 'ItemsEditCtrl',
-                    controllerAs: 'itemsEditCtrl'
-                })
-
-                .state('items-dialog', {
-                    url: '/items-dialog',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'items/items-dialog.html',
-                    controller: 'ItemsDialogCtrl',
-                    controllerAs: 'itemsDialogCtrl'
-                })
-//-------------------------------------------------------------------------------------------------------
-                .state('users', {
-                    url: '/users',
-                    data: {
-                        requireLogin: true
-                    },
-                    templateUrl: 'users/users.html',
-                    controller: 'UsersCtrl',
-                    controllerAs: 'usersCtrl',
-                    resolve: {
-                        users: resolveResource('api/users/get', 'users', sort)
-                    }
-                })
-
-                .state('users-add', {
-                    url: '/users-add',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'users/users-add.html',
-                    controller: 'UsersAddCtrl',
-                    controllerAs: 'usersAddCtrl'
-                })
-
-                .state('users-edit', {
-                    url: '/users-edit',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'users/users-edit.html',
-                    controller: 'UsersEditCtrl',
-                    controllerAs: 'usersEditCtrl'
-                })
-
-                .state('users-dialog', {
-                    url: '/users-dialog',
-                    data: {
-                        requireLogin: true
-                    },
-                    params: {item: {}},
-                    templateUrl: 'users/users-dialog.html',
-                    controller: 'UsersDialogCtrl',
-                    controllerAs: 'usersDialogCtrl'
-                });
-//-------------------------------------------------------------------------------------------------------
+            return resolver;
         }
-    })
-();
+
+        function sort(a, b) {
+            var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+            if (nameA < nameB) {
+                return -1
+            }
+            if (nameA > nameB) {
+                return 1
+            }
+            return 0;
+        }
+
+        //function sortNumber(a, b) {
+        //    return parseInt(a.number) - parseInt(b.number);
+        //}
+
+        $stateProvider
+            .state('main', {
+                url: '/main',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'app/main.html',
+                controller: 'MainCtrl',
+                controllerAs: 'mainCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('login', {
+                url: '/login',
+                data: {
+                    requireLogin: false
+                },
+                templateUrl: 'login/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'loginCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('audit', {
+                url: '/audit',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'audit/audit.html',
+                controller: 'AuditCtrl',
+                controllerAs: 'auditCtrl',
+                resolve: {
+                    audit: resolveResource('api/audit/get', 'audit', sort)
+                }
+            })
+
+            .state('audit-edit', {
+                url: '/audit-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'audit/audit-edit.html',
+                controller: 'AuditEditCtrl',
+                controllerAs: 'auditEditCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('config', {
+                url: '/config',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'config/config.html',
+                controller: 'ConfigCtrl',
+                controllerAs: 'configCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('store', {
+                url: '/store',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'store/store.html',
+                controller: 'StoreCtrl',
+                controllerAs: 'storeCtrl',
+                resolve: {
+                    goods: resolveResource('api/goods/get', 'goods', sort)
+                }
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('goods', {
+                url: '/goods',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'goods/goods.html',
+                controller: 'GoodsCtrl',
+                controllerAs: 'goodsCtrl',
+                resolve: {
+                    goods: resolveResource('api/goods/get', 'goods', sort)
+                }
+            })
+
+            .state('goods-add', {
+                url: '/goods-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'goods/goods-add.html',
+                controller: 'GoodsAddCtrl',
+                controllerAs: 'goodsAddCtrl'
+            })
+
+            .state('goods-edit', {
+                url: '/goods-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'goods/goods-edit.html',
+                controller: 'GoodsEditCtrl',
+                controllerAs: 'goodsEditCtrl'
+            })
+
+            .state('goods-dialog', {
+                url: '/goods-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'goods/goods-dialog.html',
+                controller: 'GoodsDialogCtrl',
+                controllerAs: 'goodsDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('clients', {
+                url: '/clients',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'clients/clients.html',
+                controller: 'ClientsCtrl',
+                controllerAs: 'clientsCtrl',
+                resolve: {
+                    clients: resolveResource('api/clients/get', 'clients', sort)
+                }
+            })
+
+            .state('clients-add', {
+                url: '/clients-add',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'clients/clients-add.html',
+                controller: 'ClientsAddCtrl',
+                controllerAs: 'clientsAddCtrl'
+            })
+
+            .state('clients-edit', {
+                url: '/clients-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'clients/clients-edit.html',
+                controller: 'ClientsEditCtrl',
+                controllerAs: 'clientsEditCtrl'
+            })
+
+            .state('clients-dialog', {
+                url: '/clients-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'clients/clients-dialog.html',
+                controller: 'ClientsDialogCtrl',
+                controllerAs: 'clientsDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('inputs', {
+                url: '/inputs',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'inputs/inputs.html',
+                controller: 'InputsCtrl',
+                controllerAs: 'inputsCtrl',
+                resolve: {
+                    inputs: resolveResource('api/inputs/get', 'inputs', sort)
+                }
+            })
+
+            .state('inputs-add', {
+                url: '/inputs-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'inputs/inputs-add.html',
+                controller: 'InputsAddCtrl',
+                controllerAs: 'inputsAddCtrl',
+                resolve: {
+                    clients: resolveResource('api/clients/get', 'clients', sort)
+                }
+            })
+
+            .state('inputs-edit', {
+                url: '/inputs-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'inputs/inputs-edit.html',
+                controller: 'InputsEditCtrl',
+                controllerAs: 'inputsEditCtrl'
+            })
+
+            .state('inputs-dialog', {
+                url: '/inputs-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'inputs/inputs-dialog.html',
+                controller: 'InputsDialogCtrl',
+                controllerAs: 'inputsDialogCtrl'
+            })
+
+            .state('inputs-invoice', {
+                url: '/inputs-invoice',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'inputs/inputs-invoice.html',
+                controller: 'InputsInvoiceCtrl',
+                controllerAs: 'inputsInvoiceCtrl',
+                resolve: {
+                    inputInvoices: resolveResource('api/invoicein/get', 'inputInvoices', sort)
+                }
+            })
+
+            .state('inputs-invoice-add', {
+                url: '/inputs-invoice-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'inputs/inputs-invoice-add.html',
+                controller: 'InputsInvoiceAddCtrl',
+                controllerAs: 'inputsInvoiceAddCtrl',
+                resolve: {
+                    goods: resolveResource('api/goods/get', 'goods', sort)
+                }
+            })
+
+            .state('inputs-invoice-edit', {
+                url: '/inputs-invoice-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}, invoice: {}},
+                templateUrl: 'inputs/inputs-invoice-edit.html',
+                controller: 'InputsInvoiceEditCtrl',
+                controllerAs: 'inputsInvoiceEditCtrl'
+            })
+
+            .state('inputs-invoice-dialog', {
+                url: '/inputs-invoice-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}, invoice: {}},
+                templateUrl: 'inputs/inputs-invoice-dialog.html',
+                controller: 'InputsInvoiceDialogCtrl',
+                controllerAs: 'inputsInvoiceDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('outputs', {
+                url: '/outputs',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'outputs/outputs.html',
+                controller: 'OutputsCtrl',
+                controllerAs: 'outputsCtrl',
+                resolve: {
+                    outputs: resolveResource('api/outputs/get', 'outputs', sort)
+                }
+            })
+
+            .state('outputs-add', {
+                url: '/outputs-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'outputs/outputs-add.html',
+                controller: 'OutputsAddCtrl',
+                controllerAs: 'outputsAddCtrl',
+                resolve: {
+                    clients: resolveResource('api/clients/get', 'clients', sort)
+                }
+            })
+
+            .state('outputs-edit', {
+                url: '/outputs-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'outputs/outputs-edit.html',
+                controller: 'OutputsEditCtrl',
+                controllerAs: 'outputsEditCtrl'
+            })
+
+            .state('outputs-dialog', {
+                url: '/outputs-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'outputs/outputs-dialog.html',
+                controller: 'OutputsDialogCtrl',
+                controllerAs: 'outputsDialogCtrl'
+            })
+
+            .state('outputs-invoice', {
+                url: '/outputs-invoice',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'outputs/outputs-invoice.html',
+                controller: 'OutputsInvoiceCtrl',
+                controllerAs: 'outputsInvoiceCtrl',
+                resolve: {
+                    outputInvoices: resolveResource('api/invoiceout/get', 'outputInvoices', sort)
+                }
+            })
+
+            .state('outputs-invoice-add', {
+                url: '/outputs-invoice-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'outputs/outputs-invoice-add.html',
+                controller: 'OutputsInvoiceAddCtrl',
+                controllerAs: 'outputsInvoiceAddCtrl',
+                resolve: {
+                    goods: resolveResource('api/goods/get', 'goods', sort)
+                }
+            })
+
+            .state('outputs-invoice-edit', {
+                url: '/outputs-invoice-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}, invoice: {}},
+                templateUrl: 'outputs/outputs-invoice-edit.html',
+                controller: 'OutputsInvoiceEditCtrl',
+                controllerAs: 'outputsInvoiceEditCtrl'
+            })
+
+            .state('outputs-invoice-dialog', {
+                url: '/outputs-invoice-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}, invoice: {}},
+                templateUrl: 'outputs/outputs-invoice-dialog.html',
+                controller: 'OutputsInvoiceDialogCtrl',
+                controllerAs: 'outputsInvoiceDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('users', {
+                url: '/users',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'users/users.html',
+                controller: 'UsersCtrl',
+                controllerAs: 'usersCtrl',
+                resolve: {
+                    users: resolveResource('api/users/get', 'users', sort)
+                }
+            })
+
+            .state('users-add', {
+                url: '/users-add',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'users/users-add.html',
+                controller: 'UsersAddCtrl',
+                controllerAs: 'usersAddCtrl'
+            })
+
+            .state('users-edit', {
+                url: '/users-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'users/users-edit.html',
+                controller: 'UsersEditCtrl',
+                controllerAs: 'usersEditCtrl'
+            })
+
+            .state('users-dialog', {
+                url: '/users-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'users/users-dialog.html',
+                controller: 'UsersDialogCtrl',
+                controllerAs: 'usersDialogCtrl'
+            });
+
+        //$urlRouterProvider.otherwise('/login');  //TODO
+        $urlRouterProvider.otherwise('/main');
+//-------------------------------------------------------------------------------------------------------
+    }
+})();

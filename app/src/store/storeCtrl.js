@@ -32,7 +32,7 @@
         init();
 
         function init() {
-            vm.title = 'Store';
+            vm.title = 'Money';
             vm.sort = 'name';
 			vm.store = initStore(goods);
 			vm.goodsFilter = [];
