@@ -1,0 +1,81 @@
+<center>
+    <div class="header">Warehouse</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo">
+    <hr>
+
+	<form ng-submit="inputsAddCtrl.inputsAddSubmit()" novalidate name="inputsAddCtrl.form">
+		<div class="header">
+			New record
+		</div>
+		<br><br>
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="ID:">
+				</td>
+				<td class="width100">
+					<input type="text" class="form-control input" required digits-only
+						   placeholder="ID" name="number"
+						   ng-model="inputsAddCtrl.number">
+
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.number.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Customer:">
+				</td>
+				<td>
+					<select required class="form-control select"
+							ng-model="inputsAddCtrl.selectedItem"
+							ng-options="clientsOption.name for clientsOption in inputsAddCtrl.clientsOptions
+							track by clientsOption.name"
+							ng-change="inputsAddCtrl.updateChange(inputsAddCtrl.selectedItem)">
+					</select>
+
+					<div ng-show="inputsAddCtrl.error" class="valid">Value required</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Date:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Date" name="date"
+						   ng-model="inputsAddCtrl.date">
+
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.date.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Description:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Description" name="description"
+						   ng-model="inputsAddCtrl.description">
+
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.description.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="inputsAddCtrl.inputsAddBack()">Back</button>
+	</form>
+	<div class="blanker"></div>
+</center>

@@ -1,0 +1,75 @@
+<center>
+	<div class="header">Warehouse</div>
+	<br><br>
+	<img ng-src="logo.jpg" class="logo">
+	<hr>
+
+	<form ng-submit="inputsInvoiceEditCtrl.invoiceSubmit()" novalidate name="inputsInvoiceEditCtrl.form">
+		<div class="header" ng-click="inputsInvoiceEditCtrl.goInputs()">
+			{{inputsInvoiceEditCtrl.goods}}&nbsp
+		</div>
+		<br><br>
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Commodite:">
+				</td>
+				<td class="width100">
+					<input type="text" class="form-control readonly" readonly
+						   ng-model="inputsInvoiceEditCtrl.goods">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Price:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" readonly
+						   ng-model="inputsInvoiceEditCtrl.price">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Quantity:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" readonly
+						   ng-model="inputsInvoiceEditCtrl.quantity">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Description:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Transaction description" name="description"
+						   ng-model="inputsInvoiceEditCtrl.description">
+
+					<div ng-if="inputsInvoiceEditCtrl.form.$submitted">
+						<div ng-show="inputsInvoiceEditCtrl.form.description.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Total:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" readonly
+						   ng-model="inputsInvoiceEditCtrl.total">
+				</td>
+			</tr>
+		</table>
+
+		<input value="Submit" class="btn btn-primary button" type="submit">&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="inputsInvoiceEditCtrl.invoiceDialog()">Delete</button><br><br>
+		<button type="button" class="btn btn-primary button" ng-click="inputsInvoiceEditCtrl.goInputsInvoice()">Back</button>
+	</form>
+	<div class="blanker"></div>
+</center>
