@@ -292,6 +292,54 @@
                 controllerAs: 'configCtrl'
             })
 //-------------------------------------------------------------------------------------------------------
+            .state('search', {
+                url: '/search',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'search/search.html',
+                controller: 'SearchCtrl',
+                controllerAs: 'searchCtrl'
+            })
+
+            .state('search-results', {
+                url: '/search-results?name?search?finds',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'search/search-results.html',
+                controller: 'SearchResultsCtrl',
+                controllerAs: 'searchResultsCtrl',
+                resolve: {
+                    items: ['$http', '$stateParams', '$rootScope', 'ItemsLocalStorage',
+                        function ($http, $stateParams, $rootScope, ItemsLocalStorage) {
+                            var api;
+                            var name = $stateParams.name;
+                            var type = $stateParams.search;
+                            if ($rootScope.mode == 'OFF-LINE (LocalStorage)') {
+                                return ItemsLocalStorage.findByName(name);
+                            } else {
+                                if (type == 'Search by Name') {
+                                    api = 'api/items/findByName/';
+                                } else {
+                                    api = 'api/items/findByRegNum/';
+                                }
+
+                                var webUrl = $rootScope.myConfig.webUrl + api;
+                                return $http.get(webUrl + name)
+                                    .then(function (data) {
+                                        return data.data;
+                                    })
+                                    .catch(function () {
+                                        $rootScope.loading = false;
+                                        $rootScope.error = true;
+                                        return [];
+                                    });
+                            }
+                        }]
+                }
+            })
+//-------------------------------------------------------------------------------------------------------
             .state('store', {
                 url: '/store',
                 data: {
