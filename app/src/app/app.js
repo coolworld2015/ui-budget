@@ -50,21 +50,21 @@
     function init($rootScope) {
         var mode;
         if ($rootScope.mode === undefined) {
-            mode = localStorage.getItem('ui-gai.mode');
+            mode = localStorage.getItem('ui-budget.mode');
             mode = JSON.parse(mode);
             $rootScope.mode = mode;
         }
 
         if ($rootScope.mode === null) {
             mode = 'OFF-LINE (LocalStorage)';
-            localStorage.setItem('ui-gai.mode', JSON.stringify(mode));
+            localStorage.setItem('ui-budget.mode', JSON.stringify(mode));
             $rootScope.mode = mode;
         }
 
         $rootScope.numPerPageItems = 10;
 
         $rootScope.myConfig = {
-            webUrl: 'http://ui-warehouse.herokuapp.com/' //TODO Heroku MongoDB
+            webUrl: 'http://ui-budget.herokuapp.com/' //TODO Heroku MongoDB
             //webUrl: 'http://localhost:3000/' //TODO Local MongoDB
             //webUrl: 'http://localhost:3000/file/' //TODO Local JSON DB
         };

@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var options = { server: { socketOptions: { connectTimeoutMS: 60000 } },
     replset: { socketOptions: { connectTimeoutMS : 60000 } } };
 
-mongoose.connect('mongodb://admin:admin@ds011238.mongolab.com:11238/ui-gai', options);
+mongoose.connect('mongodb://admin:admin@ds015760.mongolab.com:15760/ui-budget', options);
 //mongoose.connect('mongodb://localhost:27017/ui-base'); //TODO ONLY for Local INSTANCE MongoDB
 
 var db = mongoose.connection;
