@@ -404,7 +404,7 @@
                 data: {
                     requireLogin: true
                 },
-                templateUrl: 'clients/clients.html',
+                templateUrl: 'employees/clients.html',
                 controller: 'ClientsCtrl',
                 controllerAs: 'clientsCtrl',
                 resolve: {
@@ -417,7 +417,7 @@
                 data: {
                     requireLogin: true
                 },
-                templateUrl: 'clients/clients-add.html',
+                templateUrl: 'employees/clients-add.html',
                 controller: 'ClientsAddCtrl',
                 controllerAs: 'clientsAddCtrl'
             })
@@ -428,7 +428,7 @@
                     requireLogin: true
                 },
                 params: {item: {}},
-                templateUrl: 'clients/clients-edit.html',
+                templateUrl: 'employees/clients-edit.html',
                 controller: 'ClientsEditCtrl',
                 controllerAs: 'clientsEditCtrl'
             })
@@ -439,7 +439,7 @@
                     requireLogin: true
                 },
                 params: {item: {}},
-                templateUrl: 'clients/clients-dialog.html',
+                templateUrl: 'employees/clients-dialog.html',
                 controller: 'ClientsDialogCtrl',
                 controllerAs: 'clientsDialogCtrl'
             })

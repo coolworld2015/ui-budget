@@ -20,7 +20,11 @@
             _complete: complete,
             toMain: toMain
         });
-
+		
+        $timeout(function () {
+            window.scrollTo(0, 0);
+        });
+		
         init();
 
         function init() {
