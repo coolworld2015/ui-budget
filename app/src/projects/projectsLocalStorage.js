@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .factory('ClientsLocalStorage', ClientsLocalStorage);
+        .factory('ProjectsLocalStorage', ProjectsLocalStorage);
 
-    ClientsLocalStorage.$inject = ['$rootScope'];
+    ProjectsLocalStorage.$inject = ['$rootScope'];
 
-    function ClientsLocalStorage($rootScope) {
+    function ProjectsLocalStorage($rootScope) {
         var webUrl = $rootScope.myConfig.webUrl;
 
         return {
             clients: [],
             numPerPage: 10,
 
-            getClients: getClients,
+            getProjects: getProjects,
             addItem: addItem,
             editItem: editItem,
             deleteItem: deleteItem,
@@ -24,22 +24,22 @@
             _sort: sort
         };
 
-        function getClients() {
-            if (ClientsLocalStorage.clients === undefined) {
+        function getProjects() {
+            if (ProjectsLocalStorage.clients === undefined) {
                 var clients = localStorage.getItem('ui-budget.clients');
                 clients = JSON.parse(clients);
-                ClientsLocalStorage.clients = clients;
+                ProjectsLocalStorage.clients = clients;
             }
 
-            if (ClientsLocalStorage.clients === null) {
-                ClientsLocalStorage.clients = [];
+            if (ProjectsLocalStorage.clients === null) {
+                ProjectsLocalStorage.clients = [];
             }
 
-            return ClientsLocalStorage.clients.sort(sort);
+            return ProjectsLocalStorage.clients.sort(sort);
         }
 
         function addItem(item) {
-            ClientsLocalStorage.clients.push(item);
+            ProjectsLocalStorage.clients.push(item);
             setClients();
         }
 

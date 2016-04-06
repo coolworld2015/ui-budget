@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('ClientsCtrl', ClientsCtrl);
+        .controller('ProjectsCtrl', ProjectsCtrl);
 
-    ClientsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'clients'];
+    ProjectsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'projects'];
 
-    function ClientsCtrl($scope, $rootScope, $state, $timeout, clients) {
+    function ProjectsCtrl($scope, $rootScope, $state, $timeout, projects) {
         $scope.$watch('numPerPage', currentPage);
         $scope.$watch('currentPage', currentPage);
         var vm = this;
@@ -31,9 +31,9 @@
         init();
 
         function init() {
-            vm.title = 'Employees';
+            vm.title = 'Projects';
             vm.sort = 'name';
-            vm.clients = clients;
+            vm.clients = projects;
             vm.clientsFilter = [];
 
             $scope.currentPage = 1;

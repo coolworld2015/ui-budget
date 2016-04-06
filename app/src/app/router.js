@@ -14,12 +14,14 @@
                 'GoodsLocalStorage', 'GoodsService', 'UsersLocalStorage', 'UsersService',
                 'InputsLocalStorage', 'InputsService', 'OutputsLocalStorage', 'OutputsService',
                 'InputsInvoiceLocalStorage', 'InputsInvoiceService',
-                'OutputsInvoiceLocalStorage', 'OutputsInvoiceService'];
+                'OutputsInvoiceLocalStorage', 'OutputsInvoiceService',
+				'ProjectsLocalStorage'];
             function resolver($http, $q, $rootScope, ClientsLocalStorage, ClientsService,
                               GoodsLocalStorage, GoodsService, UsersLocalStorage, UsersService,
                               InputsLocalStorage, InputsService, OutputsLocalStorage, OutputsService,
                               InputsInvoiceLocalStorage, InputsInvoiceService,
-                              OutputsInvoiceLocalStorage, OutputsInvoiceService) {
+                              OutputsInvoiceLocalStorage, OutputsInvoiceService,
+							  ProjectsLocalStorage) {
 
                 var data;
                 var webUrl = $rootScope.myConfig.webUrl;
@@ -40,7 +42,12 @@
                             data = ClientsLocalStorage.getClients();
                             return data;
                             break;
-
+							
+                        case 'projects':
+                            data = ProjectsLocalStorage.getProjects();
+                            return data;
+                            break;
+							
                         case 'users':
                             data = UsersLocalStorage.getUsers();
                             return data;
@@ -404,7 +411,7 @@
                 data: {
                     requireLogin: true
                 },
-                templateUrl: 'employees/clients.html',
+                templateUrl: 'employees/employees.html',
                 controller: 'ClientsCtrl',
                 controllerAs: 'clientsCtrl',
                 resolve: {
@@ -417,7 +424,7 @@
                 data: {
                     requireLogin: true
                 },
-                templateUrl: 'employees/clients-add.html',
+                templateUrl: 'employees/employees-add.html',
                 controller: 'ClientsAddCtrl',
                 controllerAs: 'clientsAddCtrl'
             })
@@ -428,7 +435,7 @@
                     requireLogin: true
                 },
                 params: {item: {}},
-                templateUrl: 'employees/clients-edit.html',
+                templateUrl: 'employees/employees-edit.html',
                 controller: 'ClientsEditCtrl',
                 controllerAs: 'clientsEditCtrl'
             })
@@ -439,9 +446,54 @@
                     requireLogin: true
                 },
                 params: {item: {}},
-                templateUrl: 'employees/clients-dialog.html',
+                templateUrl: 'employees/employees-dialog.html',
                 controller: 'ClientsDialogCtrl',
                 controllerAs: 'clientsDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('projects', {
+                url: '/projects',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'projects/projects.html',
+                controller: 'ProjectsCtrl',
+                controllerAs: 'projectsCtrl',
+                resolve: {
+                    projects: resolveResource('api/projects/get', 'projects', sort)
+                }
+            })
+
+            .state('projects-add', {
+                url: '/projects-add',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'projects/projects-add.html',
+                controller: 'ProjectsAddCtrl',
+                controllerAs: 'projectsAddCtrl'
+            })
+
+            .state('projects-edit', {
+                url: '/projects-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'projects/projects-edit.html',
+                controller: 'ProjectsEditCtrl',
+                controllerAs: 'projectsEditCtrl'
+            })
+
+            .state('projects-dialog', {
+                url: '/projects-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'projects/projects-dialog.html',
+                controller: 'ProjectsDialogCtrl',
+                controllerAs: 'projectsDialogCtrl'
             })
 //-------------------------------------------------------------------------------------------------------
             .state('inputs', {
