@@ -29,7 +29,7 @@
 
         function init() {
             if ($stateParams.item.name == undefined) {
-                $state.go('main.clients');
+                $state.go('clients');
             }
             vm.total = $filter('number')(vm.sum, 2);
             $rootScope.loading = false;
@@ -56,14 +56,14 @@
                     .then(function () {
                         editItem(item);
                         $rootScope.myError = false;
-                        $state.go('main.clients');
+                        $state.go('clients');
                     })
                     .catch(errorHandler);
             } else {
                 ClientsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.clients');
+                    $state.go('clients');
                 }, 100);
             }
         }
@@ -85,14 +85,14 @@
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.clients-dialog', {item: obj});
+                $state.go('clients-dialog', {item: obj});
             }, 100);
         }
 
         function clientsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.clients');
+                $state.go('clients');
             }, 100);
         }
 

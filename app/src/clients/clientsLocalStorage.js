@@ -26,7 +26,7 @@
 
         function getClients() {
             if (ClientsLocalStorage.clients === undefined) {
-                var clients = localStorage.getItem('ui-warehouse.clients');
+                var clients = localStorage.getItem('ui-budget.clients');
                 clients = JSON.parse(clients);
                 ClientsLocalStorage.clients = clients;
             }
@@ -66,11 +66,11 @@
         }
 
         function setClients() {
-            localStorage.setItem('ui-warehouse.clients', JSON.stringify(ClientsLocalStorage.clients));
+            localStorage.setItem('ui-budget.clients', JSON.stringify(ClientsLocalStorage.clients));
         }
 
         function uploadClients(clients) {
-            localStorage.setItem('ui-warehouse.clients', JSON.stringify(clients));
+            localStorage.setItem('ui-budget.clients', JSON.stringify(clients));
             ClientsLocalStorage.clients = undefined;
         }
 

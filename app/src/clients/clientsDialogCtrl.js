@@ -28,7 +28,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.clients');
+                $state.go('clients');
             }
             $rootScope.loading = false;
         }
@@ -42,14 +42,14 @@
 					.then(function () {
                         deleteItem(vm.id);
                         $rootScope.myError = false;
-						$state.go('main.clients');
+						$state.go('clients');
 					})
 					.catch(errorHandler);
 			} else {
                 ClientsLocalStorage.deleteItem(vm.id);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.clients');
+                    $state.go('clients');
                 }, 100);
             }
         }
@@ -67,7 +67,7 @@
         function clientsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.clients');
+                $state.go('clients');
             }, 100);
         }
 		

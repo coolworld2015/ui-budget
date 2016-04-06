@@ -60,14 +60,14 @@
         function clientsEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.clients-edit', {item: item});
+                $state.go('clients-edit', {item: item});
             }, 100);
         }
 
         function clientsAdd() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.clients-add');
+                $state.go('clients-add');
             }, 100);
         }
 
