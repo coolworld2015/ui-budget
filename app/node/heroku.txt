@@ -1,6 +1,3 @@
------------------------------------------------------------------------------------------------------
-mongoose.connect('mongodb://admin:admin@ds011238.mongolab.com:11238/ui-gai');
------------------------------------------------------------------------------------------------------
 node index.js
 
 mongod.exe --dbpath d:/MongoDB/db
@@ -13,34 +10,49 @@ use test
 show collections
 db.dropDatabase()
 
+mongoimport --db test --collection clients --file clients.json
 -----------------------------------------------------------------------------------------------------
-mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin --file gai_100_000_mongo.json
+
+mongoose.connect('mongodb://localhost:27017');
+
+https://mongolab.com/databases/wintermute2009/collections/clients
+
+mongoimport -h ds047772.mongolab.com:47772 -d wintermute2009 -c clients -u ed -p ed --file clients.json
+mongoexport -h ds047772.mongolab.com:47772 -d wintermute2009 -c clients -u ed -p ed -o clients.json
+
+mongoimport -h ds047772.mongolab.com:47772 -d wintermute2009 -c goods -u ed -p ed --file goods.json
+mongoexport -h ds047772.mongolab.com:47772 -d wintermute2009 -c goods -u ed -p ed -o goods.json
+
+http://coolworld.herokuapp.com/
+https://dashboard.heroku.com/apps/coolworld/deploy/heroku-git
+
+heroku login
+heroku git:clone -a coolworld
+
+git push heroku master
 
 -----------------------------------------------------------------------------------------------------
-mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin --file items.json
-mongoexport -h ds011238.mongolab.com:11238 -d ui-gai -c items -u admin -p admin -o items1.json
 
-mongoimport -h ds011238.mongolab.com:11238 -d ui-gai -c users -u admin -p admin --file users.json
-mongoexport -h ds011238.mongolab.com:11238 -d ui-gai -c users -u admin -p admin -o users1.json
+mongoose.connect('mongodb://admin:admin@ds053728.mongolab.com:53728/warehouse');
 
------------------------------------------------------------------------------------------------------
-mongoose.connect('mongodb://localhost:27017/ui-gai');
+mongoimport -h ds053728.mongolab.com:53728 -d warehouse -c clients -u admin -p admin --file clients.json
+mongoexport -h ds053728.mongolab.com:53728 -d warehouse -c clients -u admin -p admin -o clients1.json
 
-mongoimport --db ui-gai --collection items --file items.json
-mongoexport --db ui-gai --collection items -o items1.json
+mongoimport -h ds053728.mongolab.com:53728 -d warehouse -c goods -u admin -p admin --file goods.json
+mongoexport -h ds053728.mongolab.com:53728 -d warehouse -c goods -u admin -p admin -o goods1.json
 
-mongoimport --db ui-gai --collection users --file users.json
-mongoexport --db ui-gai --collection users -o users1.json
+mongoimport -h ds053728.mongolab.com:53728 -d warehouse -c users -u admin -p admin --file users.json
+mongoexport -h ds053728.mongolab.com:53728 -d warehouse -c users -u admin -p admin -o users1.json
+-----------------------------------------------------------------------------------------------------
 
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
-SELECT * INTO gai_100_000
-FROM частные
-WHERE id between 1 and 100000
------------------------------------------------------------------------------------------------------
-Notepad++ - convert to UTF-8 // ONLY )))))))))
------------------------------------------------------------------------------------------------------
-SELECT * INTO gai_500_000
-FROM частные
-WHERE id between 493000 and 494000; //493565
+mongoose.connect('mongodb://localhost:27017/warehouse');
+
+mongoimport --db warehouse --collection clients --file clients.json
+mongoexport --db warehouse --collection clients -o clients1.json
+
+mongoimport --db warehouse --collection goods --file goods.json
+mongoexport --db warehouse --collection goods -o goods1.json
+
+mongoimport --db warehouse --collection users --file users.json
+mongoexport --db warehouse --collection users -o users1.json
+

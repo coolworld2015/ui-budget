@@ -36,6 +36,7 @@ function findByName(req, res) {
         if (err) {
             res.send({error: err.message});
         }
+        console.log(user);
         res.send(user);
     });
 }
@@ -47,6 +48,7 @@ function findUser(req, res) {
         if (err) {
             res.send({error: err.message});
         }
+        console.log(user);
         res.send(user);
     });
 }
@@ -58,6 +60,7 @@ function findPostUser(req, res) {
         if (err) {
             res.send({error: err.message});
         }
+        console.log(user);
         res.send(user);
     });
 }
