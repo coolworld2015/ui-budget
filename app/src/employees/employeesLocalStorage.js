@@ -3,75 +3,71 @@
 
     angular
         .module('app')
-        .factory('ClientsLocalStorage', ClientsLocalStorage);
+        .factory('EmployeesLocalStorage', EmployeesLocalStorage);
 
-    ClientsLocalStorage.$inject = ['$rootScope'];
-
-    function ClientsLocalStorage($rootScope) {
-        var webUrl = $rootScope.myConfig.webUrl;
-
+    function EmployeesLocalStorage() {
         return {
-            clients: [],
+            employees: [],
             numPerPage: 10,
 
-            getClients: getClients,
+            getEmployees: getEmployees,
             addItem: addItem,
             editItem: editItem,
             deleteItem: deleteItem,
-            setClients: setClients,
+            setEmployees: setEmployees,
 
-            uploadClients: uploadClients,
+            uploadEmployees: uploadEmployees,
             _sort: sort
         };
 
-        function getClients() {
-            if (ClientsLocalStorage.clients === undefined) {
-                var clients = localStorage.getItem('ui-budget.clients');
-                clients = JSON.parse(clients);
-                ClientsLocalStorage.clients = clients;
+        function getEmployees() {
+            if (EmployeesLocalStorage.employees === undefined) {
+                var employees = localStorage.getItem('ui-budget.employees');
+                employees = JSON.parse(employees);
+                EmployeesLocalStorage.employees = employees;
             }
 
-            if (ClientsLocalStorage.clients === null) {
-                ClientsLocalStorage.clients = [];
+            if (EmployeesLocalStorage.employees === null) {
+                EmployeesLocalStorage.employees = [];
             }
 
-            return ClientsLocalStorage.clients.sort(sort);
+            return EmployeesLocalStorage.employees.sort(sort);
         }
 
         function addItem(item) {
-            ClientsLocalStorage.clients.push(item);
-            setClients();
+            EmployeesLocalStorage.employees.push(item);
+            setEmployees();
         }
 
         function editItem(item) {
-            var clients = ClientsLocalStorage.clients;
-            for (var i = 0; i < clients.length; i++) {
-                if (clients[i].id == item.id) {
-                    clients.splice(i, 1, item);
-                    setClients();
+            var employees = EmployeesLocalStorage.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == item.id) {
+                    employees.splice(i, 1, item);
+                    setEmployees();
                     break;
                 }
             }
         }
 
         function deleteItem(id) {
-            var clients = ClientsLocalStorage.clients;
-            for (var i = 0; i < clients.length; i++) {
-                if (clients[i].id == id) {
-                    clients.splice(i, 1);
-                    setClients();
+            var employees = EmployeesLocalStorage.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employees.splice(i, 1);
+                    setEmployees();
                     break;
                 }
             }
         }
 
-        function setClients() {
-            localStorage.setItem('ui-budget.clients', JSON.stringify(ClientsLocalStorage.clients));
+        function setEmployees() {
+            localStorage.setItem('ui-budget.employees', JSON.stringify(EmployeesLocalStorage.employees));
         }
 
-        function uploadClients(clients) {
-            localStorage.setItem('ui-budget.clients', JSON.stringify(clients));
-            ClientsLocalStorage.clients = undefined;
+        function uploadEmployees(employees) {
+            localStorage.setItem('ui-budget.employees', JSON.stringify(employees));
+            EmployeesLocalStorage.employees = undefined;
         }
 
         function sort(a, b) {

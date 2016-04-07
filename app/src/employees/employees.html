@@ -1,23 +1,23 @@
 <center>
-    <div class="header">Warehouse</div>
+    <div class="header">Budget</div>
     <br><br>
-    <img ng-src="logo.jpg" class="logo" ng-click="clientsCtrl.goToBack()">
+    <img ng-src="logo.jpg" class="logo" ng-click="employeesCtrl.goToBack()">
     <hr>
 
-    <div class="header" ng-click="clientsCtrl.goToBack()">
-        {{clientsCtrl.title}} ({{clientsFilter.length}} / {{clientsCtrl.clients.length}})
+    <div class="header" ng-click="employeesCtrl.goToBack()">
+        {{employeesCtrl.title}} ({{employeesFilter.length}} / {{employeesCtrl.employees.length}})
     </div>
 
     <div>
         <input type="text" class="form-control input"
                placeholder="Search here"
-               ng-model="clientsCtrl.query.name">
+               ng-model="employeesCtrl.query.name">
     </div>
 
     <table class="table table-striped input">
-        <tr ng-repeat="item in filteredClients | orderBy:clientsCtrl.sort:clientsCtrl.rev |
-			filter:clientsCtrl.query as clientsFilter track by $index"
-            ng-click="clientsCtrl.clientsEditForm(item)">
+        <tr ng-repeat="item in filteredEmployees | orderBy:employeesCtrl.sort:employeesCtrl.rev |
+			filter:employeesCtrl.query as employeesFilter track by $index"
+            ng-click="employeesCtrl.employeesEditForm(item)">
 
             <td class="input">
                 <div class="name-div">
@@ -39,7 +39,7 @@
                     boundary-links="true"></pagination>
     </div>
 
-    <button class="btn btn-primary button" ng-click="clientsCtrl.clientsAdd()">Add</button>&nbsp
-    <button class="btn btn-primary button" ng-click="clientsCtrl.clientsBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesAdd()">Add</button>&nbsp
+    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesBack()" scroll-here>Back</button>
     <div class="blanker"></div>
 </center>

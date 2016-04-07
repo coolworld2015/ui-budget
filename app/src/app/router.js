@@ -10,13 +10,13 @@
     function routeConfig($stateProvider, $urlRouterProvider) {
 
         function resolveResource(url, state, sort) {
-            resolver.$inject = ['$http', '$q', '$rootScope', 'ClientsLocalStorage', 'ClientsService',
+            resolver.$inject = ['$http', '$q', '$rootScope', 'EmployeesLocalStorage', 'EmployeesService',
                 'GoodsLocalStorage', 'GoodsService', 'UsersLocalStorage', 'UsersService',
                 'InputsLocalStorage', 'InputsService', 'OutputsLocalStorage', 'OutputsService',
                 'InputsInvoiceLocalStorage', 'InputsInvoiceService',
                 'OutputsInvoiceLocalStorage', 'OutputsInvoiceService',
 				'ProjectsLocalStorage'];
-            function resolver($http, $q, $rootScope, ClientsLocalStorage, ClientsService,
+            function resolver($http, $q, $rootScope, EmployeesLocalStorage, EmployeesService,
                               GoodsLocalStorage, GoodsService, UsersLocalStorage, UsersService,
                               InputsLocalStorage, InputsService, OutputsLocalStorage, OutputsService,
                               InputsInvoiceLocalStorage, InputsInvoiceService,
@@ -38,8 +38,8 @@
                             return data;
                             break;
 
-                        case 'clients':
-                            data = ClientsLocalStorage.getClients();
+                        case 'employees':
+                            data = EmployeesLocalStorage.getEmployees();
                             return data;
                             break;
 							
@@ -94,14 +94,14 @@
                             }
                             break;
 
-                        case 'clients':
-                            if ($rootScope.clients === undefined) {
+                        case 'employees':
+                            if ($rootScope.employees === undefined) {
                                 return $http.get(webUrl + url)
                                     .then(function (result) {
-                                        ClientsService.clients = result.data;
-                                        $rootScope.clients = true;
+                                        EmployeesService.employees = result.data;
+                                        $rootScope.employees = true;
                                         $rootScope.loading = false;
-                                        return ClientsService.clients.sort(sort);
+                                        return EmployeesService.employees.sort(sort);
                                     })
                                     .catch(function (reject) {
                                         $rootScope.loading = false;
@@ -109,7 +109,7 @@
                                         return $q.reject(reject);
                                     });
                             } else {
-                                return ClientsService.clients.sort(sort);
+                                return EmployeesService.employees.sort(sort);
                             }
                             break;
 
@@ -406,49 +406,49 @@
                 controllerAs: 'goodsDialogCtrl'
             })
 //-------------------------------------------------------------------------------------------------------
-            .state('clients', {
-                url: '/clients',
+            .state('employees', {
+                url: '/employees',
                 data: {
                     requireLogin: true
                 },
                 templateUrl: 'employees/employees.html',
-                controller: 'ClientsCtrl',
-                controllerAs: 'clientsCtrl',
+                controller: 'EmployeesCtrl',
+                controllerAs: 'employeesCtrl',
                 resolve: {
-                    clients: resolveResource('api/clients/get', 'clients', sort)
+                    employees: resolveResource('api/employees/get', 'employees', sort)
                 }
             })
 
-            .state('clients-add', {
-                url: '/clients-add',
+            .state('employees-add', {
+                url: '/employees-add',
                 data: {
                     requireLogin: true
                 },
                 templateUrl: 'employees/employees-add.html',
-                controller: 'ClientsAddCtrl',
-                controllerAs: 'clientsAddCtrl'
+                controller: 'EmployeesAddCtrl',
+                controllerAs: 'employeesAddCtrl'
             })
 
-            .state('clients-edit', {
-                url: '/clients-edit',
+            .state('employees-edit', {
+                url: '/employees-edit',
                 data: {
                     requireLogin: true
                 },
                 params: {item: {}},
                 templateUrl: 'employees/employees-edit.html',
-                controller: 'ClientsEditCtrl',
-                controllerAs: 'clientsEditCtrl'
+                controller: 'EmployeesEditCtrl',
+                controllerAs: 'employeesEditCtrl'
             })
 
-            .state('clients-dialog', {
-                url: '/clients-dialog',
+            .state('employees-dialog', {
+                url: '/employees-dialog',
                 data: {
                     requireLogin: true
                 },
                 params: {item: {}},
                 templateUrl: 'employees/employees-dialog.html',
-                controller: 'ClientsDialogCtrl',
-                controllerAs: 'clientsDialogCtrl'
+                controller: 'EmployeesDialogCtrl',
+                controllerAs: 'employeesDialogCtrl'
             })
 //-------------------------------------------------------------------------------------------------------
             .state('projects', {
@@ -519,7 +519,7 @@
                 controller: 'InputsAddCtrl',
                 controllerAs: 'inputsAddCtrl',
                 resolve: {
-                    clients: resolveResource('api/clients/get', 'clients', sort)
+                    employees: resolveResource('api/employees/get', 'employees', sort)
                 }
             })
 
@@ -618,7 +618,7 @@
                 controller: 'OutputsAddCtrl',
                 controllerAs: 'outputsAddCtrl',
                 resolve: {
-                    clients: resolveResource('api/clients/get', 'clients', sort)
+                    employees: resolveResource('api/employees/get', 'employees', sort)
                 }
             })
 

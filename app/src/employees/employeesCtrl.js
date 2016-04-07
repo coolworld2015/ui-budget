@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('ClientsCtrl', ClientsCtrl);
+        .controller('EmployeesCtrl', EmployeesCtrl);
 
-    ClientsCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'clients'];
+    EmployeesCtrl.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'employees'];
 
-    function ClientsCtrl($scope, $rootScope, $state, $timeout, clients) {
+    function EmployeesCtrl($scope, $rootScope, $state, $timeout, employees) {
         $scope.$watch('numPerPage', currentPage);
         $scope.$watch('currentPage', currentPage);
         var vm = this;
@@ -16,11 +16,11 @@
             init: init,
             currentPage: currentPage,
             numPages: numPages,
-            clientsEditForm: clientsEditForm,
-            clientsAdd: clientsAdd,
+            employeesEditForm: employeesEditForm,
+            employeesAdd: employeesAdd,
             goToBack: goToBack,
             goToHead: goToHead,
-            clientsBack: clientsBack,
+            employeesBack: employeesBack,
             _errorHandler: errorHandler
         });
 
@@ -33,8 +33,8 @@
         function init() {
             vm.title = 'Employees';
             vm.sort = 'name';
-            vm.clients = clients;
-            vm.clientsFilter = [];
+            vm.employees = employees;
+            vm.employeesFilter = [];
 
             $scope.currentPage = 1;
             $scope.numPerPage = 10;
@@ -45,29 +45,29 @@
         }
 
         function currentPage() {
-            if (Object.prototype.toString.call(vm.clients) == '[object Array]') {
+            if (Object.prototype.toString.call(vm.employees) == '[object Array]') {
                 var begin = (($scope.currentPage - 1) * $scope.numPerPage);
                 var end = parseInt(begin) + parseInt($scope.numPerPage);
-                $scope.filteredClients = vm.clients.slice(begin, end);
-                $scope.totalItems = vm.clients.length;
+                $scope.filteredEmployees = vm.employees.slice(begin, end);
+                $scope.totalItems = vm.employees.length;
             }
         }
 
         function numPages() {
-            return Math.ceil(vm.clients.length / $scope.numPerPage);
+            return Math.ceil(vm.employees.length / $scope.numPerPage);
         }
 
-        function clientsEditForm(item) {
+        function employeesEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients-edit', {item: item});
+                $state.go('employees-edit', {item: item});
             }, 100);
         }
 
-        function clientsAdd() {
+        function employeesAdd() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients-add');
+                $state.go('employees-add');
             }, 100);
         }
 
@@ -79,7 +79,7 @@
             $scope.$broadcast('scrollThere');
         }
 
-        function clientsBack() {
+        function employeesBack() {
             $rootScope.loading = true;
             $timeout(function () {
                 $state.go('main');

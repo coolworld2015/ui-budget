@@ -3,11 +3,11 @@
 	
     angular
         .module('app')
-        .factory('ClientsService', ClientsService);
+        .factory('EmployeesService', EmployeesService);
 		
-    ClientsService.$inject = ['$rootScope', '$http'];
+    EmployeesService.$inject = ['$rootScope', '$http'];
 	
-    function ClientsService($rootScope, $http) {
+    function EmployeesService($rootScope, $http) {
         var webUrl = $rootScope.myConfig.webUrl;
 		
         return {
