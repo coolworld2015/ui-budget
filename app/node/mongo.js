@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://admin:admin@ds015760.mongolab.com:15760/ui-budget');
+mongoose.connect('mongodb://admin:admin@ds015760.mlab.com:15760/ui-budget');
 //mongoose.connect('mongodb://localhost:27017/ui-budget');
+//mongoose.connect('mongodb://admin:admin@ds053728.mongolab.com:53728/warehouse'); //TODO mongolab for mlab is possible
 
 var db = mongoose.connection;
 
@@ -13,8 +14,22 @@ db.once('open', function callback() {
     console.log('Connected to mongoDB');
 });
 
-//---------------------------------------------------------------------------------------------
 var Schema = mongoose.Schema;
+
+//---------------------------------------------------------------------------------------------
+var Employees = new Schema({
+    id: {type: String, required: true},
+    name: {type: String, required: true},
+    address: {type: String, required: true},
+    phone: {type: String, required: true},
+    description: {type: String, required: true},
+    sum: {type: String, required: true}
+});
+
+var EmployeesModel = mongoose.model('Employees', Employees);
+module.exports.EmployeesModel = EmployeesModel;
+
+//---------------------------------------------------------------------------------------------
 var Clients = new Schema({
     id: {type: String, required: true},
     name: {type: String, required: true},

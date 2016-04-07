@@ -32,6 +32,25 @@ app.use(function (req, res, next) {
 });
 
 //------------------------------------------------------------------------
+var Employees = require('./employees').Employees;
+
+app.get('/api/employees/get', Employees.getEmployees);
+
+app.get('/api/employees/find/:id', Employees.findEmployee);
+app.post('/api/employees/find', Employees.findPostEmployee);
+
+app.get('/api/employees/edit/:id/:name', Employees.editEmployee);
+app.post('/api/employees/edit/', Employees.editPostEmployee);
+app.post('/api/employees/update', Employees.updateEmployee);
+
+app.post('/api/employees/add', Employees.addEmployee);
+app.post('/api/employees/save', Employees.saveEmployee);
+
+app.get('/api/employees/drop', Employees.removeAllEmployees);
+app.post('/api/employees/drop', Employees.removeAllEmployees);
+app.post('/api/employees/delete', Employees.removeEmployee);
+
+//------------------------------------------------------------------------
 var Clients = require('./clients').Clients;
 
 app.get('/api/clients/get', Clients.getClients);
