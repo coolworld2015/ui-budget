@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .controller('ClientsDialogCtrl', ClientsDialogCtrl);
+        .controller('EmployeesDialogCtrl', EmployeesDialogCtrl);
 
-    ClientsDialogCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ClientsService', 'ClientsLocalStorage', '$stateParams'];
+    EmployeesDialogCtrl.$inject = ['$state', '$rootScope', '$timeout', 'EmployeesService', 'EmployeesLocalStorage', '$stateParams'];
 
-    function ClientsDialogCtrl($state, $rootScope, $timeout, ClientsService, ClientsLocalStorage, $stateParams) {
+    function EmployeesDialogCtrl($state, $rootScope, $timeout, EmployeesService, EmployeesLocalStorage, $stateParams) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            clientsDelete: clientsDelete,
+            employeesDelete: employeesDelete,
             _deleteItem: deleteItem,
-            clientsEditBack: clientsEditBack,
+            employeesEditBack: employeesEditBack,
 			_errorHandler: errorHandler
         });
 
@@ -28,46 +28,46 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('clients');
+                $state.go('employees');
             }
             $rootScope.loading = false;
         }
 
-        function clientsDelete() {
+        function employeesDelete() {
 			$rootScope.loading = true;
             $rootScope.myError = false;
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
-				ClientsService.deleteItem(vm.id)
+				EmployeesService.deleteItem(vm.id)
 					.then(function () {
                         deleteItem(vm.id);
                         $rootScope.myError = false;
-						$state.go('clients');
+						$state.go('employees');
 					})
 					.catch(errorHandler);
 			} else {
-                ClientsLocalStorage.deleteItem(vm.id);
+                EmployeesLocalStorage.deleteItem(vm.id);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('clients');
+                    $state.go('employees');
                 }, 100);
             }
         }
 
         function deleteItem(id) {
-            var clients = ClientsService.clients;
-            for (var i = 0; i < clients.length; i++) {
-                if (clients[i].id == id) {
-                    clients.splice(i, 1);
+            var employees = EmployeesService.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employees.splice(i, 1);
                     break;
                 }
             }
         }
 
-        function clientsEditBack() {
+        function employeesEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients');
+                $state.go('employees');
             }, 100);
         }
 		

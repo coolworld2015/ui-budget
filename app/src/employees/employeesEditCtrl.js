@@ -3,19 +3,19 @@
 
     angular
         .module('app')
-        .controller('ClientsEditCtrl', ClientsEditCtrl);
+        .controller('EmployeesEditCtrl', EmployeesEditCtrl);
 
-    ClientsEditCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'ClientsService', 'ClientsLocalStorage', '$stateParams'];
+    EmployeesEditCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'EmployeesService', 'EmployeesLocalStorage', '$stateParams'];
 
-    function ClientsEditCtrl($state, $rootScope, $filter, $timeout, ClientsService, ClientsLocalStorage, $stateParams) {
+    function EmployeesEditCtrl($state, $rootScope, $filter, $timeout, EmployeesService, EmployeesLocalStorage, $stateParams) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            clientsSubmit: clientsSubmit,
+            employeesSubmit: employeesSubmit,
             _editItem: editItem,
-            clientsDialog: clientsDialog,
-            clientsEditBack: clientsEditBack,
+            employeesDialog: employeesDialog,
+            employeesEditBack: employeesEditBack,
             _errorHandler: errorHandler
         });
 
@@ -29,13 +29,13 @@
 
         function init() {
             if ($stateParams.item.name == undefined) {
-                $state.go('clients');
+                $state.go('employees');
             }
             vm.total = $filter('number')(vm.sum, 2);
             $rootScope.loading = false;
         }
 
-        function clientsSubmit() {
+        function employeesSubmit() {
             if (vm.form.$invalid) {
                 return;
             }
@@ -52,47 +52,47 @@
                 description: vm.description
             };
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                ClientsService.editItem(item)
+                EmployeesService.editItem(item)
                     .then(function () {
                         editItem(item);
                         $rootScope.myError = false;
-                        $state.go('clients');
+                        $state.go('employees');
                     })
                     .catch(errorHandler);
             } else {
-                ClientsLocalStorage.editItem(item);
+                EmployeesLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('clients');
+                    $state.go('employees');
                 }, 100);
             }
         }
 
         function editItem(item) {
-            var clients = ClientsService.clients;
-            for (var i = 0; i < clients.length; i++) {
-                if (clients[i].id == item.id) {
-                    clients.splice(i, 1, item);
+            var employees = EmployeesService.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == item.id) {
+                    employees.splice(i, 1, item);
                     break;
                 }
             }
         }
 
-        function clientsDialog() {
+        function employeesDialog() {
             var obj = {
                 id: vm.id,
                 name: vm.name
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients-dialog', {item: obj});
+                $state.go('employees-dialog', {item: obj});
             }, 100);
         }
 
-        function clientsEditBack() {
+        function employeesEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients');
+                $state.go('employees');
             }, 100);
         }
 

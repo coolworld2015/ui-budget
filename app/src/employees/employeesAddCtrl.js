@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .controller('ClientsAddCtrl', ClientsAddCtrl);
+        .controller('EmployeesAddCtrl', EmployeesAddCtrl);
 
-    ClientsAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ClientsService', 'ClientsLocalStorage'];
+    EmployeesAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'EmployeesService', 'EmployeesLocalStorage'];
 
-    function ClientsAddCtrl($state, $rootScope, $timeout, ClientsService, ClientsLocalStorage) {
+    function EmployeesAddCtrl($state, $rootScope, $timeout, EmployeesService, EmployeesLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            clientsAddSubmit: clientsAddSubmit,
+            employeesAddSubmit: employeesAddSubmit,
             _addItem: addItem,
-            clientsAddBack: clientsAddBack,
+            employeesAddBack: employeesAddBack,
 			_errorHandler: errorHandler
         });
 
@@ -28,7 +28,7 @@
             $rootScope.loading = false;
         }
 
-        function clientsAddSubmit() {
+        function employeesAddSubmit() {
             if (vm.form.$invalid) {
                 return;
             }
@@ -47,30 +47,30 @@
             };
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
-				ClientsService.addItem(item)
+				EmployeesService.addItem(item)
 					.then(function () {
                         addItem(item);
 						$rootScope.myError = false;
-						$state.go('clients');
+						$state.go('employees');
 					})
 					.catch(errorHandler);
 			} else {
-                ClientsLocalStorage.addItem(item);
+                EmployeesLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('clients');
+                    $state.go('employees');
                 }, 100);
             }
          }
 
         function addItem(item) {
-            ClientsService.clients.push(item);
+            EmployeesService.employees.push(item);
         }
 
-        function clientsAddBack() {
+        function employeesAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients');
+                $state.go('employees');
             }, 100);
         }
 		

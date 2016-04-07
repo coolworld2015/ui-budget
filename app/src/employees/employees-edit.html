@@ -1,21 +1,21 @@
 <center>
-	<div class="header">Warehouse</div>
+	<div class="header">Budget</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
 
-	<form ng-submit="clientsEditCtrl.clientsSubmit()" novalidate name="clientsEditCtrl.form">
-		<div class="header">{{clientsEditCtrl.name}}&nbsp</div>
+	<form ng-submit="employeesEditCtrl.employeesSubmit()" novalidate name="employeesEditCtrl.form">
+		<div class="header">{{employeesEditCtrl.name}}&nbsp</div>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
 						   placeholder="Name" name="name"
-						   ng-model="clientsEditCtrl.name">
+						   ng-model="employeesEditCtrl.name">
 
-					<div ng-if="clientsEditCtrl.form.$submitted">
-						<div ng-show="clientsEditCtrl.form.name.$error.required" class="valid">Value required</div>
+					<div ng-if="employeesEditCtrl.form.$submitted">
+						<div ng-show="employeesEditCtrl.form.name.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
@@ -24,10 +24,10 @@
 				<td>
 					<input type="text" class="form-control input" required
 						   placeholder="Address" name="address"
-						   ng-model="clientsEditCtrl.address">
+						   ng-model="employeesEditCtrl.address">
 
-					<div ng-if="clientsEditCtrl.form.$submitted">
-						<div ng-show="clientsEditCtrl.form.address.$error.required" class="valid">Value required</div>
+					<div ng-if="employeesEditCtrl.form.$submitted">
+						<div ng-show="employeesEditCtrl.form.address.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
@@ -36,10 +36,10 @@
 				<td>
 					<input type="text" class="form-control input" required
 						   placeholder="Phone" name="phone"
-						   ng-model="clientsEditCtrl.phone">
+						   ng-model="employeesEditCtrl.phone">
 
-					<div ng-if="clientsEditCtrl.form.$submitted">
-						<div ng-show="clientsEditCtrl.form.phone.$error.required" class="valid">Value required</div>
+					<div ng-if="employeesEditCtrl.form.$submitted">
+						<div ng-show="employeesEditCtrl.form.phone.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
@@ -48,10 +48,10 @@
 				<td>
 					<input type="text" class="form-control input" required
 						   placeholder="Description" name="description"
-						   ng-model="clientsEditCtrl.description">
+						   ng-model="employeesEditCtrl.description">
 
-					<div ng-if="clientsEditCtrl.form.$submitted">
-						<div ng-show="clientsEditCtrl.form.description.$error.required" class="valid">Value required</div>
+					<div ng-if="employeesEditCtrl.form.$submitted">
+						<div ng-show="employeesEditCtrl.form.description.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
@@ -60,15 +60,15 @@
 				<td>
 					<input readonly type="text" class="form-control readonly"
 						   placeholder="Category"
-						   ng-model="clientsEditCtrl.total">
+						   ng-model="employeesEditCtrl.total">
 				</td>
 			</tr>
 		</table>
 
 		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="clientsEditCtrl.clientsDialog()">Delete</button>
+		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesDialog()">Delete</button>
 		<br><br>
-		<button type="button" class="btn btn-primary button" ng-click="clientsEditCtrl.clientsEditBack()">Back</button>
+		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesEditBack()">Back</button>
 	</form>
 	<div class="blanker"></div>
 </center>
