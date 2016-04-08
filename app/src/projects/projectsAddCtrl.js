@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .controller('ClientsAddCtrl', ClientsAddCtrl);
+        .controller('ProjectsAddCtrl', ProjectsAddCtrl);
 
-    ClientsAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ClientsService', 'ClientsLocalStorage'];
+    ProjectsAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ProjectsService', 'ProjectsLocalStorage'];
 
-    function ClientsAddCtrl($state, $rootScope, $timeout, ClientsService, ClientsLocalStorage) {
+    function ProjectsAddCtrl($state, $rootScope, $timeout, ProjectsService, ProjectsLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            clientsAddSubmit: clientsAddSubmit,
+            projectsAddSubmit: projectsAddSubmit,
             _addItem: addItem,
-            clientsAddBack: clientsAddBack,
+            projectsAddBack: projectsAddBack,
 			_errorHandler: errorHandler
         });
 
@@ -28,7 +28,7 @@
             $rootScope.loading = false;
         }
 
-        function clientsAddSubmit() {
+        function projectsAddSubmit() {
             if (vm.form.$invalid) {
                 return;
             }
@@ -47,30 +47,30 @@
             };
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
-				ClientsService.addItem(item)
+				ProjectsService.addItem(item)
 					.then(function () {
                         addItem(item);
 						$rootScope.myError = false;
-						$state.go('clients');
+						$state.go('projects');
 					})
 					.catch(errorHandler);
 			} else {
-                ClientsLocalStorage.addItem(item);
+                ProjectsLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('clients');
+                    $state.go('projects');
                 }, 100);
             }
          }
 
         function addItem(item) {
-            ClientsService.clients.push(item);
+            ProjectsService.projects.push(item);
         }
 
-        function clientsAddBack() {
+        function projectsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients');
+                $state.go('projects');
             }, 100);
         }
 		

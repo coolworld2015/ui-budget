@@ -3,16 +3,16 @@
 	
     angular
         .module('app')
-        .factory('ClientsService', ClientsService);
+        .factory('ProjectsService', ProjectsService);
 		
-    ClientsService.$inject = ['$rootScope', '$http'];
+    ProjectsService.$inject = ['$rootScope', '$http'];
 	
-    function ClientsService($rootScope, $http) {
+    function ProjectsService($rootScope, $http) {
         var webUrl = $rootScope.myConfig.webUrl;
 		
         return {
-            clients: [],
-			getClients: getClients,
+            projects: [],
+			getProjects: getProjects,
             addItem: addItem,
             editItem: editItem,
             deleteItem: deleteItem,
@@ -20,8 +20,8 @@
 			_sort: sort
         };
 		
-        function getClients() {
-            var url = webUrl + 'api/clients/get';
+        function getProjects() {
+            var url = webUrl + 'api/projects/get';
             return $http.get(url)
                 .then(function (result) {
                     result.data.sort(sort);
@@ -30,7 +30,7 @@
         }
 		
         function addItem(item) {
-            var url = webUrl + 'api/clients/add';
+            var url = webUrl + 'api/projects/add';
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -38,7 +38,7 @@
         }
 		
         function editItem(item) {
-            var url = webUrl + 'api/clients/update';
+            var url = webUrl + 'api/projects/update';
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -46,7 +46,7 @@
         }
 
         function deleteItem(id) {
-            var url = webUrl + 'api/clients/delete';
+            var url = webUrl + 'api/projects/delete';
             var item = {
                 "id": id
             };
@@ -57,7 +57,7 @@
         }
 
 		function findClient(id) {
-            var url = webUrl + 'api/clients/find';
+            var url = webUrl + 'api/projects/find';
             var item = {
                 "id": id
             };

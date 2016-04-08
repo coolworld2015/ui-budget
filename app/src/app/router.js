@@ -15,13 +15,13 @@
                 'InputsLocalStorage', 'InputsService', 'OutputsLocalStorage', 'OutputsService',
                 'InputsInvoiceLocalStorage', 'InputsInvoiceService',
                 'OutputsInvoiceLocalStorage', 'OutputsInvoiceService',
-				'ProjectsLocalStorage'];
+				'ProjectsLocalStorage', 'ProjectsService'];
             function resolver($http, $q, $rootScope, EmployeesLocalStorage, EmployeesService,
                               GoodsLocalStorage, GoodsService, UsersLocalStorage, UsersService,
                               InputsLocalStorage, InputsService, OutputsLocalStorage, OutputsService,
                               InputsInvoiceLocalStorage, InputsInvoiceService,
                               OutputsInvoiceLocalStorage, OutputsInvoiceService,
-							  ProjectsLocalStorage) {
+							  ProjectsLocalStorage, ProjectsService) {
 
                 var data;
                 var webUrl = $rootScope.myConfig.webUrl;

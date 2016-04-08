@@ -16,11 +16,11 @@
             init: init,
             currentPage: currentPage,
             numPages: numPages,
-            clientsEditForm: clientsEditForm,
-            clientsAdd: clientsAdd,
+            projectsEditForm: projectsEditForm,
+            projectsAdd: projectsAdd,
             goToBack: goToBack,
             goToHead: goToHead,
-            clientsBack: clientsBack,
+            projectsBack: projectsBack,
             _errorHandler: errorHandler
         });
 
@@ -33,8 +33,8 @@
         function init() {
             vm.title = 'Projects';
             vm.sort = 'name';
-            vm.clients = projects;
-            vm.clientsFilter = [];
+            vm.projects = projects;
+            vm.projectsFilter = [];
 
             $scope.currentPage = 1;
             $scope.numPerPage = 10;
@@ -45,29 +45,29 @@
         }
 
         function currentPage() {
-            if (Object.prototype.toString.call(vm.clients) == '[object Array]') {
+            if (Object.prototype.toString.call(vm.projects) == '[object Array]') {
                 var begin = (($scope.currentPage - 1) * $scope.numPerPage);
                 var end = parseInt(begin) + parseInt($scope.numPerPage);
-                $scope.filteredClients = vm.clients.slice(begin, end);
-                $scope.totalItems = vm.clients.length;
+                $scope.filteredClients = vm.projects.slice(begin, end);
+                $scope.totalItems = vm.projects.length;
             }
         }
 
         function numPages() {
-            return Math.ceil(vm.clients.length / $scope.numPerPage);
+            return Math.ceil(vm.projects.length / $scope.numPerPage);
         }
 
-        function clientsEditForm(item) {
+        function projectsEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients-edit', {item: item});
+                $state.go('projects-edit', {item: item});
             }, 100);
         }
 
-        function clientsAdd() {
+        function projectsAdd() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('clients-add');
+                $state.go('projects-add');
             }, 100);
         }
 
@@ -79,7 +79,7 @@
             $scope.$broadcast('scrollThere');
         }
 
-        function clientsBack() {
+        function projectsBack() {
             $rootScope.loading = true;
             $timeout(function () {
                 $state.go('main');
