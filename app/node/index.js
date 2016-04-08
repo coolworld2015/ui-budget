@@ -32,6 +32,25 @@ app.use(function (req, res, next) {
 });
 
 //------------------------------------------------------------------------
+var Projects = require('./projects').Projects;
+
+app.get('/api/projects/get', Projects.getProjects);
+
+app.get('/api/projects/find/:id', Projects.findProject);
+app.post('/api/projects/find', Projects.findPostProject);
+
+app.get('/api/projects/edit/:id/:name', Projects.editProject);
+app.post('/api/projects/edit/', Projects.editPostProject);
+app.post('/api/projects/update', Projects.updateProject);
+
+app.post('/api/projects/add', Projects.addProject);
+app.post('/api/projects/save', Projects.saveProject);
+
+app.get('/api/projects/drop', Projects.removeAllProjects);
+app.post('/api/projects/drop', Projects.removeAllProjects);
+app.post('/api/projects/delete', Projects.removeProject);
+
+//------------------------------------------------------------------------
 var Employees = require('./employees').Employees;
 
 app.get('/api/employees/get', Employees.getEmployees);

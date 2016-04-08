@@ -17,6 +17,19 @@ db.once('open', function callback() {
 var Schema = mongoose.Schema;
 
 //---------------------------------------------------------------------------------------------
+var Projects = new Schema({
+    id: {type: String, required: true},
+    name: {type: String, required: true},
+    address: {type: String, required: true},
+    phone: {type: String, required: true},
+    description: {type: String, required: true},
+    sum: {type: String, required: true}
+});
+
+var ProjectsModel = mongoose.model('Projects', Projects);
+module.exports.ProjectsModel = ProjectsModel;
+
+//---------------------------------------------------------------------------------------------
 var Employees = new Schema({
     id: {type: String, required: true},
     name: {type: String, required: true},
