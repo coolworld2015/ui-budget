@@ -94,6 +94,25 @@
                             }
                             break;
 
+                        case 'projects':
+                            if ($rootScope.projects === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        ProjectsService.projects = result.data;
+                                        $rootScope.projects = true;
+                                        $rootScope.loading = false;
+                                        return ProjectsService.projects.sort(sort);
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return ProjectsService.projects.sort(sort);
+                            }
+                            break;
+
                         case 'employees':
                             if ($rootScope.employees === undefined) {
                                 return $http.get(webUrl + url)
