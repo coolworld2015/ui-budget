@@ -32,6 +32,25 @@ app.use(function (req, res, next) {
 });
 
 //------------------------------------------------------------------------
+var Departments = require('./departments').Departments;
+
+app.get('/api/departments/get', Departments.getDepartments);
+
+app.get('/api/departments/find/:id', Departments.findDepartment);
+app.post('/api/departments/find', Departments.findPostDepartment);
+
+app.get('/api/departments/edit/:id/:name', Departments.editDepartment);
+app.post('/api/departments/edit/', Departments.editPostDepartment);
+app.post('/api/departments/update', Departments.updateDepartment);
+
+app.post('/api/departments/add', Departments.addDepartment);
+app.post('/api/departments/save', Departments.saveDepartment);
+
+app.get('/api/departments/drop', Departments.removeAllDepartments);
+app.post('/api/departments/drop', Departments.removeAllDepartments);
+app.post('/api/departments/delete', Departments.removeDepartment);
+
+//------------------------------------------------------------------------
 var Projects = require('./projects').Projects;
 
 app.get('/api/projects/get', Projects.getProjects);

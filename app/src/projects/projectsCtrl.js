@@ -48,7 +48,7 @@
             if (Object.prototype.toString.call(vm.projects) == '[object Array]') {
                 var begin = (($scope.currentPage - 1) * $scope.numPerPage);
                 var end = parseInt(begin) + parseInt($scope.numPerPage);
-                $scope.filteredClients = vm.projects.slice(begin, end);
+                $scope.filteredProjects = vm.projects.slice(begin, end);
                 $scope.totalItems = vm.projects.length;
             }
         }

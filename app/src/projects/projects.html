@@ -15,7 +15,7 @@
     </div>
 
     <table class="table table-striped input">
-        <tr ng-repeat="item in filteredClients | orderBy:projectsCtrl.sort:projectsCtrl.rev |
+        <tr ng-repeat="item in filteredProjects | orderBy:projectsCtrl.sort:projectsCtrl.rev |
 			filter:projectsCtrl.query as projectsFilter track by $index"
             ng-click="projectsCtrl.projectsEditForm(item)">
 
