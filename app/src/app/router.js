@@ -101,6 +101,25 @@
                             }
                             break;
 
+                        case 'departments':
+                            if ($rootScope.projects === undefined) {
+                                return $http.get(webUrl + url)
+                                    .then(function (result) {
+                                        DepartmentsService.departments = result.data;
+                                        $rootScope.departments = true;
+                                        $rootScope.loading = false;
+                                        return DepartmentsService.departments.sort(sort);
+                                    })
+                                    .catch(function (reject) {
+                                        $rootScope.loading = false;
+                                        $rootScope.myError = true;
+                                        return $q.reject(reject);
+                                    });
+                            } else {
+                                return DepartmentsService.departments.sort(sort);
+                            }
+                            break;
+
                         case 'projects':
                             if ($rootScope.projects === undefined) {
                                 return $http.get(webUrl + url)
