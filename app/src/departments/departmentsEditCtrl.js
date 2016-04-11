@@ -3,19 +3,19 @@
 
     angular
         .module('app')
-        .controller('ProjectsEditCtrl', ProjectsEditCtrl);
+        .controller('DepartmentsEditCtrl', DepartmentsEditCtrl);
 
-    ProjectsEditCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'ProjectsService', 'ProjectsLocalStorage', '$stateParams'];
+    DepartmentsEditCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'DepartmentsService', 'DepartmentsLocalStorage', '$stateParams'];
 
-    function ProjectsEditCtrl($state, $rootScope, $filter, $timeout, ProjectsService, ProjectsLocalStorage, $stateParams) {
+    function DepartmentsEditCtrl($state, $rootScope, $filter, $timeout, DepartmentsService, DepartmentsLocalStorage, $stateParams) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            projectsSubmit: projectsSubmit,
+            departmentsSubmit: departmentsSubmit,
             _editItem: editItem,
-            projectsDialog: projectsDialog,
-            projectsEditBack: projectsEditBack,
+            departmentsDialog: departmentsDialog,
+            departmentsEditBack: departmentsEditBack,
             _errorHandler: errorHandler
         });
 
@@ -29,13 +29,13 @@
 
         function init() {
             if ($stateParams.item.name == undefined) {
-                $state.go('projects');
+                $state.go('departments');
             }
             vm.total = $filter('number')(vm.sum, 2);
             $rootScope.loading = false;
         }
 
-        function projectsSubmit() {
+        function departmentsSubmit() {
             if (vm.form.$invalid) {
                 return;
             }
@@ -52,47 +52,47 @@
                 description: vm.description
             };
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                ProjectsService.editItem(item)
+                DepartmentsService.editItem(item)
                     .then(function () {
                         editItem(item);
                         $rootScope.myError = false;
-                        $state.go('projects');
+                        $state.go('departments');
                     })
                     .catch(errorHandler);
             } else {
-                ProjectsLocalStorage.editItem(item);
+                DepartmentsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('projects');
+                    $state.go('departments');
                 }, 100);
             }
         }
 
         function editItem(item) {
-            var projects = ProjectsService.projects;
-            for (var i = 0; i < projects.length; i++) {
-                if (projects[i].id == item.id) {
-                    projects.splice(i, 1, item);
+            var departments = DepartmentsService.departments;
+            for (var i = 0; i < departments.length; i++) {
+                if (departments[i].id == item.id) {
+                    departments.splice(i, 1, item);
                     break;
                 }
             }
         }
 
-        function projectsDialog() {
+        function departmentsDialog() {
             var obj = {
                 id: vm.id,
                 name: vm.name
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('projects-dialog', {item: obj});
+                $state.go('departments-dialog', {item: obj});
             }, 100);
         }
 
-        function projectsEditBack() {
+        function departmentsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('projects');
+                $state.go('departments');
             }, 100);
         }
 
