@@ -3,16 +3,16 @@
 	
     angular
         .module('app')
-        .factory('ProjectsService', ProjectsService);
+        .factory('DepartmentsService', DepartmentsService);
 		
-    ProjectsService.$inject = ['$rootScope', '$http'];
+    DepartmentsService.$inject = ['$rootScope', '$http'];
 	
-    function ProjectsService($rootScope, $http) {
+    function DepartmentsService($rootScope, $http) {
         var webUrl = $rootScope.myConfig.webUrl;
 		
         return {
-            projects: [],
-			getProjects: getProjects,
+            departments: [],
+			getDepartments: getDepartments,
             addItem: addItem,
             editItem: editItem,
             deleteItem: deleteItem,
@@ -20,8 +20,8 @@
 			_sort: sort
         };
 		
-        function getProjects() {
-            var url = webUrl + 'api/projects/get';
+        function getDepartments() {
+            var url = webUrl + 'api/departments/get';
             return $http.get(url)
                 .then(function (result) {
                     result.data.sort(sort);
@@ -30,7 +30,7 @@
         }
 		
         function addItem(item) {
-            var url = webUrl + 'api/projects/add';
+            var url = webUrl + 'api/departments/add';
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -38,7 +38,7 @@
         }
 		
         function editItem(item) {
-            var url = webUrl + 'api/projects/update';
+            var url = webUrl + 'api/departments/update';
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -46,7 +46,7 @@
         }
 
         function deleteItem(id) {
-            var url = webUrl + 'api/projects/delete';
+            var url = webUrl + 'api/departments/delete';
             var item = {
                 "id": id
             };
@@ -57,7 +57,7 @@
         }
 
 		function findClient(id) {
-            var url = webUrl + 'api/projects/find';
+            var url = webUrl + 'api/departments/find';
             var item = {
                 "id": id
             };

@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .controller('ProjectsAddCtrl', ProjectsAddCtrl);
+        .controller('DepartmentsAddCtrl', DepartmentsAddCtrl);
 
-    ProjectsAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'ProjectsService', 'ProjectsLocalStorage'];
+    DepartmentsAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'DepartmentsService', 'DepartmentsLocalStorage'];
 
-    function ProjectsAddCtrl($state, $rootScope, $timeout, ProjectsService, ProjectsLocalStorage) {
+    function DepartmentsAddCtrl($state, $rootScope, $timeout, DepartmentsService, DepartmentsLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            projectsAddSubmit: projectsAddSubmit,
+            departmentsAddSubmit: departmentsAddSubmit,
             _addItem: addItem,
-            projectsAddBack: projectsAddBack,
+            departmentsAddBack: departmentsAddBack,
 			_errorHandler: errorHandler
         });
 
@@ -28,7 +28,7 @@
             $rootScope.loading = false;
         }
 
-        function projectsAddSubmit() {
+        function departmentsAddSubmit() {
             if (vm.form.$invalid) {
                 return;
             }
@@ -47,30 +47,30 @@
             };
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
-				ProjectsService.addItem(item)
+				DepartmentsService.addItem(item)
 					.then(function () {
                         addItem(item);
 						$rootScope.myError = false;
-						$state.go('projects');
+						$state.go('departments');
 					})
 					.catch(errorHandler);
 			} else {
-                ProjectsLocalStorage.addItem(item);
+                DepartmentsLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('projects');
+                    $state.go('departments');
                 }, 100);
             }
          }
 
         function addItem(item) {
-            ProjectsService.projects.push(item);
+            DepartmentsService.departments.push(item);
         }
 
-        function projectsAddBack() {
+        function departmentsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('projects');
+                $state.go('departments');
             }, 100);
         }
 		

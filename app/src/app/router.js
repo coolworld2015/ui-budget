@@ -15,13 +15,15 @@
                 'InputsLocalStorage', 'InputsService', 'OutputsLocalStorage', 'OutputsService',
                 'InputsInvoiceLocalStorage', 'InputsInvoiceService',
                 'OutputsInvoiceLocalStorage', 'OutputsInvoiceService',
-				'ProjectsLocalStorage', 'ProjectsService'];
+                'ProjectsLocalStorage', 'ProjectsService',
+                'DepartmentsLocalStorage', 'DepartmentsService'];
             function resolver($http, $q, $rootScope, EmployeesLocalStorage, EmployeesService,
                               GoodsLocalStorage, GoodsService, UsersLocalStorage, UsersService,
                               InputsLocalStorage, InputsService, OutputsLocalStorage, OutputsService,
                               InputsInvoiceLocalStorage, InputsInvoiceService,
                               OutputsInvoiceLocalStorage, OutputsInvoiceService,
-							  ProjectsLocalStorage, ProjectsService) {
+                              ProjectsLocalStorage, ProjectsService,
+                              DepartmentsLocalStorage, DepartmentsService) {
 
                 var data;
                 var webUrl = $rootScope.myConfig.webUrl;
@@ -42,17 +44,17 @@
                             data = EmployeesLocalStorage.getEmployees();
                             return data;
                             break;
-							
+
                         case 'projects':
                             data = ProjectsLocalStorage.getProjects();
                             return data;
                             break;
 
                         case 'departments':
-                            data = ProjectsLocalStorage.getProjects();
+                            data = DepartmentsLocalStorage.getDepartments();
                             return data;
                             break;
-							
+
                         case 'users':
                             data = UsersLocalStorage.getUsers();
                             return data;

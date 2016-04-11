@@ -3,71 +3,71 @@
 
     angular
         .module('app')
-        .factory('ProjectsLocalStorage', ProjectsLocalStorage);
+        .factory('DepartmentsLocalStorage', DepartmentsLocalStorage);
 
-    function ProjectsLocalStorage() {
+    function DepartmentsLocalStorage() {
         return {
-            projects: [],
+            departments: [],
             numPerPage: 10,
 
-            getProjects: getProjects,
+            getDepartments: getDepartments,
             addItem: addItem,
             editItem: editItem,
             deleteItem: deleteItem,
-            setProjects: setProjects,
+            setDepartments: setDepartments,
 
-            uploadProjects: uploadProjects,
+            uploadDepartments: uploadDepartments,
             _sort: sort
         };
 
-        function getProjects() {
-            if (ProjectsLocalStorage.projects === undefined) {
-                var projects = localStorage.getItem('ui-budget.projects');
-                projects = JSON.parse(projects);
-                ProjectsLocalStorage.projects = projects;
+        function getDepartments() {
+            if (DepartmentsLocalStorage.departments === undefined) {
+                var departments = localStorage.getItem('ui-budget.departments');
+                departments = JSON.parse(departments);
+                DepartmentsLocalStorage.departments = departments;
             }
 
-            if (ProjectsLocalStorage.projects === null) {
-                ProjectsLocalStorage.projects = [];
+            if (DepartmentsLocalStorage.departments === null) {
+                DepartmentsLocalStorage.departments = [];
             }
 
-            return ProjectsLocalStorage.projects.sort(sort);
+            return DepartmentsLocalStorage.departments.sort(sort);
         }
 
         function addItem(item) {
-            ProjectsLocalStorage.projects.push(item);
-            setProjects();
+            DepartmentsLocalStorage.departments.push(item);
+            setDepartments();
         }
 
         function editItem(item) {
-            var projects = ProjectsLocalStorage.projects;
-            for (var i = 0; i < projects.length; i++) {
-                if (projects[i].id == item.id) {
-                    projects.splice(i, 1, item);
-                    setProjects();
+            var departments = DepartmentsLocalStorage.departments;
+            for (var i = 0; i < departments.length; i++) {
+                if (departments[i].id == item.id) {
+                    departments.splice(i, 1, item);
+                    setDepartments();
                     break;
                 }
             }
         }
 
         function deleteItem(id) {
-            var projects = ProjectsLocalStorage.projects;
-            for (var i = 0; i < projects.length; i++) {
-                if (projects[i].id == id) {
-                    projects.splice(i, 1);
-                    setProjects();
+            var departments = DepartmentsLocalStorage.departments;
+            for (var i = 0; i < departments.length; i++) {
+                if (departments[i].id == id) {
+                    departments.splice(i, 1);
+                    setDepartments();
                     break;
                 }
             }
         }
 
-        function setProjects() {
-            localStorage.setItem('ui-budget.projects', JSON.stringify(ProjectsLocalStorage.projects));
+        function setDepartments() {
+            localStorage.setItem('ui-budget.departments', JSON.stringify(DepartmentsLocalStorage.departments));
         }
 
-        function uploadProjects(projects) {
-            localStorage.setItem('ui-budget.projects', JSON.stringify(projects));
-            ProjectsLocalStorage.projects = undefined;
+        function uploadDepartments(departments) {
+            localStorage.setItem('ui-budget.departments', JSON.stringify(departments));
+            DepartmentsLocalStorage.departments = undefined;
         }
 
         function sort(a, b) {
