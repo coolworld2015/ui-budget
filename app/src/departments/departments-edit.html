@@ -1,0 +1,74 @@
+<center>
+	<div class="header">Budget</div>
+	<br><br>
+	<img ng-src="logo.jpg" class="logo">
+	<hr>
+
+	<form ng-submit="projectsEditCtrl.projectsSubmit()" novalidate name="projectsEditCtrl.form">
+		<div class="header">{{projectsEditCtrl.name}}&nbsp</div>
+		<br><br>
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Name" name="name"
+						   ng-model="projectsEditCtrl.name">
+
+					<div ng-if="projectsEditCtrl.form.$submitted">
+						<div ng-show="projectsEditCtrl.form.name.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Address" name="address"
+						   ng-model="projectsEditCtrl.address">
+
+					<div ng-if="projectsEditCtrl.form.$submitted">
+						<div ng-show="projectsEditCtrl.form.address.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Phone" name="phone"
+						   ng-model="projectsEditCtrl.phone">
+
+					<div ng-if="projectsEditCtrl.form.$submitted">
+						<div ng-show="projectsEditCtrl.form.phone.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Description" name="description"
+						   ng-model="projectsEditCtrl.description">
+
+					<div ng-if="projectsEditCtrl.form.$submitted">
+						<div ng-show="projectsEditCtrl.form.description.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input readonly type="text" class="form-control readonly"
+						   placeholder="Category"
+						   ng-model="projectsEditCtrl.total">
+				</td>
+			</tr>
+		</table>
+
+		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="projectsEditCtrl.projectsDialog()">Delete</button>
+		<br><br>
+		<button type="button" class="btn btn-primary button" ng-click="projectsEditCtrl.projectsEditBack()">Back</button>
+	</form>
+	<div class="blanker"></div>
+</center>

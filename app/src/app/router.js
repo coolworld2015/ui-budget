@@ -47,6 +47,11 @@
                             data = ProjectsLocalStorage.getProjects();
                             return data;
                             break;
+
+                        case 'departments':
+                            data = ProjectsLocalStorage.getProjects();
+                            return data;
+                            break;
 							
                         case 'users':
                             data = UsersLocalStorage.getUsers();
@@ -513,6 +518,51 @@
                 templateUrl: 'projects/projects-dialog.html',
                 controller: 'ProjectsDialogCtrl',
                 controllerAs: 'projectsDialogCtrl'
+            })
+//-------------------------------------------------------------------------------------------------------
+            .state('departments', {
+                url: '/departments',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'departments/departments.html',
+                controller: 'DepartmentsCtrl',
+                controllerAs: 'departmentsCtrl',
+                resolve: {
+                    departments: resolveResource('api/departments/get', 'departments', sort)
+                }
+            })
+
+            .state('departments-add', {
+                url: '/departments-add',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'departments/departments-add.html',
+                controller: 'DepartmentsAddCtrl',
+                controllerAs: 'departmentsAddCtrl'
+            })
+
+            .state('departments-edit', {
+                url: '/departments-edit',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'departments/departments-edit.html',
+                controller: 'DepartmentsEditCtrl',
+                controllerAs: 'departmentsEditCtrl'
+            })
+
+            .state('departments-dialog', {
+                url: '/departments-dialog',
+                data: {
+                    requireLogin: true
+                },
+                params: {item: {}},
+                templateUrl: 'departments/departments-dialog.html',
+                controller: 'DepartmentsDialogCtrl',
+                controllerAs: 'departmentsDialogCtrl'
             })
 //-------------------------------------------------------------------------------------------------------
             .state('inputs', {

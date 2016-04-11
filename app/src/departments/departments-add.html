@@ -1,0 +1,65 @@
+<center>
+    <div class="header">Budget</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo">
+    <hr>
+
+    <form ng-submit="projectsAddCtrl.projectsAddSubmit()" novalidate name="projectsAddCtrl.form">
+        <div class="header">New record</div>
+        <br><br>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <input type="text" class="form-control input" required
+                           placeholder="Name" name="name"
+                           ng-model="projectsAddCtrl.name">
+
+                    <div ng-if="projectsAddCtrl.form.$submitted">
+                        <div ng-show="projectsAddCtrl.form.name.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="text" class="form-control input" required
+                           placeholder="Address" name="address"
+                           ng-model="projectsAddCtrl.address">
+
+                    <div ng-if="projectsAddCtrl.form.$submitted">
+                        <div ng-show="projectsAddCtrl.form.address.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="text" class="form-control input" required
+                           placeholder="Phone" name="phone"
+                           ng-model="projectsAddCtrl.phone">
+
+                    <div ng-if="projectsAddCtrl.form.$submitted">
+                        <div ng-show="projectsAddCtrl.form.phone.$error.required" class="valid">Value required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="text" class="form-control input" required
+                           placeholder="Description" name="description"
+                           ng-model="projectsAddCtrl.description">
+
+                    <div ng-if="projectsAddCtrl.form.$submitted">
+                        <div ng-show="projectsAddCtrl.form.description.$error.required" class="valid">Value required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+        <button type="button" class="btn btn-primary button" ng-click="projectsAddCtrl.projectsAddBack()">Back</button>
+    </form>
+	<div class="blanker"></div>
+</center>

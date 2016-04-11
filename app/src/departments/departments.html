@@ -1,0 +1,45 @@
+<center>
+    <div class="header">Budget</div>
+    <br><br>
+    <img ng-src="logo.jpg" class="logo" ng-click="departmentsCtrl.goToBack()">
+    <hr>
+
+    <div class="header" ng-click="departmentsCtrl.goToBack()">
+        {{departmentsCtrl.title}} ({{departmentsFilter.length}} / {{departmentsCtrl.departments.length}})
+    </div>
+
+    <div>
+        <input type="text" class="form-control input"
+               placeholder="Search here"
+               ng-model="departmentsCtrl.query.name">
+    </div>
+
+    <table class="table table-striped input">
+        <tr ng-repeat="item in filteredDepartments | orderBy:departmentsCtrl.sort:departmentsCtrl.rev |
+			filter:departmentsCtrl.query as departmentsFilter track by $index"
+            ng-click="departmentsCtrl.departmentsEditForm(item)">
+
+            <td class="input">
+                <div class="name-div">
+                    {{item.name}} <br>
+                    Sum: {{item.sum | number:2}}
+                </div>
+            </td>
+
+        </tr>
+    </table>
+
+    <hr class="fix-hr">
+		<span class="label label-primary per-page">Items per page:
+			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
+		</span>
+
+    <div>
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm"
+                    boundary-links="true"></pagination>
+    </div>
+
+    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsAdd()">Add</button>&nbsp
+    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsBack()" scroll-here>Back</button>
+    <div class="blanker"></div>
+</center>
