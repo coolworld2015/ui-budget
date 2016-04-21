@@ -20,8 +20,16 @@
 
         $timeout(function () {
             window.scrollTo(0, 0);
-            $rootScope.loading = false;
         });
+
+        init();
+
+        function init() {
+            if ($stateParams.item.id == undefined) {
+                $state.go('users');
+            }
+            $rootScope.loading = false;
+        }
 
         function usersDelete() {
             $rootScope.loading = true;
