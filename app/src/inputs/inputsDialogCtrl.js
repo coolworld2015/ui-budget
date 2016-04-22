@@ -6,11 +6,11 @@
         .controller('InputsDialogCtrl', InputsDialogCtrl);
 
     InputsDialogCtrl.$inject = ['$state', '$q', '$rootScope', '$timeout', 'InputsService', 'InputsLocalStorage',
-        'InputsInvoiceService', 'InputsInvoiceLocalStorage', 'GoodsService', 'ClientsService', '$stateParams',
+        'InputsInvoiceService', 'InputsInvoiceLocalStorage', 'GoodsService', 'ProjectsService', '$stateParams',
         'InputsTransactionLocalStorage'];
 
     function InputsDialogCtrl($state, $q, $rootScope, $timeout, InputsService, InputsLocalStorage,
-                              InputsInvoiceService, InputsInvoiceLocalStorage, GoodsService, ClientsService, $stateParams,
+                              InputsInvoiceService, InputsInvoiceLocalStorage, GoodsService, ProjectsService, $stateParams,
                               InputsTransactionLocalStorage) {
         var vm = this;
 
@@ -76,18 +76,18 @@
                 $q.serial(vm.requests)
                     .catch(errorHandler);
 
-                ClientsService.findClient($stateParams.item.clientID)
+                ProjectsService.findClient($stateParams.item.clientID)
                     .then(function (client) {
                         client.data.sum = parseFloat(client.data.sum) - parseFloat($stateParams.item.total);
 
-                        ClientsService.editItem(client.data)
+                        ProjectsService.editItem(client.data)
                             .then(function () {
 
                                 InputsService.deleteItem(vm.id)
                                     .then(function () {
                                         deleteItem(vm.id);
                                         $rootScope.myError = false;
-                                        $state.go('main.inputs');
+                                        $state.go('inputs');
                                     })
                                     .catch(errorHandler);
 
@@ -109,7 +109,7 @@
                 InputsLocalStorage.deleteItem(vm.id);
 
                 $timeout(function () {
-                    $state.go('main.inputs');
+                    $state.go('inputs');
                 }, 100);
             }
         }
@@ -174,7 +174,7 @@
         function inputsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
 

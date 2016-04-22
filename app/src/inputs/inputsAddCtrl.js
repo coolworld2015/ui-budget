@@ -93,8 +93,10 @@
             var item = {
                 id: id,
                 number: vm.number,
-                client: vm.selectedItem.name,
-                clientID: vm.clientID,
+                project: vm.selectedProject.name,
+                projectID: vm.ProjectID,
+                department: vm.selectedDepartment.name,
+                departmentID: vm.DepartmentID,
                 date: vm.date,
                 total: 0,
                 description: vm.description

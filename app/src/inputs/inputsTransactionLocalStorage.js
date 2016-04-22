@@ -5,20 +5,20 @@
         .module('app')
         .factory('InputsTransactionLocalStorage', InputsTransactionLocalStorage);
 
-    InputsTransactionLocalStorage.$inject = ['ClientsLocalStorage', 'GoodsLocalStorage'];
+    InputsTransactionLocalStorage.$inject = ['ProjectsLocalStorage', 'GoodsLocalStorage'];
 
-    function InputsTransactionLocalStorage(ClientsLocalStorage, GoodsLocalStorage) {
+    function InputsTransactionLocalStorage(ProjectsLocalStorage, GoodsLocalStorage) {
         return {
             setClientSum: setClientSum,
             setStoreSum: setStoreSum
         };
 
         function setClientSum(id, sum) {
-            var clients = ClientsLocalStorage.getClients();
+            var clients = ProjectsLocalStorage.getProjects();
             for (var i = 0; i < clients.length; i++) {
                 if (clients[i].id == id) {
                     clients[i].sum = parseFloat(clients[i].sum) + parseFloat(sum);
-                    ClientsLocalStorage.setClients(clients);
+                    ProjectsLocalStorage.getProjects(clients);
                 }
             }
         }
