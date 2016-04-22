@@ -36,10 +36,10 @@
                             ng-model="inputsAddCtrl.selectedProject"
                             ng-options="projectsOption.name for projectsOption in inputsAddCtrl.projectsOptions
 							track by projectsOption.name"
-                            ng-change="inputsAddCtrl.updateChange(inputsAddCtrl.selectedProject)">
+                            ng-change="inputsAddCtrl.updateChangeProject(inputsAddCtrl.selectedProject)">
                     </select>
 
-                    <div ng-show="inputsAddCtrl.error" class="valid">Value required</div>
+                    <div ng-show="inputsAddCtrl.errorProject" class="valid">Value required</div>
                 </td>
             </tr>
 
@@ -53,29 +53,13 @@
                             ng-model="inputsAddCtrl.selectedDepartment"
                             ng-options="departmentsOption.name for departmentsOption in inputsAddCtrl.departmentsOptions
 							track by departmentsOption.name"
-                            ng-change="inputsAddCtrl.updateChange(inputsAddCtrl.selectedDepartment)">
+                            ng-change="inputsAddCtrl.updateChangeDepartment(inputsAddCtrl.selectedDepartment)">
                     </select>
 
-                    <div ng-show="inputsAddCtrl.error" class="valid">Value required</div>
+                    <div ng-show="inputsAddCtrl.errorDepartment" class="valid">Value required</div>
                 </td>
             </tr>
 
-			<tr>
-				<td>
-					<input type="text" class="form-control readonly caption"
-						   readonly value="Customer:">
-				</td>
-				<td>
-					<select required class="form-control select"
-							ng-model="inputsAddCtrl.selectedItem"
-							ng-options="clientsOption.name for clientsOption in inputsAddCtrl.clientsOptions
-							track by clientsOption.name"
-							ng-change="inputsAddCtrl.updateChange(inputsAddCtrl.selectedItem)">
-					</select>
-
-					<div ng-show="inputsAddCtrl.error" class="valid">Value required</div>
-				</td>
-			</tr>
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"

@@ -20,7 +20,8 @@
 
         angular.extend(vm, {
             init: init,
-            updateChange: updateChange,
+            updateChangeProject: updateChangeProject,
+            updateChangeDepartment: updateChangeDepartment,
             selectedProject: optionalProject,
             selectedDepartment: optionalDepartment,
             selectedItem: optionalClient,
@@ -58,14 +59,26 @@
             $rootScope.loading = false;
         }
 
-        function updateChange(item) {
-            vm.error = false;
-            vm.clientID = item.id;
+        function updateChangeProject(item) {
+            vm.errorProject = false;
+            vm.ProjectID = item.id;
+        }
+
+        function updateChangeDepartment(item) {
+            vm.errorDepartment = false;
+            vm.DepartmentID = item.id;
         }
 
         function inputsAddSubmit() {
-            if (vm.selectedItem.name == 'Select customer') {
-                vm.error = true;
+            if (vm.selectedProject.name == 'Select project') {
+                vm.errorProject = true;
+            }
+
+            if (vm.selectedDepartment.name == 'Select department') {
+                vm.errorDepartment = true;
+            }
+
+            if (vm.errorProject == true || vm.errorDepartment == true) {
                 return;
             }
 
