@@ -36,7 +36,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
 
             var now = new Date();
@@ -105,7 +105,7 @@
 
                         InputsTransactionService.addItem(store, $stateParams.item, $stateParams.item.clientID, sum)
                             .then(function () {
-                                $state.go('main.inputs-invoice', {item: $stateParams.item});
+                                $state.go('inputs-invoice', {item: $stateParams.item});
                             })
                             .catch(errorHandler);
                     })
@@ -125,7 +125,7 @@
                 });
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.inputs-invoice', {item: $stateParams.item});
+                    $state.go('inputs-invoice', {item: $stateParams.item});
                 }, 100);
             }
         }
@@ -147,14 +147,14 @@
         function goInputsInvoice() {
             loading();
             $timeout(function () {
-                $state.go('main.inputs-invoice', {item: $stateParams.item});
+                $state.go('inputs-invoice', {item: $stateParams.item});
             }, 100);
         }
 
         function goInputs() {
             loading();
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
 

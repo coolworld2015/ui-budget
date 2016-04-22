@@ -31,7 +31,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
             $rootScope.loading = false;
         }
@@ -74,7 +74,7 @@
                                                         ClientsService.editItem(client.data)
                                                             .then(function () {
                                                                 $rootScope.myError = false;
-                                                                $state.go('main.inputs-invoice', {item: $stateParams.item});
+                                                                $state.go('inputs-invoice', {item: $stateParams.item});
                                                             })
                                                             .catch(errorHandler);
                                                     })
@@ -96,7 +96,7 @@
 
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.inputs-invoice', {item: $stateParams.item});
+                    $state.go('inputs-invoice', {item: $stateParams.item});
                 }, 100);
             }
         }
@@ -104,7 +104,7 @@
         function goInputsInvoice() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-invoice', {item: $stateParams.item});
+                $state.go('inputs-invoice', {item: $stateParams.item});
             }, 100);
         }
 

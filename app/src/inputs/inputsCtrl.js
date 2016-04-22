@@ -60,7 +60,7 @@
         function inputsEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-edit', {item: item});
+                $state.go('inputs-edit', {item: item});
             }, 100);
         }
 
@@ -70,7 +70,7 @@
                 count: ++vm.inputs.length
             };
             $timeout(function () {
-                $state.go('main.inputs-add', {item: obj});
+                $state.go('inputs-add', {item: obj});
             }, 100);
         }
 

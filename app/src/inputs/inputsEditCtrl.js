@@ -28,7 +28,7 @@
         
 		function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
 
             vm.total = $filter('number')(vm.total, 2);
@@ -59,7 +59,7 @@
 					.then(function () {
                         editItem(item);
 						$rootScope.myError = false;
-						$state.go('main.inputs-invoice', {item: item});
+						$state.go('inputs-invoice', {item: item});
 					})
 					.catch(function () {
 						$rootScope.loading = false;
@@ -69,7 +69,7 @@
                 InputsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.inputs-invoice', {item: item});
+                    $state.go('inputs-invoice', {item: item});
                 }, 100);
             }
         }
@@ -96,14 +96,14 @@
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-dialog', {item: item});
+                $state.go('inputs-dialog', {item: item});
             }, 100);
         }
 
         function inputsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
     }

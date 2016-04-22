@@ -609,6 +609,7 @@
                 controller: 'InputsAddCtrl',
                 controllerAs: 'inputsAddCtrl',
                 resolve: {
+                    departments: resolveResource('api/departments/get', 'departments', sort),
                     employees: resolveResource('api/employees/get', 'employees', sort)
                 }
             })

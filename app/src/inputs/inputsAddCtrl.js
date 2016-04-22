@@ -6,10 +6,10 @@
         .controller('InputsAddCtrl', InputsAddCtrl);
 
     InputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'InputsService', 'InputsLocalStorage',
-        '$stateParams', 'clients'];
+        '$stateParams', 'employees'];
 
     function InputsAddCtrl($state, $rootScope, $filter, $timeout, InputsService, InputsLocalStorage,
-                           $stateParams, clients) {
+                           $stateParams, employees) {
         var vm = this;
         var optionalClient = {name: 'Select customer'};
         angular.extend(vm, $stateParams.item);
@@ -28,7 +28,7 @@
 
         function init() {
             if ($stateParams.item.count == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
 
             var now = new Date();
@@ -36,7 +36,7 @@
             vm.date = $filter('date')(now, 'MM/dd/yyyy H:mm:ss ');
             vm.number = vm.count;
 
-            vm.clients = clients;
+            vm.clients = employees;
             vm.clientsOptions = [].concat(vm.clients);
             vm.clientsOptions.unshift(optionalClient);
             $rootScope.myError = false;
@@ -77,14 +77,14 @@
                     .then(function () {
                         addItem(item);
                         $rootScope.myError = false;
-                        $state.go('main.inputs-edit', {item: item});
+                        $state.go('inputs-edit', {item: item});
                     })
                     .catch(errorHandler);
             } else {
                 InputsLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.inputs-edit', {item: item});
+                    $state.go('inputs-edit', {item: item});
                 }, 100);
             }
         }
@@ -96,7 +96,7 @@
         function inputsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
 

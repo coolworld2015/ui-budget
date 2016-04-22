@@ -31,7 +31,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
             vm.total = $filter('number')(vm.total, 2);
             $rootScope.myError = false;
@@ -61,14 +61,14 @@
                 InputsInvoiceService.editItem(invoice)
                     .then(function () {
                         $rootScope.myError = false;
-                        $state.go('main.inputs-invoice', {item: $stateParams.item});
+                        $state.go('inputs-invoice', {item: $stateParams.item});
                     })
                     .catch(errorHandler);
             } else {
                 InputsInvoiceLocalStorage.editItem(invoice);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.inputs-invoice', {item: $stateParams.item});
+                    $state.go('inputs-invoice', {item: $stateParams.item});
                 }, 100);
             }
         }
@@ -76,21 +76,21 @@
         function invoiceDialog() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-invoice-dialog', {item: $stateParams.item, invoice: $stateParams.invoice});
+                $state.go('inputs-invoice-dialog', {item: $stateParams.item, invoice: $stateParams.invoice});
             }, 100);
         }
 
         function goInputsInvoice() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-invoice', {item: $stateParams.item});
+                $state.go('inputs-invoice', {item: $stateParams.item});
             }, 100);
         }
 
         function goInputs() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
 

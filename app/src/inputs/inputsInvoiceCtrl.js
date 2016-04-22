@@ -29,7 +29,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
 
             vm.inputInvoices = [].concat(inputInvoices);
@@ -45,7 +45,7 @@
         function editInvoice(invoice) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-invoice-edit', {item: $stateParams.item, invoice: invoice});
+                $state.go('inputs-invoice-edit', {item: $stateParams.item, invoice: invoice});
             }, 100);
         }
 
@@ -53,14 +53,14 @@
             $rootScope.myError = false;
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-invoice-add', {item: $stateParams.item});
+                $state.go('inputs-invoice-add', {item: $stateParams.item});
             }, 100);
         }
 
         function inputEditExitInvoice() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs-edit', {item: $stateParams.item});
+                $state.go('inputs-edit', {item: $stateParams.item});
             }, 100);
         }
 
@@ -68,7 +68,7 @@
             $rootScope.myError = false;
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }, 100);
         }
 
