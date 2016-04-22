@@ -31,7 +31,7 @@
         init();
 
         function init() {
-            vm.title = 'Sales Invoices';
+            vm.title = 'Billing';
             vm.sort = 'name';
 			vm.outputs = [].concat(outputs);
 			vm.outputsFilter = [];

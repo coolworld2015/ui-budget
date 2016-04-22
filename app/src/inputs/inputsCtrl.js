@@ -31,7 +31,7 @@
         init();
 
         function init() {
-            vm.title = 'Purchase Invoices';
+            vm.title = 'Payments';
             vm.sort = 'name';
             vm.inputs = [].concat(inputs);
             vm.inputsFilter = [];
