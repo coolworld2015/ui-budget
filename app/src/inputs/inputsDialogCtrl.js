@@ -38,7 +38,7 @@
 
         function init() {
             if ($stateParams.item.number == undefined) {
-                $state.go('main.inputs');
+                $state.go('inputs');
             }
 
             vm.webUrl = $rootScope.myConfig.webUrl;
