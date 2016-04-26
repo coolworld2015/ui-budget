@@ -31,7 +31,7 @@
         init();
 
         function init() {
-            vm.title = 'Commodities';
+            vm.title = 'Assets';
             vm.sort = 'name';
             vm.goods = goods;
             vm.goodsFilter = [];
@@ -60,7 +60,7 @@
         function goodsEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods-edit', {item: item});
+                $state.go('goods-edit', {item: item});
             }, 100);
         }
 
@@ -72,7 +72,7 @@
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods-add', {item: obj});
+                $state.go('goods-add', {item: obj});
             }, 100);
         }
 

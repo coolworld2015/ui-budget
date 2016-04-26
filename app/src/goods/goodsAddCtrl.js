@@ -51,14 +51,14 @@
 					.then(function () {
                         addItem(item);
 						$rootScope.myError = false;
-						$state.go('main.goods');
+						$state.go('goods');
 					})
 					.catch(errorHandler);
 			} else {
                 GoodsLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.goods');
+                    $state.go('goods');
                 }, 100);
             }
         }
@@ -70,7 +70,7 @@
         function goodsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods');
+                $state.go('goods');
             }, 100);
         }		
 		

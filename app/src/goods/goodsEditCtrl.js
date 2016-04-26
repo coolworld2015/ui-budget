@@ -29,7 +29,7 @@
 
         function init() {
             if ($stateParams.item.name == undefined) {
-                $state.go('main.goods');
+                $state.go('goods');
             }
             vm.total = $filter('number')(vm.sum, 2);
             $rootScope.loading = false;
@@ -50,14 +50,14 @@
                     .then(function () {
                         editItem(item);
                         $rootScope.myError = false;
-                        $state.go('main.goods');
+                        $state.go('goods');
                     })
                     .catch(errorHandler);
             } else {
                 GoodsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.goods');
+                    $state.go('goods');
                 }, 100);
             }
         }
@@ -79,14 +79,14 @@
             };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods-dialog', {item: obj});
+                $state.go('goods-dialog', {item: obj});
             }, 100);
         }
 
         function goodsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods');
+                $state.go('goods');
             }, 100);
         }
 

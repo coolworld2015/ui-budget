@@ -28,7 +28,7 @@
 
         function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.goods');
+                $state.go('goods');
             }
             $rootScope.loading = false;
         }
@@ -42,14 +42,14 @@
 					.then(function () {
                         deleteItem(vm.id);
 						$rootScope.myError = false;
-						$state.go('main.goods');
+						$state.go('goods');
 					})
 					.catch(errorHandler);
 			} else {
                 GoodsLocalStorage.deleteItem(vm.id);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.goods');
+                    $state.go('goods');
                 }, 100);
             }
         }
@@ -67,7 +67,7 @@
         function goodsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.goods');
+                $state.go('goods');
             }, 100);
         }		
 		
