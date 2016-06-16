@@ -102,7 +102,7 @@
                             break;
 
                         case 'departments':
-                            if ($rootScope.projects === undefined) {
+                            if ($rootScope.departments === undefined) {
                                 return $http.get(webUrl + url)
                                     .then(function (result) {
                                         DepartmentsService.departments = result.data;
