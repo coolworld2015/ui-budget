@@ -5,19 +5,23 @@
         .module('app')
         .controller('ConfigCtrl', ConfigCtrl);
 
-    ConfigCtrl.$inject = ['$rootScope', '$state', '$http', '$timeout', 'ItemsLocalStorage'];
+    ConfigCtrl.$inject = ['$rootScope', '$state', '$http', '$timeout',
+        'ProjectsLocalStorage', 'GoodsLocalStorage'];
 
-    function ConfigCtrl($rootScope, $state, $http, $timeout, ItemsLocalStorage) {
+    function ConfigCtrl($rootScope, $state, $http, $timeout,
+                        ProjectsLocalStorage, GoodsLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
             toggleMode: toggleMode,
             doAction: doAction,
-            _getItemsHeroku: getItemsHeroku,
-            _loading: loading,
-            _error: error,
-            _complete: complete,
+			_getClientsHeroku: getClientsHeroku,
+			_getGoodsHeroku: getGoodsHeroku,
+			_jsonProjects: jsonProjects,
+			_loading: loading,
+			_error: error,
+			_complete: complete,
             toMain: toMain
         });
 		
@@ -35,7 +39,9 @@
 
             vm.options = [
                 {name: 'Select transaction', value: 'none'},
-                {name: 'Get items (Heroku)', value: 'heroku.items.get'}
+                //{name: 'Get clients (Heroku)', value: 'heroku.clients.get'},
+                //{name: 'Get goods (Heroku)', value: 'heroku.goods.get'},
+                {name: 'JSON Projects', value: 'json.projects'}
             ];
             vm.selectedItem = vm.options[0];
         }
@@ -48,7 +54,7 @@
                 vm.mode = 'OFF-LINE (LocalStorage)';
                 $rootScope.mode = 'OFF-LINE (LocalStorage)';
             }
-            localStorage.setItem('ui-budget.mode', JSON.stringify(vm.mode));
+            localStorage.setItem('ui-warehouse.mode', JSON.stringify(vm.mode));
             toMain();
         }
 
@@ -62,32 +68,59 @@
                     break;
                 }
 
-                case 'heroku.items.get':
+                case 'heroku.clients.get':
                 {
-                    getItemsHeroku();
+                    getClientsHeroku();
+                    break;
+                }
+
+                case 'heroku.goods.get':
+                {
+                    getGoodsHeroku();
+                    break;
+                }
+				
+				case 'json.projects':
+                {
+                    jsonProjects();
                     break;
                 }
             }
         }
 
-        function getItemsHeroku() {
-            $rootScope.loading = true;
-            var url = vm.webUrl + 'api/items/get';
+        function getClientsHeroku() {
+            var url = vm.webUrl + 'api/clients/get';
             $http.get(url)
                 .then(function (results) {
-                    try {
-                        ItemsLocalStorage.uploadItems(results.data);
-                        complete();
-                    } catch (e) {
-                        error();
-                        alert(e);
-                    }
+                    ClientsLocalStorage.uploadClients(results.data);
+                    complete();
                 })
-                .catch(function () {
+                .catch(function (data) {
                     error();
                 });
         }
 
+        function getGoodsHeroku() {
+            var url = vm.webUrl + 'api/goods/get';
+            $http.get(url)
+                .then(function (results) {
+                    GoodsLocalStorage.uploadGoods(results.data);
+                    complete();
+                })
+                .catch(function (data) {
+                    error();
+                });
+        }
+		
+        function jsonProjects() {
+            var myWindow = window.open("_blank");
+			var projects = ProjectsLocalStorage.getProjects();
+ 
+			myWindow.document.write(JSON.stringify(projects));
+			myWindow.document.execCommand('SaveAs', false, "D:/default.html");
+			complete();
+        }
+		
         function loading() {
             $rootScope.loading = true;
             $rootScope.myError = false;

@@ -1,7 +1,7 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">Warehouse</div>
     <br><br>
-    <img ng-src="logo.jpg" class="logo">
+    <img ng-src="logo.jpg" class="logo" ng-click="categoriesCtrl.goToBack()">
     <hr>
     <div class="header">Configurations</div>
     <br><br>
@@ -26,9 +26,10 @@
                         ng-model="configCtrl.selectedItem">
                 </select>
 
-                <div ng-show="configCtrl.error" class="alert alert-danger error-conf">Something went wrong</div>
-                <div ng-show="configCtrl.loading" class="header conf">&nbsp Loading...</div>
-                <div ng-show="configCtrl.complete" class="header conf">&nbsp Action is completed
+                <div ng-show="configCtrl.error" class="alert alert-danger" style="margin-bottom:-8px">Something went wrong
+                </div>
+                <div ng-show="configCtrl.loading" class="header" style="font-size:25px;">&nbsp Loading...</div>
+                <div ng-show="configCtrl.complete" class="header" style="font-size:25px;">&nbsp Action is completed
                 </div>
             </td>
         </tr>
