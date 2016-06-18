@@ -116,7 +116,9 @@
             var myWindow = window.open("_blank");
 			var projects = ProjectsLocalStorage.getProjects();
  
-			myWindow.document.write(JSON.stringify(projects));
+			myWindow.document.write('localStorage.setItem("ui-budget.projects", JSON.stringify(' + JSON.stringify(projects) + '));');
+					
+		//	myWindow.document.write(JSON.stringify(projects));
 			myWindow.document.execCommand('SaveAs', false, "D:/default.html");
 			complete();
         }
