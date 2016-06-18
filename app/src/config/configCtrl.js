@@ -41,7 +41,7 @@
                 {name: 'Select transaction', value: 'none'},
                 //{name: 'Get clients (Heroku)', value: 'heroku.clients.get'},
                 //{name: 'Get goods (Heroku)', value: 'heroku.goods.get'},
-                {name: 'JSON Projects', value: 'json.projects'}
+                {name: 'JSON (Projects - Goods)', value: 'json.projects'}
             ];
             vm.selectedItem = vm.options[0];
         }
@@ -115,11 +115,15 @@
         function jsonProjects() {
             var myWindow = window.open("_blank");
 			var projects = ProjectsLocalStorage.getProjects();
+			var goods = GoodsLocalStorage.getGoods();
  
 			myWindow.document.write('localStorage.setItem("ui-budget.projects", JSON.stringify(' + JSON.stringify(projects) + '));');
 					
-		//	myWindow.document.write(JSON.stringify(projects));
-			myWindow.document.execCommand('SaveAs', false, "D:/default.html");
+		 	myWindow.document.write('<hr>');
+			
+			myWindow.document.write('localStorage.setItem("ui-budget.goods", JSON.stringify(' + JSON.stringify(goods) + '));');
+			
+			//myWindow.document.execCommand('SaveAs', false, "D:/default.html");
 			complete();
         }
 		
