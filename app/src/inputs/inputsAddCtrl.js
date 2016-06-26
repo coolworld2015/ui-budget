@@ -6,15 +6,16 @@
         .controller('InputsAddCtrl', InputsAddCtrl);
 
     InputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'InputsService', 'InputsLocalStorage',
-        '$stateParams', 'employees', 'departments', 'projects'];
+        '$stateParams', 'employees', 'departments', 'projects', 'goods'];
 
     function InputsAddCtrl($state, $rootScope, $filter, $timeout, InputsService, InputsLocalStorage,
-                           $stateParams, employees, departments, projects) {
+                           $stateParams, employees, departments, projects, goods) {
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
         var optionalDepartment = {name: 'Select department'};
         var optionalEmployee = {name: 'Select employee'};
+        var optionalProduct = {name: 'Select resource'};
 
         angular.extend(vm, $stateParams.item);
 
@@ -22,11 +23,13 @@
             selectedProject: optionalProject,
             selectedDepartment: optionalDepartment,
             selectedEmployee: optionalEmployee,
+            selectedProduct: optionalProduct,
 			
             init: init,
             updateChangeProject: updateChangeProject,
             updateChangeDepartment: updateChangeDepartment,
             updateChangeEmployee: updateChangeEmployee,
+            updateChangeProduct: updateChangeProduct,
  
             inputsAddSubmit: inputsAddSubmit,
             _addItem: addItem,
@@ -62,6 +65,10 @@
             vm.employeesOptions = [].concat(vm.employees);
             vm.employeesOptions.unshift(optionalEmployee);
 
+            vm.products = goods;
+            vm.productsOptions = [].concat(vm.products);
+            vm.productsOptions.unshift(optionalProduct);
+			
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
@@ -79,6 +86,17 @@
         function updateChangeEmployee(item) {
             vm.errorEmployee = false;
             vm.EmployeeID = item.id;
+        }        
+		
+		function updateChangeProduct(item) {
+            vm.errorProduct = false;
+            if (item.price) {
+                vm.goodsID = item.id;
+                vm.price = parseFloat(item.price).toFixed(2);
+                vm.priceFixed = item.price;
+            } else {
+                vm.price = '0.00';
+            }
         }
 		
         function inputsAddSubmit() {

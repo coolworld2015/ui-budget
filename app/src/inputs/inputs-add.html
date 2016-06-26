@@ -58,6 +58,23 @@
 
                     <div ng-show="inputsAddCtrl.errorDepartment" class="valid">Value required</div>
                 </td>
+            </tr>	
+	
+            <tr>
+                <td>
+                    <input type="text" class="form-control readonly caption"
+                           readonly value="Employee:">
+                </td>
+                <td>
+                    <select required class="form-control select"
+                            ng-model="inputsAddCtrl.selectedEmployee"
+                            ng-options="employeesOption.name for employeesOption in inputsAddCtrl.employeesOptions
+							track by employeesOption.name"
+                            ng-change="inputsAddCtrl.updateChangeEmployee(inputsAddCtrl.selectedEmployee)">
+                    </select>
+
+                    <div ng-show="inputsAddCtrl.errorEmployee" class="valid">Value required</div>
+                </td>
             </tr>
 			
 			<tr>
@@ -75,23 +92,6 @@
 					</div>
 				</td>
 			</tr>
-			
-            <tr>
-                <td>
-                    <input type="text" class="form-control readonly caption"
-                           readonly value="Employee:">
-                </td>
-                <td>
-                    <select required class="form-control select"
-                            ng-model="inputsAddCtrl.selectedEmployee"
-                            ng-options="employeesOptions.name for employeesOptions in inputsAddCtrl.employeesOptions
-							track by employeesOptions.name"
-                            ng-change="inputsAddCtrl.updateChangeEmployee(inputsAddCtrl.selectedEmployee)">
-                    </select>
-
-                    <div ng-show="inputsAddCtrl.errorEmployee" class="valid">Value required</div>
-                </td>
-            </tr>
 			
 			<tr>
 				<td>
@@ -112,17 +112,18 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Commodits:">
+						   readonly value="Resource:">
 				</td>
-				<td>
-					<input type="text" class="form-control input" required
-						   placeholder="Commodits" name="commodits"
-						   ng-model="inputsAddCtrl.commodits">
+                <td>
+                    <select required class="form-control select"
+                            ng-model="inputsAddCtrl.selectedProduct"
+                            ng-options="productsOption.name for productsOption in inputsAddCtrl.productsOptions
+							track by productsOption.name"
+                            ng-change="inputsAddCtrl.updateChangeProduct(inputsAddCtrl.selectedProduct)">
+                    </select>
 
-					<div ng-if="inputsAddCtrl.form.$submitted">
-						<div ng-show="inputsAddCtrl.form.commodits.$error.required" class="valid">Value required</div>
-					</div>
-				</td>
+                    <div ng-show="inputsAddCtrl.errorCommodity" class="valid">Value required</div>
+                </td>
 			</tr>
 			
 			<tr>
