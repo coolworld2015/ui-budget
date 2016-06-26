@@ -14,23 +14,30 @@
 
         var optionalProject = {name: 'Select project'};
         var optionalDepartment = {name: 'Select department'};
-        var optionalClient = {name: 'Select customer'};
+        var optionalEmployee = {name: 'Select employee'};
 
         angular.extend(vm, $stateParams.item);
 
         angular.extend(vm, {
+            selectedProject: optionalProject,
+            selectedDepartment: optionalDepartment,
+            selectedEmployee: optionalEmployee,
+			
             init: init,
             updateChangeProject: updateChangeProject,
             updateChangeDepartment: updateChangeDepartment,
-            selectedProject: optionalProject,
-            selectedDepartment: optionalDepartment,
-            selectedItem: optionalClient,
+            updateChangeEmployee: updateChangeEmployee,
+ 
             inputsAddSubmit: inputsAddSubmit,
             _addItem: addItem,
             inputsAddBack: inputsAddBack,
             _errorHandler: errorHandler
         });
 
+		$timeout(function () {
+            window.scrollTo(0, 0);
+        });
+		
         init();
 
         function init() {
@@ -51,9 +58,9 @@
             vm.departmentsOptions = [].concat(vm.departments);
             vm.departmentsOptions.unshift(optionalDepartment);
 
-            vm.clients = employees;
-            vm.clientsOptions = [].concat(vm.clients);
-            vm.clientsOptions.unshift(optionalClient);
+            vm.employees = employees;
+            vm.employeesOptions = [].concat(vm.employees);
+            vm.employeesOptions.unshift(optionalEmployee);
 
             $rootScope.myError = false;
             $rootScope.loading = false;
@@ -68,7 +75,12 @@
             vm.errorDepartment = false;
             vm.DepartmentID = item.id;
         }
-
+		
+        function updateChangeEmployee(item) {
+            vm.errorEmployee = false;
+            vm.EmployeeID = item.id;
+        }
+		
         function inputsAddSubmit() {
             if (vm.selectedProject.name == 'Select project') {
                 vm.errorProject = true;
@@ -78,7 +90,11 @@
                 vm.errorDepartment = true;
             }
 
-            if (vm.errorProject == true || vm.errorDepartment == true) {
+			if (vm.selectedEmployee.name == 'Select employee') {
+                vm.errorEmployee = true;
+            }
+			
+            if (vm.errorProject == true || vm.errorDepartment == true || vm.errorEmployee == true) {
                 return;
             }
 
