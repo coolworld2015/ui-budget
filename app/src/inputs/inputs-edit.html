@@ -5,7 +5,7 @@
     <hr>
 	
 	<form ng-submit="inputsEditCtrl.inputsSubmit()" novalidate name="inputsEditCtrl.form">
-		<div class="header" ng-click="inputsEditCtrl.goInputs()">Purchase InvoicesID: {{inputsEditCtrl.number}}</div>
+		<div class="header" ng-click="inputsEditCtrl.goInputs()">Purchase InvoiceID: {{inputsEditCtrl.invoiceID}}</div>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
@@ -15,11 +15,11 @@
 				</td>
 				<td class="width100">
 					<input type="text" class="form-control input" required digits-only
-						   placeholder="Transaction ID" name="number"
-						   ng-model="inputsEditCtrl.number">
+						   placeholder="Transaction ID" name="invoiceID"
+						   ng-model="inputsEditCtrl.invoiceID">
 
 					<div ng-if="inputsEditCtrl.form.$submitted">
-						<div ng-show="inputsEditCtrl.form.number.$error.required" class="valid">Value required</div>
+						<div ng-show="inputsEditCtrl.form.invoiceID.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>

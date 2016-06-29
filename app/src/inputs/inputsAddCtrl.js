@@ -51,7 +51,7 @@
             var now = new Date();
             vm.date = $filter('date')(now, 'dd/MM/yyyy H:mm:ss '); //TODO Russian style
             vm.date = $filter('date')(now, 'MM/dd/yyyy H:mm:ss ');
-            vm.number = vm.count;
+            vm.invoiceID = vm.count;
 
             vm.projects = projects;
             vm.projectsOptions = [].concat(vm.projects);
@@ -111,8 +111,12 @@
 			if (vm.selectedEmployee.name == 'Select employee') {
                 vm.errorEmployee = true;
             }
+	
+			if (vm.selectedProduct.name == 'Select resource') {
+                vm.errorProduct = true;
+            }
 			
-            if (vm.errorProject == true || vm.errorDepartment == true || vm.errorEmployee == true) {
+            if (vm.errorProject == true || vm.errorDepartment == true || vm.errorEmployee == true || vm.errorProduct == true) {
                 return;
             }
 
@@ -126,13 +130,22 @@
             var id = (Math.random() * 1000000).toFixed();
             var item = {
                 id: id,
-                number: vm.number,
+                invoiceID: vm.invoiceID,
+				
                 project: vm.selectedProject.name,
                 projectID: vm.ProjectID,
+				
                 department: vm.selectedDepartment.name,
                 departmentID: vm.DepartmentID,
-                date: vm.date,
-                total: 0,
+       
+                employee: vm.selectedEmployee.name,
+                employeeID: vm.EmployeeID,
+
+                product: vm.selectedProduct.name,
+                productID: vm.ProductID,
+				
+				date: vm.date,
+                total: vm.total,
                 description: vm.description
             };
 

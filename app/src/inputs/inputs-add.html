@@ -17,15 +17,31 @@
 				</td>
 				<td class="width100">
 					<input type="text" class="form-control input" required digits-only
-						   placeholder="ID" name="number"
-						   ng-model="inputsAddCtrl.number">
+						   placeholder="invoiceID" name="invoiceID"
+						   ng-model="inputsAddCtrl.invoiceID">
 
 					<div ng-if="inputsAddCtrl.form.$submitted">
-						<div ng-show="inputsAddCtrl.form.number.$error.required" class="valid">Value required</div>
+						<div ng-show="inputsAddCtrl.form.invoiceID.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
 
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Date:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Date" name="date"
+						   ng-model="inputsAddCtrl.date">
+
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.date.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
@@ -76,39 +92,7 @@
                     <div ng-show="inputsAddCtrl.errorEmployee" class="valid">Value required</div>
                 </td>
             </tr>
-			
-			<tr>
-				<td>
-					<input type="text" class="form-control readonly caption"
-						   readonly value="Date:">
-				</td>
-				<td>
-					<input type="text" class="form-control input" required
-						   placeholder="Date" name="date"
-						   ng-model="inputsAddCtrl.date">
-
-					<div ng-if="inputsAddCtrl.form.$submitted">
-						<div ng-show="inputsAddCtrl.form.date.$error.required" class="valid">Value required</div>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<input type="text" class="form-control readonly caption"
-						   readonly value="Description:">
-				</td>
-				<td>
-					<input type="text" class="form-control input" required
-						   placeholder="Description" name="description"
-						   ng-model="inputsAddCtrl.description">
-
-					<div ng-if="inputsAddCtrl.form.$submitted">
-						<div ng-show="inputsAddCtrl.form.description.$error.required" class="valid">Value required</div>
-					</div>
-				</td>
-			</tr>
-			
+						
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
@@ -122,7 +106,7 @@
                             ng-change="inputsAddCtrl.updateChangeProduct(inputsAddCtrl.selectedProduct)">
                     </select>
 
-                    <div ng-show="inputsAddCtrl.errorCommodity" class="valid">Value required</div>
+                    <div ng-show="inputsAddCtrl.errorProduct" class="valid">Value required</div>
                 </td>
 			</tr>
 			
@@ -170,6 +154,23 @@
 
 					<div ng-if="inputsAddCtrl.form.$submitted">
 						<div ng-show="inputsAddCtrl.form.total.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Description:">
+				</td>
+				<td>
+					<textarea rows=5 type="text" class="form-control input" required
+                              placeholder="Description" name="description"
+                              ng-model="inputsAddCtrl.description">
+					</textarea>
+ 
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.description.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
