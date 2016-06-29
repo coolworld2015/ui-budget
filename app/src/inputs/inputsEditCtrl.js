@@ -46,7 +46,7 @@
 
             var item = {
                 id: vm.id,
-                number: vm.number,
+                invoiceID: vm.invoiceID,
                 client: vm.client,
                 clientID: vm.clientID,
                 date: vm.date,
@@ -55,6 +55,9 @@
             };
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
+				$state.go('inputs');
+				return;
+				
 				InputsService.editItem(item)
 					.then(function () {
                         editItem(item);
@@ -66,6 +69,9 @@
 						$rootScope.myError = true;
 					});
 			} else {
+				$state.go('inputs');
+				return;
+				
                 InputsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
@@ -87,7 +93,7 @@
         function inputsDialog() {
             var item = {
                 id: vm.id,
-                number: vm.number,
+                invoiceID: vm.invoiceID,
                 client: vm.client,
                 clientID: vm.clientID,
                 date: vm.date,

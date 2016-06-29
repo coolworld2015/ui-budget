@@ -14,7 +14,7 @@
 						   readonly value="ID:">
 				</td>
 				<td class="width100">
-					<input type="text" class="form-control input" required digits-only
+					<input type="text" class="form-control readonly" required readonly
 						   placeholder="Transaction ID" name="invoiceID"
 						   ng-model="inputsEditCtrl.invoiceID">
 
@@ -23,6 +23,23 @@
 					</div>
 				</td>
 			</tr>
+			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Date:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" required readonly
+						   placeholder="Transaction date" name="date"
+						   ng-model="inputsEditCtrl.date">
+
+					<div ng-if="inputsEditCtrl.form.$submitted">
+						<div ng-show="inputsEditCtrl.form.date.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
@@ -33,28 +50,30 @@
 						   ng-model="inputsEditCtrl.project">
 				</td>
 			</tr>
+			
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Date:">
+						   readonly value="Department:">
 				</td>
 				<td>
-					<input type="text" class="form-control input" required
-						   placeholder="Transaction date" name="date"
-						   ng-model="inputsEditCtrl.date">
+					<input type="text" class="form-control readonly" required readonly
+						   placeholder="Transaction date" name="department"
+						   ng-model="inputsEditCtrl.department">
 
 					<div ng-if="inputsEditCtrl.form.$submitted">
-						<div ng-show="inputsEditCtrl.form.date.$error.required" class="valid">Value required</div>
+						<div ng-show="inputsEditCtrl.form.department.$error.required" class="valid">Value required</div>
 					</div>
 				</td>
 			</tr>
+			
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
 						   readonly value="Description:">
 				</td>
 				<td>
-					<input type="text" class="form-control input" required
+					<input type="text" class="form-control readonly" required readonly
 						   placeholder="Transaction description" name="description"
 						   ng-model="inputsEditCtrl.description">
 

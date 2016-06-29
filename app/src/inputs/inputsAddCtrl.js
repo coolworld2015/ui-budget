@@ -143,6 +143,8 @@
 
                 product: vm.selectedProduct.name,
                 productID: vm.ProductID,
+				quantity: vm.quantity,
+				price: vm.price,
 				
 				date: vm.date,
                 total: vm.total,
@@ -154,14 +156,14 @@
                     .then(function () {
                         addItem(item);
                         $rootScope.myError = false;
-                        $state.go('inputs-edit', {item: item});
+                        $state.go('inputs');
                     })
                     .catch(errorHandler);
             } else {
                 InputsLocalStorage.addItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('inputs-edit', {item: item});
+					$state.go('inputs');
                 }, 100);
             }
         }

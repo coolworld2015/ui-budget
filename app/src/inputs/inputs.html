@@ -20,14 +20,15 @@
             ng-click="inputsCtrl.inputsEditForm(item)">
 
             <td class="input">
-                <div class="name-div">
+                <div>
                     ID: {{item.invoiceID}} <br>
-                    Project: {{item.project}} <br>
-                    Department: {{item.department}} <br>
-                    Employee: {{item.employee}} <br>
-                    Resource: {{item.product}} <br>
                     Date: {{item.date}} <br>
-                    Total: {{item.total | number:2}}
+                    {{item.project}} - {{item.department}} - {{item.employee}} <br>
+                    Resource: {{item.product}} <br>
+                    Price: {{item.price}} <br>
+                    Quantity: {{item.quantity}} <br>
+                    Total: {{item.total | number:2}} <br>
+                    Description: {{item.description}}
                 </div>
             </td>
 
