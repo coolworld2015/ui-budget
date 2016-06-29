@@ -37,7 +37,7 @@
         init();
 
         function init() {
-            if ($stateParams.item.number == undefined) {
+            if ($stateParams.item.id == undefined) {
                 $state.go('inputs');
             }
 
