@@ -116,9 +116,10 @@
 						   readonly value="Price:">
 				</td>
 				<td>
-					<input type="text" class="form-control input" required
+					<input type="text" class="form-control input" required digits-only
 						   placeholder="Price" name="price"
-						   ng-model="inputsAddCtrl.price">
+						   ng-model="inputsAddCtrl.price"
+						   ng-change="inputsAddCtrl.updateChange()">
 
 					<div ng-if="inputsAddCtrl.form.$submitted">
 						<div ng-show="inputsAddCtrl.form.price.$error.required" class="valid">Value required</div>
@@ -132,9 +133,10 @@
 						   readonly value="Quantity:">
 				</td>
 				<td>
-					<input type="text" class="form-control input" required
+					<input type="text" class="form-control input" required digits-only
 						   placeholder="Quantity" name="quantity"
-						   ng-model="inputsAddCtrl.quantity">
+						   ng-model="inputsAddCtrl.quantity"
+						   ng-change="inputsAddCtrl.updateChange()">
 
 					<div ng-if="inputsAddCtrl.form.$submitted">
 						<div ng-show="inputsAddCtrl.form.quantity.$error.required" class="valid">Value required</div>
@@ -148,7 +150,7 @@
 						   readonly value="Total:">
 				</td>
 				<td>
-					<input type="text" class="form-control input" required
+					<input type="text" class="form-control readonly" required readonly
 						   placeholder="Total" name="total"
 						   ng-model="inputsAddCtrl.total">
 

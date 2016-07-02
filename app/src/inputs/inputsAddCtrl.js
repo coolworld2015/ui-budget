@@ -20,6 +20,7 @@
         angular.extend(vm, $stateParams.item);
 
         angular.extend(vm, {
+			updateChange: updateChange,
             selectedProject: optionalProject,
             selectedDepartment: optionalDepartment,
             selectedEmployee: optionalEmployee,
@@ -53,6 +54,8 @@
             vm.date = $filter('date')(now, 'MM/dd/yyyy H:mm:ss ');
             vm.invoiceID = vm.count;
 
+			vm.total = '0.00';
+
             vm.projects = projects;
             vm.projectsOptions = [].concat(vm.projects);
             vm.projectsOptions.unshift(optionalProject);
@@ -72,7 +75,12 @@
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
-
+		
+        function updateChange() {
+			vm.total = parseFloat(vm.price).toFixed(2)*parseFloat(vm.quantity).toFixed(2);
+			vm.total = (vm.total).toFixed(2);
+        }
+		
         function updateChangeProject(item) {
             vm.errorProject = false;
             vm.ProjectID = item.id;
@@ -94,6 +102,9 @@
                 vm.goodsID = item.id;
                 vm.price = parseFloat(item.price).toFixed(2);
                 vm.priceFixed = item.price;
+				
+				vm.total = parseFloat(vm.price).toFixed(2)*parseFloat(vm.quantity).toFixed(2);
+				vm.total = (vm.total).toFixed(2);
             } else {
                 vm.price = '0.00';
             }

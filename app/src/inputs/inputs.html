@@ -11,7 +11,7 @@
     <div>
         <input type="text" class="form-control input"
                placeholder="Search here"
-               ng-model="inputsCtrl.query.name">
+               ng-model="inputsCtrl.query.invoiceID">
     </div>
 
     <table class="table table-striped input">
@@ -25,10 +25,8 @@
                     Date: {{item.date}} <br>
                     {{item.project}} - {{item.department}} - {{item.employee}} <br>
                     Resource: {{item.product}} <br>
-                    Price: {{item.price}} <br>
-                    Quantity: {{item.quantity}} <br>
-                    Total: {{item.total | number:2}} <br>
-                    Description: {{item.description}}
+                    Description: {{item.description}} <br>
+                    Total: {{item.total | number:2}}
                 </div>
             </td>
 
