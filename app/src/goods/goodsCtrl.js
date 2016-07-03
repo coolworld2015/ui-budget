@@ -77,7 +77,10 @@
         }
 
         function goToBack() {
-            $scope.$broadcast('scrollHere');
+			var size = goods.length;
+			var numPerPage = $scope.numPerPage
+			window.scrollTo(100, (numPerPage * 100) + 200);			//this code hack for safari browser
+            //$scope.$broadcast('scrollHere');
         }
 
         function goToHead() {
