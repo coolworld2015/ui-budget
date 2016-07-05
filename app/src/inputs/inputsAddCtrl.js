@@ -6,10 +6,12 @@
         .controller('InputsAddCtrl', InputsAddCtrl);
 
     InputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'InputsService', 'InputsLocalStorage',
-        '$stateParams', 'employees', 'departments', 'projects', 'goods'];
+        '$stateParams', 'employees', 'departments', 'projects', 'goods',
+		'InputsTransactionLocalStorage'];
 
     function InputsAddCtrl($state, $rootScope, $filter, $timeout, InputsService, InputsLocalStorage,
-                           $stateParams, employees, departments, projects, goods) {
+                           $stateParams, employees, departments, projects, goods,
+						   InputsTransactionLocalStorage) {
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
@@ -83,23 +85,23 @@
 		
         function updateChangeProject(item) {
             vm.errorProject = false;
-            vm.ProjectID = item.id;
+            vm.projectID = item.id;
         }
 
         function updateChangeDepartment(item) {
             vm.errorDepartment = false;
-            vm.DepartmentID = item.id;
+            vm.departmentID = item.id;
         }
 		
         function updateChangeEmployee(item) {
             vm.errorEmployee = false;
-            vm.EmployeeID = item.id;
+            vm.employeeID = item.id;
         }        
 		
 		function updateChangeProduct(item) {
             vm.errorProduct = false;
             if (item.price) {
-                vm.goodsID = item.id;
+                vm.productID = item.id;
                 vm.price = parseFloat(item.price).toFixed(2);
                 vm.priceFixed = item.price;
 				
@@ -147,16 +149,16 @@
                 invoiceID: vm.invoiceID,
 				
                 project: vm.selectedProject.name,
-                projectID: vm.ProjectID,
+                projectID: vm.projectID,
 				
                 department: vm.selectedDepartment.name,
-                departmentID: vm.DepartmentID,
+                departmentID: vm.departmentID,
        
                 employee: vm.selectedEmployee.name,
-                employeeID: vm.EmployeeID,
+                employeeID: vm.employeeID,
 
                 product: vm.selectedProduct.name,
-                productID: vm.ProductID,
+                productID: vm.productID,
 				quantity: vm.quantity,
 				price: vm.price,
 				
@@ -164,7 +166,7 @@
                 total: vm.total,
                 description: vm.description
             };
-
+debugger;
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
                 InputsService.addItem(item)
                     .then(function () {
@@ -175,6 +177,9 @@
                     .catch(errorHandler);
             } else {
                 InputsLocalStorage.addItem(item);
+				                
+				InputsTransactionLocalStorage.setStoreSum(vm.productID, vm.quantity);
+								
                 $rootScope.loading = true;
                 $timeout(function () {
 					$state.go('inputs');
