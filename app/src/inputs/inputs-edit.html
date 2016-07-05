@@ -113,13 +113,15 @@
 					
 			<tr>
 				<td>
-					<input type="text" class="form-control readonly caption"
-						   readonly value="Description:">
+					<textarea rows=5 class="form-control readonly caption"
+						   readonly>Description:
+				    </textarea>
 				</td>
 				<td>
-					<input type="text" class="form-control readonly" required readonly
-						   placeholder="Transaction description" name="description"
-						   ng-model="inputsEditCtrl.description">
+					<textarea rows=5 type="text" class="form-control readonly" required readonly
+                              placeholder="Description" name="description"
+                              ng-model="inputsEditCtrl.description">
+					</textarea>
 
 					<div ng-if="inputsEditCtrl.form.$submitted">
 						<div ng-show="inputsEditCtrl.form.description.$error.required" class="valid">Value required</div>

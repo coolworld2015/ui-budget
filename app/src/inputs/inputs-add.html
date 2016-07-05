@@ -147,22 +147,6 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Total:">
-				</td>
-				<td>
-					<input type="text" class="form-control readonly" required readonly
-						   placeholder="Total" name="total"
-						   ng-model="inputsAddCtrl.total">
-
-					<div ng-if="inputsAddCtrl.form.$submitted">
-						<div ng-show="inputsAddCtrl.form.total.$error.required" class="valid">Value required</div>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<input type="text" class="form-control readonly caption"
 						   readonly value="Description:">
 				</td>
 				<td>
@@ -177,6 +161,21 @@
 				</td>
 			</tr>
 			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Total:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" required readonly
+						   placeholder="Total" name="total"
+						   ng-model="inputsAddCtrl.total">
+
+					<div ng-if="inputsAddCtrl.form.$submitted">
+						<div ng-show="inputsAddCtrl.form.total.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>			
 		</table>
 
 		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
