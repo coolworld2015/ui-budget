@@ -166,7 +166,7 @@
                 total: vm.total,
                 description: vm.description
             };
-debugger;
+
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
                 InputsService.addItem(item)
                     .then(function () {
@@ -178,6 +178,9 @@ debugger;
             } else {
                 InputsLocalStorage.addItem(item);
 				                
+				InputsTransactionLocalStorage.setDepartmentSum(vm.departmentID, vm.total);
+				InputsTransactionLocalStorage.setProjectSum(vm.projectID, vm.total);
+				InputsTransactionLocalStorage.setEmployeeSum(vm.employeeID, vm.total);
 				InputsTransactionLocalStorage.setStoreSum(vm.productID, vm.quantity);
 								
                 $rootScope.loading = true;

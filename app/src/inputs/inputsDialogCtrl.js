@@ -97,7 +97,7 @@
                     .catch(errorHandler);
             } else {
                 var sum = parseFloat($stateParams.item.total);
-                InputsTransactionLocalStorage.setClientSum($stateParams.item.clientID, -sum);
+                //InputsTransactionLocalStorage.setClientSum($stateParams.item.clientID, -sum);
 
                 vm.inputInvoices.forEach(function (el) {
                     if (el.invoiceID == vm.id) {

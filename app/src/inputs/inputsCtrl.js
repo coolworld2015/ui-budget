@@ -33,7 +33,8 @@
         function init() {
             vm.title = 'Payments';
             vm.sort = 'name';
-            vm.inputs = [].concat(inputs).reverse();
+            vm.inputs = [].concat(inputs);
+            vm.inputs = vm.inputs.reverse();
             vm.inputsFilter = [];
 
             $scope.currentPage = 1;
