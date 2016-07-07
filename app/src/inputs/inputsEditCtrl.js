@@ -91,18 +91,9 @@
         }
 
         function inputsDialog() {
-            var item = {
-                id: vm.id,
-                invoiceID: vm.invoiceID,
-                client: vm.client,
-                clientID: vm.clientID,
-                date: vm.date,
-                total: vm.total,
-                description: vm.description
-            };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('inputs-dialog', {item: item});
+                $state.go('inputs-dialog', {item: $stateParams.item});
             }, 100);
         }
 

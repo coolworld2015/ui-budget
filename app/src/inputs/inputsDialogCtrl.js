@@ -97,15 +97,13 @@
                     .catch(errorHandler);
             } else {
                 var sum = parseFloat($stateParams.item.total);
-                //InputsTransactionLocalStorage.setClientSum($stateParams.item.clientID, -sum);
-
-                vm.inputInvoices.forEach(function (el) {
-                    if (el.invoiceID == vm.id) {
-                        InputsTransactionLocalStorage.setStoreSum(el.goodsID, -el.quantity);
-                    }
-                });
-
-                InputsInvoiceLocalStorage.deleteItemInvoice($stateParams.item.id);
+                var quantity = parseFloat($stateParams.item.quantity);
+ 
+				InputsTransactionLocalStorage.setDepartmentSum(vm.departmentID, -sum);
+				InputsTransactionLocalStorage.setProjectSum(vm.projectID, -sum);
+				InputsTransactionLocalStorage.setEmployeeSum(vm.employeeID, -sum);
+				InputsTransactionLocalStorage.setStoreSum(vm.productID, -quantity);
+				
                 InputsLocalStorage.deleteItem(vm.id);
 
                 $timeout(function () {
