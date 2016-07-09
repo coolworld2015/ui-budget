@@ -12,7 +12,6 @@
 
         angular.extend(vm, {
             init: init,
-            hideError: hideError,
             updateChange: updateChange,
             searchSubmit: searchSubmit,
             searchBack: searchBack,
@@ -27,10 +26,11 @@
 
         function init() {
             vm.options = [
+                {name: 'Select search'},
                 {name: 'Search by Name'},
                 {name: 'Search by RegNum'}
             ];
-            vm.search = 'Search by Name';
+            vm.search = 'Select search';
             vm.selectedItem = vm.options[0];
 
             $rootScope.loading = false;
@@ -40,16 +40,18 @@
             }, 1000);
         }
 
-        function hideError() {
-            vm.minLengthError = false;
-        }
-
         function updateChange(item) {
             vm.error = false;
+			vm.notSelectedError = false;
             vm.search = item.name;
         }
 
         function searchSubmit() {
+			if (vm.search == 'Select search') {
+				vm.notSelectedError = true;
+                return;
+            }
+			
             if (vm.form.$invalid) {
                 return;
             }

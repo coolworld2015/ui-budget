@@ -27,6 +27,7 @@
 						   ng-model="searchCtrl.name"
 						   ng-click="searchCtrl.hideError()">
 					<div ng-show="searchCtrl.minLengthError" class="valid">Min 3 symbols</div>
+					<div ng-show="searchCtrl.notSelectedError" class="valid">Select search</div>
 					<div ng-if="searchCtrl.form.$submitted">
 						<div ng-show="searchCtrl.form.name.$error.required" class="valid">Value required</div>
 					</div>
