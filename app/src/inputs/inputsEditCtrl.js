@@ -68,14 +68,11 @@
 						$rootScope.loading = false;
 						$rootScope.myError = true;
 					});
-			} else {
-				$state.go('inputs');
-				return;
-				
-                InputsLocalStorage.editItem(item);
+			} else {				
+                //InputsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('inputs-invoice', {item: item});
+                    $state.go('inputs', {item: item});
                 }, 100);
             }
         }

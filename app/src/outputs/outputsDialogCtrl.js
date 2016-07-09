@@ -6,17 +6,17 @@
         .controller('OutputsDialogCtrl', OutputsDialogCtrl);
 
     OutputsDialogCtrl.$inject = ['$state', '$q', '$rootScope', '$timeout', 'OutputsService', 'OutputsLocalStorage',
-        'OutputsInvoiceService', 'OutputsInvoiceLocalStorage', 'GoodsService', 'ClientsService', '$stateParams',
+        'OutputsInvoiceService', 'OutputsInvoiceLocalStorage', 'GoodsService', 'ProjectsService', '$stateParams',
         'OutputsTransactionLocalStorage'];
 
     function OutputsDialogCtrl($state, $q, $rootScope, $timeout, OutputsService, OutputsLocalStorage,
-                               OutputsInvoiceService, OutputsInvoiceLocalStorage, GoodsService, ClientsService, $stateParams,
-                               OutputsTransactionLocalStorage) {
+                              OutputsInvoiceService, OutputsInvoiceLocalStorage, GoodsService, ProjectsService, $stateParams,
+                              OutputsTransactionLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
-            _getOutputInvoicesOn: getOutputInvoicesOn,
+            _getInputInvoicesOn: getInputInvoicesOn,
             outputsDelete: outputsDelete,
             _deleteItem: deleteItem,
             _fillRequests: fillRequests,
@@ -37,16 +37,16 @@
         init();
 
         function init() {
-            if ($stateParams.item.number == undefined) {
-                $state.go('main.outputs');
+            if ($stateParams.item.id == undefined) {
+                $state.go('outputs');
             }
 
             vm.webUrl = $rootScope.myConfig.webUrl;
 
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                getOutputInvoicesOn();
+                getInputInvoicesOn();
             } else {
-                vm.outputInvoices = [].concat(OutputsInvoiceLocalStorage.getOutputInvoice());
+                vm.inputInvoices = [].concat(OutputsInvoiceLocalStorage.getOutputInvoice());
                 $rootScope.myError = false;
                 $rootScope.loading = false;
             }
@@ -56,10 +56,10 @@
             vm.i = 0;
         }
 
-        function getOutputInvoicesOn() {
+        function getInputInvoicesOn() {
             OutputsInvoiceService.getInvoices()
                 .then(function (data) {
-                    vm.outputInvoices = data.data;
+                    vm.inputInvoices = data.data;
                     $rootScope.myError = false;
                     $rootScope.loading = false;
                 })
@@ -76,18 +76,18 @@
                 $q.serial(vm.requests)
                     .catch(errorHandler);
 
-                ClientsService.findClient($stateParams.item.clientID)
+                ProjectsService.findClient($stateParams.item.clientID)
                     .then(function (client) {
-                        client.data.sum = parseFloat(client.data.sum) + parseFloat($stateParams.item.total);
+                        client.data.sum = parseFloat(client.data.sum) - parseFloat($stateParams.item.total);
 
-                        ClientsService.editItem(client.data)
+                        ProjectsService.editItem(client.data)
                             .then(function () {
 
                                 OutputsService.deleteItem(vm.id)
                                     .then(function () {
                                         deleteItem(vm.id);
                                         $rootScope.myError = false;
-                                        $state.go('main.outputs');
+                                        $state.go('outputs');
                                     })
                                     .catch(errorHandler);
 
@@ -97,20 +97,17 @@
                     .catch(errorHandler);
             } else {
                 var sum = parseFloat($stateParams.item.total);
-                OutputsTransactionLocalStorage.setClientSum($stateParams.item.clientID, -sum);
-
-                vm.outputInvoices.forEach(function (el) {
-                    if (el.invoiceID == vm.id) {
-                        OutputsTransactionLocalStorage.setStoreSum(el.goodsID, -el.quantity);
-                    }
-                });
-
-                OutputsInvoiceLocalStorage.deleteItemInvoice($stateParams.item.id);
+                var quantity = parseFloat($stateParams.item.quantity);
+ 
+				OutputsTransactionLocalStorage.setDepartmentSum(vm.departmentID, sum);
+				OutputsTransactionLocalStorage.setProjectSum(vm.projectID, sum);
+				OutputsTransactionLocalStorage.setEmployeeSum(vm.employeeID, sum);
+				OutputsTransactionLocalStorage.setStoreSum(vm.productID, quantity);
+				
                 OutputsLocalStorage.deleteItem(vm.id);
 
-                $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.outputs');
+                    $state.go('outputs');
                 }, 100);
             }
         }
@@ -126,7 +123,7 @@
         }
 
         function fillRequests() {
-            vm.outputInvoices.forEach(function (el) {
+            vm.inputInvoices.forEach(function (el) {
                 if (el.invoiceID == $stateParams.item.id) {
                     vm.index.push(el);
                     vm.requests.push(modifyGoods);
@@ -144,7 +141,7 @@
         function findGood() {
             return GoodsService.findGood(vm.index[vm.i].goodsID)
                 .then(function (good) {
-                    var quantity = parseFloat(good.data.quantity) + parseFloat(vm.index[vm.i].quantity);
+                    var quantity = parseFloat(good.data.quantity) - parseFloat(vm.index[vm.i].quantity);
                     vm.item = {
                         id: good.data.id,
                         name: good.data.name,
@@ -175,7 +172,7 @@
         function outputsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.outputs');
+                $state.go('outputs');
             }, 100);
         }
 

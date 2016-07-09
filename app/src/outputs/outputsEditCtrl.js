@@ -24,16 +24,16 @@
             window.scrollTo(0, 0);
         });
 
-        init();
-
-        function init() {
+		init();
+        
+		function init() {
             if ($stateParams.item.id == undefined) {
-                $state.go('main.outputs');
+                $state.go('outputs');
             }
 
+            vm.total = $filter('number')(vm.total, 2);
             $rootScope.myError = false;
             $rootScope.loading = false;
-            vm.total = $filter('number')(vm.total, 2);
         }
 
         function outputsSubmit() {
@@ -46,7 +46,7 @@
 
             var item = {
                 id: vm.id,
-                number: vm.number,
+                invoiceID: vm.invoiceID,
                 client: vm.client,
                 clientID: vm.clientID,
                 date: vm.date,
@@ -55,21 +55,24 @@
             };
 			
 			if ($rootScope.mode == 'ON-LINE (Heroku)') {
+				$state.go('outputs');
+				return;
+				
 				OutputsService.editItem(item)
 					.then(function () {
                         editItem(item);
 						$rootScope.myError = false;
-						$state.go('main.outputs-invoice', {item: item});
+						$state.go('outputs-invoice', {item: item});
 					})
 					.catch(function () {
 						$rootScope.loading = false;
 						$rootScope.myError = true;
 					});
 			} else {
-                OutputsLocalStorage.editItem(item);
+				//OutputsLocalStorage.editItem(item);
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.outputs-invoice', {item: item});
+                    $state.go('outputs', {item: item});
                 }, 100);
             }
         }
@@ -85,25 +88,16 @@
         }
 
         function outputsDialog() {
-            var item = {
-                id: vm.id,
-                number: vm.number,
-                client: vm.client,
-                clientID: vm.clientID,
-                date: vm.date,
-                total: vm.total,
-                description: vm.description
-            };
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.outputs-dialog', {item: item});
+                $state.go('outputs-dialog', {item: $stateParams.item});
             }, 100);
         }
 
         function outputsEditBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.outputs');
+                $state.go('outputs');
             }, 100);
         }
     }

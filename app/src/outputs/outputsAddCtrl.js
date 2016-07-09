@@ -6,25 +6,41 @@
         .controller('OutputsAddCtrl', OutputsAddCtrl);
 
     OutputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'OutputsService', 'OutputsLocalStorage',
-        '$stateParams', 'clients'];
+        '$stateParams', 'employees', 'departments', 'projects', 'goods',
+		'OutputsTransactionLocalStorage'];
 
     function OutputsAddCtrl($state, $rootScope, $filter, $timeout, OutputsService, OutputsLocalStorage,
-                            $stateParams, clients) {
+                           $stateParams, employees, departments, projects, goods,
+						   OutputsTransactionLocalStorage) {
         var vm = this;
-        var optionalClient = {name: 'Select customer'};
+
+        var optionalProject = {name: 'Select project'};
+        var optionalDepartment = {name: 'Select department'};
+        var optionalEmployee = {name: 'Select employee'};
+        var optionalProduct = {name: 'Select resource'};
+
         angular.extend(vm, $stateParams.item);
 
         angular.extend(vm, {
+			updateChange: updateChange,
+            selectedProject: optionalProject,
+            selectedDepartment: optionalDepartment,
+            selectedEmployee: optionalEmployee,
+            selectedProduct: optionalProduct,
+			
             init: init,
-            updateChange: updateChange,
-            selectedItem: optionalClient,
+            updateChangeProject: updateChangeProject,
+            updateChangeDepartment: updateChangeDepartment,
+            updateChangeEmployee: updateChangeEmployee,
+            updateChangeProduct: updateChangeProduct,
+ 
             outputsAddSubmit: outputsAddSubmit,
             _addItem: addItem,
             outputsAddBack: outputsAddBack,
             _errorHandler: errorHandler
         });
-		
-        $timeout(function () {
+
+		$timeout(function () {
             window.scrollTo(0, 0);
         });
 		
@@ -32,29 +48,88 @@
 
         function init() {
             if ($stateParams.item.count == undefined) {
-                $state.go('main.outputs');
+                $state.go('oututs');
             }
 
             var now = new Date();
             vm.date = $filter('date')(now, 'dd/MM/yyyy H:mm:ss '); //TODO Russian style
             vm.date = $filter('date')(now, 'MM/dd/yyyy H:mm:ss ');
-            vm.number = vm.count;
+            vm.invoiceID = vm.count;
 
-            vm.clients = clients;
-            vm.clientsOptions = [].concat(vm.clients);
-            vm.clientsOptions.unshift(optionalClient);
+			vm.total = '0.00';
+
+            vm.projects = projects;
+            vm.projectsOptions = [].concat(vm.projects);
+            vm.projectsOptions.unshift(optionalProject);
+
+            vm.departments = departments;
+            vm.departmentsOptions = [].concat(vm.departments);
+            vm.departmentsOptions.unshift(optionalDepartment);
+
+            vm.employees = employees;
+            vm.employeesOptions = [].concat(vm.employees);
+            vm.employeesOptions.unshift(optionalEmployee);
+
+            vm.products = goods;
+            vm.productsOptions = [].concat(vm.products);
+            vm.productsOptions.unshift(optionalProduct);
+			
             $rootScope.myError = false;
             $rootScope.loading = false;
         }
-
-        function updateChange(item) {
-            vm.error = false;
-            vm.clientID = item.id;
+		
+        function updateChange() {
+			vm.total = parseFloat(vm.price).toFixed(2)*parseFloat(vm.quantity).toFixed(2);
+			vm.total = (vm.total).toFixed(2);
+        }
+		
+        function updateChangeProject(item) {
+            vm.errorProject = false;
+            vm.projectID = item.id;
         }
 
+        function updateChangeDepartment(item) {
+            vm.errorDepartment = false;
+            vm.departmentID = item.id;
+        }
+		
+        function updateChangeEmployee(item) {
+            vm.errorEmployee = false;
+            vm.employeeID = item.id;
+        }        
+		
+		function updateChangeProduct(item) {
+            vm.errorProduct = false;
+            if (item.price) {
+                vm.productID = item.id;
+                vm.price = parseFloat(item.price).toFixed(2);
+                vm.priceFixed = item.price;
+				
+				vm.total = parseFloat(vm.price).toFixed(2)*parseFloat(vm.quantity).toFixed(2);
+				vm.total = (vm.total).toFixed(2);
+            } else {
+                vm.price = '0.00';
+            }
+        }
+		
         function outputsAddSubmit() {
-            if (vm.selectedItem.name == 'Select customer') {
-                vm.error = true;
+            if (vm.selectedProject.name == 'Select project') {
+                vm.errorProject = true;
+            }
+
+            if (vm.selectedDepartment.name == 'Select department') {
+                vm.errorDepartment = true;
+            }
+
+			if (vm.selectedEmployee.name == 'Select employee') {
+                vm.errorEmployee = true;
+            }
+	
+			if (vm.selectedProduct.name == 'Select resource') {
+                vm.errorProduct = true;
+            }
+			
+            if (vm.errorProject == true || vm.errorDepartment == true || vm.errorEmployee == true || vm.errorProduct == true) {
                 return;
             }
 
@@ -64,15 +139,31 @@
 
             $rootScope.myError = false;
             $rootScope.loading = true;
-
+			
+			vm.price = parseFloat(vm.price).toFixed(2);
+			vm.quantity = parseFloat(vm.quantity).toFixed(2);
+			
             var id = (Math.random() * 1000000).toFixed();
             var item = {
                 id: id,
-                number: vm.number,
-                client: vm.selectedItem.name,
-                clientID: vm.clientID,
-                date: vm.date,
-                total: 0,
+                invoiceID: vm.invoiceID,
+				
+                project: vm.selectedProject.name,
+                projectID: vm.projectID,
+				
+                department: vm.selectedDepartment.name,
+                departmentID: vm.departmentID,
+       
+                employee: vm.selectedEmployee.name,
+                employeeID: vm.employeeID,
+
+                product: vm.selectedProduct.name,
+                productID: vm.productID,
+				quantity: vm.quantity,
+				price: vm.price,
+				
+				date: vm.date,
+                total: vm.total,
                 description: vm.description
             };
 
@@ -81,14 +172,20 @@
                     .then(function () {
                         addItem(item);
                         $rootScope.myError = false;
-                        $state.go('main.outputs-edit', {item: item});
+                        $state.go('outputs');
                     })
                     .catch(errorHandler);
             } else {
                 OutputsLocalStorage.addItem(item);
+				                
+				OutputsTransactionLocalStorage.setDepartmentSum(vm.departmentID, -vm.total);
+				OutputsTransactionLocalStorage.setProjectSum(vm.projectID, -vm.total);
+				OutputsTransactionLocalStorage.setEmployeeSum(vm.employeeID, -vm.total);
+				OutputsTransactionLocalStorage.setStoreSum(vm.productID, -vm.quantity);
+								
                 $rootScope.loading = true;
                 $timeout(function () {
-                    $state.go('main.outputs-edit', {item: item});
+					$state.go('outputs');
                 }, 100);
             }
         }
@@ -100,7 +197,7 @@
         function outputsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.outputs');
+                $state.go('outputs');
             }, 100);
         }
 

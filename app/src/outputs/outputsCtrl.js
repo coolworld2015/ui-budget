@@ -34,6 +34,7 @@
             vm.title = 'Billing';
             vm.sort = 'name';
 			vm.outputs = [].concat(outputs);
+            vm.outputs = vm.outputs.reverse();			
 			vm.outputsFilter = [];
 
             $scope.currentPage = 1;
@@ -60,7 +61,7 @@
         function outputsEditForm(item) {
             $rootScope.loading = true;
             $timeout(function () {
-                $state.go('main.outputs-edit', {item: item});
+                $state.go('outputs-edit', {item: item});
             }, 100);
         }
 
@@ -70,7 +71,7 @@
                 count: ++vm.outputs.length
             };
             $timeout(function () {
-                $state.go('main.outputs-add', {item: obj});
+                $state.go('outputs-add', {item: obj});
             }, 100);
         }
 

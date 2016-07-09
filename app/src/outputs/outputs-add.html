@@ -1,82 +1,185 @@
 <center>
-    <div class="header">Warehouse</div>
+    <div class="header">Budget</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo">
     <hr>
 
-    <form ng-submit="outputsAddCtrl.outputsAddSubmit()" novalidate name="outputsAddCtrl.form">
-        <div class="header">
-            New record
-        </div>
-        <br><br>
-        <table class="table table-bordered">
-            <tr>
-                <td>
-                    <input type="text" class="form-control readonly caption"
-                           readonly value="ID:">
-                </td>
-                <td class="width100">
-                    <input type="text" class="form-control input" required digits-only
-                           placeholder="ID" name="number"
-                           ng-model="outputsAddCtrl.number">
+	<form ng-submit="outputsAddCtrl.outputsAddSubmit()" novalidate name="outputsAddCtrl.form" autocomplete="off">
+		<div class="header">
+			New record
+		</div>
+		<br><br>
+		<table class="table table-bordered">
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="ID:">
+				</td>
+				<td class="width100">
+					<input type="text" class="form-control input" required digits-only
+						   placeholder="invoiceID" name="invoiceID"
+						   ng-model="outputsAddCtrl.invoiceID">
 
-                    <div ng-if="outputsAddCtrl.form.$submitted">
-                        <div ng-show="outputsAddCtrl.form.number.$error.required" class="valid">Value required</div>
-                    </div>
-                </td>
-            </tr>
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.invoiceID.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Date:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required
+						   placeholder="Date" name="date"
+						   ng-model="outputsAddCtrl.date">
+
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.date.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
-                           readonly value="Customer:">
+                           readonly value="Project:">
                 </td>
                 <td>
                     <select required class="form-control select"
-                            ng-model="outputsAddCtrl.selectedItem"
-                            ng-options="clientsOption.name for clientsOption in outputsAddCtrl.clientsOptions
-                                track by clientsOption.name"
-                            ng-change="outputsAddCtrl.updateChange(outputsAddCtrl.selectedItem)">
+                            ng-model="outputsAddCtrl.selectedProject"
+                            ng-options="projectsOption.name for projectsOption in outputsAddCtrl.projectsOptions
+							track by projectsOption.name"
+                            ng-change="outputsAddCtrl.updateChangeProject(outputsAddCtrl.selectedProject)">
                     </select>
 
-                    <div ng-show="outputsAddCtrl.error" class="valid">Value required</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" class="form-control readonly caption"
-                           readonly value="Date:">
-                </td>
-                <td>
-                    <input type="text" class="form-control input" required
-                           placeholder="Date" name="date"
-                           ng-model="outputsAddCtrl.date">
-
-                    <div ng-if="outputsAddCtrl.form.$submitted">
-                        <div ng-show="outputsAddCtrl.form.date.$error.required" class="valid">Value required</div>
-                    </div>
+                    <div ng-show="outputsAddCtrl.errorProject" class="valid">Value required</div>
                 </td>
             </tr>
 
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
-                           readonly value="Description:">
+                           readonly value="Department:">
                 </td>
                 <td>
-                    <input type="text" class="form-control input" required
-                           placeholder="Description" name="description"
-                           ng-model="outputsAddCtrl.description">
+                    <select required class="form-control select"
+                            ng-model="outputsAddCtrl.selectedDepartment"
+                            ng-options="departmentsOption.name for departmentsOption in outputsAddCtrl.departmentsOptions
+							track by departmentsOption.name"
+                            ng-change="outputsAddCtrl.updateChangeDepartment(outputsAddCtrl.selectedDepartment)">
+                    </select>
 
-                    <div ng-if="outputsAddCtrl.form.$submitted">
-                        <div ng-show="outputsAddCtrl.form.description.$error.required" class="valid">Value required
-                        </div>
-                    </div>
+                    <div ng-show="outputsAddCtrl.errorDepartment" class="valid">Value required</div>
+                </td>
+            </tr>	
+	
+            <tr>
+                <td>
+                    <input type="text" class="form-control readonly caption"
+                           readonly value="Employee:">
+                </td>
+                <td>
+                    <select required class="form-control select"
+                            ng-model="outputsAddCtrl.selectedEmployee"
+                            ng-options="employeesOption.name for employeesOption in outputsAddCtrl.employeesOptions
+							track by employeesOption.name"
+                            ng-change="outputsAddCtrl.updateChangeEmployee(outputsAddCtrl.selectedEmployee)">
+                    </select>
+
+                    <div ng-show="outputsAddCtrl.errorEmployee" class="valid">Value required</div>
                 </td>
             </tr>
-        </table>
+						
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Resource:">
+				</td>
+                <td>
+                    <select required class="form-control select"
+                            ng-model="outputsAddCtrl.selectedProduct"
+                            ng-options="productsOption.name for productsOption in outputsAddCtrl.productsOptions
+							track by productsOption.name"
+                            ng-change="outputsAddCtrl.updateChangeProduct(outputsAddCtrl.selectedProduct)">
+                    </select>
 
-        <input type="submit" class="btn btn-primary button" value="Submit">&nbsp
-        <button type="button" class="btn btn-primary button" ng-click="outputsAddCtrl.outputsAddBack()">Back</button>
-    </form>
+                    <div ng-show="outputsAddCtrl.errorProduct" class="valid">Value required</div>
+                </td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Price:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required digits-only
+						   placeholder="Price" name="price"
+						   ng-model="outputsAddCtrl.price"
+						   ng-change="outputsAddCtrl.updateChange()">
+
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.price.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Quantity:">
+				</td>
+				<td>
+					<input type="text" class="form-control input" required digits-only
+						   placeholder="Quantity" name="quantity"
+						   ng-model="outputsAddCtrl.quantity"
+						   ng-change="outputsAddCtrl.updateChange()">
+
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.quantity.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Description:">
+				</td>
+				<td>
+					<textarea rows=5 type="text" class="form-control input" required
+                              placeholder="Description" name="description"
+                              ng-model="outputsAddCtrl.description">
+					</textarea>
+ 
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.description.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="text" class="form-control readonly caption"
+						   readonly value="Total:">
+				</td>
+				<td>
+					<input type="text" class="form-control readonly" required readonly
+						   placeholder="Total" name="total"
+						   ng-model="outputsAddCtrl.total">
+
+					<div ng-if="outputsAddCtrl.form.$submitted">
+						<div ng-show="outputsAddCtrl.form.total.$error.required" class="valid">Value required</div>
+					</div>
+				</td>
+			</tr>			
+		</table>
+
+		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="outputsAddCtrl.outputsAddBack()">Back</button>
+	</form>
 	<div class="blanker"></div>
 </center>

@@ -711,7 +711,10 @@
                 controller: 'OutputsAddCtrl',
                 controllerAs: 'outputsAddCtrl',
                 resolve: {
-                    employees: resolveResource('api/employees/get', 'employees', sort)
+                    projects: resolveResource('api/projects/get', 'projects', sort),
+                    departments: resolveResource('api/departments/get', 'departments', sort),
+                    employees: resolveResource('api/employees/get', 'employees', sort),
+					goods: resolveResource('api/goods/get', 'goods', sort)
                 }
             })
 
