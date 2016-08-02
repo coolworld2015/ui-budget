@@ -29,6 +29,7 @@
 		
         function addItem(item) {
             var url = webUrl + 'api/inputs/add';
+            console.log(item);
             return $http.post(url, item)
                 .then(function (result) {
                     return result;

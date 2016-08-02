@@ -93,9 +93,9 @@ function updateInput(req, res) {
         if (err) {
             res.send({error: err.message});
         }
-        input.number = req.body.number;
-        input.client = req.body.client;
-        input.clientID = req.body.clientID;
+        input.invoiceID = req.body.number;
+        input.project = req.body.project;
+        input.projectID = req.body.projectID;
         input.date = req.body.date;
         input.total = req.body.total;
         input.description = req.body.description;
@@ -113,14 +113,25 @@ function updateInput(req, res) {
 function addInput(req, res) {
     InputsModel.create({
             id: req.body.id,
-            number: req.body.number,
-            client: req.body.client,
-            clientID: req.body.clientID,
+            invoiceID: req.body.invoiceID,
+            project: req.body.project,
+            projectID: req.body.projectID,
+
+            department: req.body.department,
+            departmentID: req.body.departmentID,
+            employee: req.body.employee,
+            employeeID: req.body.employeeID,
+            product: req.body.product,
+            productID: req.body.productID,
+            quantity: req.body.quantity,
+            price: req.body.price,
+
             date: req.body.date,
             total: req.body.total,
             description: req.body.description
         },
         function (err, input) {
+            console.log('Input is: ', req.body);
             if (err) {
                 return res.send({error: 'Server error'});
             }
