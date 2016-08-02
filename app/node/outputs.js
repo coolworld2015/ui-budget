@@ -113,9 +113,19 @@ function updateOutput(req, res) {
 function addOutput(req, res) {
     OutputsModel.create({
             id: req.body.id,
-            number: req.body.number,
-            client: req.body.client,
-            clientID: req.body.clientID,
+            invoiceID: req.body.invoiceID,
+            project: req.body.project,
+            projectID: req.body.projectID,
+
+            department: req.body.department,
+            departmentID: req.body.departmentID,
+            employee: req.body.employee,
+            employeeID: req.body.employeeID,
+            product: req.body.product,
+            productID: req.body.productID,
+            quantity: req.body.quantity,
+            price: req.body.price,
+
             date: req.body.date,
             total: req.body.total,
             description: req.body.description

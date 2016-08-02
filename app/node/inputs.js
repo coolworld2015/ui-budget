@@ -131,7 +131,6 @@ function addInput(req, res) {
             description: req.body.description
         },
         function (err, input) {
-            console.log('Input is: ', req.body);
             if (err) {
                 return res.send({error: 'Server error'});
             }
