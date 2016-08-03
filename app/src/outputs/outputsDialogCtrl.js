@@ -44,7 +44,9 @@
             vm.webUrl = $rootScope.myConfig.webUrl;
 
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                getInputInvoicesOn();
+                //getInputInvoicesOn();
+                $rootScope.myError = false;
+                $rootScope.loading = false;
             } else {
                 vm.inputInvoices = [].concat(OutputsInvoiceLocalStorage.getOutputInvoice());
                 $rootScope.myError = false;
@@ -71,30 +73,38 @@
             $rootScope.myError = false;
 
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                fillRequests();
-
-                $q.serial(vm.requests)
-                    .catch(errorHandler);
-
-                ProjectsService.findClient($stateParams.item.clientID)
-                    .then(function (client) {
-                        client.data.sum = parseFloat(client.data.sum) - parseFloat($stateParams.item.total);
-
-                        ProjectsService.editItem(client.data)
-                            .then(function () {
-
-                                OutputsService.deleteItem(vm.id)
-                                    .then(function () {
-                                        deleteItem(vm.id);
-                                        $rootScope.myError = false;
-                                        $state.go('outputs');
-                                    })
-                                    .catch(errorHandler);
-
-                            })
-                            .catch(errorHandler);
+                OutputsService.deleteItem(vm.id)
+                    .then(function () {
+                        deleteItem(vm.id);
+                        $rootScope.myError = false;
+                        $state.go('outputs');
                     })
                     .catch(errorHandler);
+
+//                fillRequests();
+//
+//                $q.serial(vm.requests)
+//                    .catch(errorHandler);
+//
+//                ProjectsService.findClient($stateParams.item.clientID)
+//                    .then(function (client) {
+//                        client.data.sum = parseFloat(client.data.sum) - parseFloat($stateParams.item.total);
+//
+//                        ProjectsService.editItem(client.data)
+//                            .then(function () {
+//
+//                                OutputsService.deleteItem(vm.id)
+//                                    .then(function () {
+//                                        deleteItem(vm.id);
+//                                        $rootScope.myError = false;
+//                                        $state.go('outputs');
+//                                    })
+//                                    .catch(errorHandler);
+//
+//                            })
+//                            .catch(errorHandler);
+//                    })
+//                    .catch(errorHandler);
             } else {
                 var sum = parseFloat($stateParams.item.total);
                 var quantity = parseFloat($stateParams.item.quantity);
