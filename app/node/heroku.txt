@@ -18,6 +18,9 @@ mongoose.connect('mongodb://admin:admin@ds015760.mlab.com:15760/ui-budget');
 mongoimport -h ds015760.mlab.com:15760 -d ui-budget -c goods -u admin -p admin --file goods.json
 mongoexport -h ds015760.mlab.com:15760 -d ui-budget -c goods -u admin -p admin -o goods1.json
 
+
+mongoimport -h ds015760.mlab.com:15760 -d ui-budget -c employees -u admin -p admin --file employees.json
+mongoexport -h ds015760.mlab.com:15760 -d ui-budget -c employees -u admin -p admin -o employees1.json
 -----------------------------------------------------------------------------------------------------
 
 mongoose.connect('mongodb://admin:admin@ds053728.mongolab.com:53728/warehouse');
