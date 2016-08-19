@@ -13,23 +13,10 @@ db.dropDatabase()
 mongoimport --db test --collection clients --file clients.json
 -----------------------------------------------------------------------------------------------------
 
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://admin:admin@ds015760.mlab.com:15760/ui-budget');
 
-https://mongolab.com/databases/wintermute2009/collections/clients
-
-mongoimport -h ds047772.mongolab.com:47772 -d wintermute2009 -c clients -u ed -p ed --file clients.json
-mongoexport -h ds047772.mongolab.com:47772 -d wintermute2009 -c clients -u ed -p ed -o clients.json
-
-mongoimport -h ds047772.mongolab.com:47772 -d wintermute2009 -c goods -u ed -p ed --file goods.json
-mongoexport -h ds047772.mongolab.com:47772 -d wintermute2009 -c goods -u ed -p ed -o goods.json
-
-http://coolworld.herokuapp.com/
-https://dashboard.heroku.com/apps/coolworld/deploy/heroku-git
-
-heroku login
-heroku git:clone -a coolworld
-
-git push heroku master
+mongoimport -h ds015760.mlab.com:15760 -d ui-budget -c goods -u admin -p admin --file goods.json
+mongoexport -h ds015760.mlab.com:15760 -d ui-budget -c goods -u admin -p admin -o goods1.json
 
 -----------------------------------------------------------------------------------------------------
 
