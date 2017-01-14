@@ -46,21 +46,22 @@ function updateItem(req, res) {
     }, function (err, item) {
         if (err) {
             res.send({error: err.message});
-        }
+        } else {
 
-        item.name = req.body.name;
-        item.price = req.body.price;
-        item.quantity = req.body.quantity;
-        item.store = req.body.store;
-        item.description = req.body.description;
+			item.name = req.body.name;
+			item.price = req.body.price;
+			item.quantity = req.body.quantity;
+			item.store = req.body.store;
+			item.description = req.body.description;
 
-        item.save(function (err) {
-            if (!err) {
-                res.send(item);
-            } else {
-                return res.send(err);
-            }
-        });
+			item.save(function (err) {
+				if (!err) {
+					res.send(item);
+				} else {
+					return res.send(err);
+				}
+			});
+		}
     });
 }
 

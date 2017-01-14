@@ -4,6 +4,7 @@ var app = express();
 app.use(bodyParser());
 
 var InputsModel = require('./mongo').InputsModel;
+var GoodsModel = require('./mongo').GoodsModel;
 
 var Inputs = {
     getInputs: getInputs,
@@ -112,7 +113,7 @@ function updateInput(req, res) {
 
 function addInput(req, res) {
     InputsModel.create({
-            id: req.body.id,
+            id: + new Date,
             invoiceID: req.body.invoiceID,
             project: req.body.project,
             projectID: req.body.projectID,
@@ -133,8 +134,35 @@ function addInput(req, res) {
         function (err, input) {
             if (err) {
                 return res.send({error: 'Server error'});
-            }
-            res.send(input);
+            } else {
+				console.log(input);
+				
+				// Good here
+				GoodsModel.findOne({
+					id: req.body.productID
+				}, 
+				function (err, item) {
+						if (err) {
+							res.send({error: err.message});
+						} else {
+
+							item.name = item.name;
+							item.price = item.price;
+							item.quantity = +item.quantity + +req.body.quantity;
+							item.store = true;
+							item.description = item.description;
+
+							item.save(function (err) {
+								if (err) {
+									res.send(err);
+								} else {
+									console.log(item);
+									res.send(item);
+								}
+							});
+						}
+				});
+			}
         });
 }
 
