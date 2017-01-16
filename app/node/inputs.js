@@ -5,6 +5,7 @@ app.use(bodyParser());
 
 var InputsModel = require('./mongo').InputsModel;
 var GoodsModel = require('./mongo').GoodsModel;
+var DepartmentsModel = require('./mongo').DepartmentsModel;
 
 var Inputs = {
     getInputs: getInputs,
@@ -137,7 +138,7 @@ function addInput(req, res) {
             } else {
 				console.log(input);
 				
-				// Good here
+				// Goods start here
 				GoodsModel.findOne({
 					id: req.body.productID
 				}, 
@@ -157,7 +158,32 @@ function addInput(req, res) {
 									res.send(err);
 								} else {
 									console.log(item);
-									res.send(item);
+																	
+									// Department start here
+									DepartmentsModel.findOne({
+										id: req.body.departmentID
+									}, 
+									function (err, department) {
+											if (err) {
+												res.send({error: err.message});
+											} else {
+
+												department.name = department.name;
+												department.address = department.address;
+												department.phone = department.phone;
+												department.description = department.description;
+												department.sum = +department.sum + +req.body.total;
+
+												department.save(function (err) {
+													if (err) {
+														res.send(err);
+													} else {
+														console.log(department);
+														res.send(department);
+													}
+												});
+											}
+									});
 								}
 							});
 						}
