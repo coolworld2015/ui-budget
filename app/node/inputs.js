@@ -7,6 +7,7 @@ var InputsModel = require('./mongo').InputsModel;
 var GoodsModel = require('./mongo').GoodsModel;
 var DepartmentsModel = require('./mongo').DepartmentsModel;
 var ProjectsModel = require('./mongo').ProjectsModel;
+var EmployeesModel = require('./mongo').EmployeesModel;
 
 var Inputs = {
     getInputs: getInputs,
@@ -201,7 +202,32 @@ function addInput(req, res) {
 																			res.send(err);
 																		} else {
 																			console.log(project);
-																			res.send(project);
+																			
+																			// Employees start here
+																			EmployeesModel.findOne({
+																				id: req.body.employeeID
+																			}, 
+																			function (err, employee) {
+																				if (err) {
+																					res.send({error: err.message});
+																				} else {
+
+																					employee.name = employee.name;
+																					employee.address = employee.address;
+																					employee.phone = employee.phone;
+																					employee.description = employee.description;
+																					employee.sum = +employee.sum + +req.body.total;
+
+																					employee.save(function (err) {
+																						if (err) {
+																							res.send(err);
+																						} else {
+																							console.log(employee);
+																							res.send(employee);
+																						}
+																					});
+																				}
+																			});
 																		}
 																	});
 																}
