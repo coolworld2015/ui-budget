@@ -6,6 +6,7 @@ app.use(bodyParser());
 var InputsModel = require('./mongo').InputsModel;
 var GoodsModel = require('./mongo').GoodsModel;
 var DepartmentsModel = require('./mongo').DepartmentsModel;
+var ProjectsModel = require('./mongo').ProjectsModel;
 
 var Inputs = {
     getInputs: getInputs,
@@ -159,7 +160,7 @@ function addInput(req, res) {
 								} else {
 									console.log(item);
 																	
-									// Department start here
+									// Departments start here
 									DepartmentsModel.findOne({
 										id: req.body.departmentID
 									}, 
@@ -179,7 +180,32 @@ function addInput(req, res) {
 														res.send(err);
 													} else {
 														console.log(department);
-														res.send(department);
+														
+														// Projects start here
+														ProjectsModel.findOne({
+															id: req.body.projectID
+														}, 
+														function (err, project) {
+																if (err) {
+																	res.send({error: err.message});
+																} else {
+
+																	project.name = project.name;
+																	project.address = project.address;
+																	project.phone = project.phone;
+																	project.description = project.description;
+																	project.sum = +project.sum + +req.body.total;
+
+																	project.save(function (err) {
+																		if (err) {
+																			res.send(err);
+																		} else {
+																			console.log(project);
+																			res.send(project);
+																		}
+																	});
+																}
+														});
 													}
 												});
 											}
