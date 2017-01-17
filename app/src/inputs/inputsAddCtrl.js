@@ -8,12 +8,12 @@
     InputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'InputsService', 'InputsLocalStorage',
         '$stateParams', 'employees', 'departments', 'projects', 'goods',
 		'InputsTransactionLocalStorage',
-		'DepartmentsService'];
+		'DepartmentsService', 'ProjectsService', 'EmployeesService', 'GoodsService'];
 
     function InputsAddCtrl($state, $rootScope, $filter, $timeout, InputsService, InputsLocalStorage,
                            $stateParams, employees, departments, projects, goods,
 						   InputsTransactionLocalStorage,
-						   DepartmentsService) {
+						   DepartmentsService, ProjectsService, EmployeesService, GoodsService) {
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
@@ -37,8 +37,13 @@
             updateChangeProduct: updateChangeProduct,
  
             inputsAddSubmit: inputsAddSubmit,
-            _addItem: addItem,
+            
+			_addItem: addItem,
 			_setDepartmentSum: setDepartmentSum,
+			_setProjectSum: setProjectSum,
+			_setEmployeeSum: setEmployeeSum,
+			_setStoreSum: setStoreSum,
+			
             inputsAddBack: inputsAddBack,
             _errorHandler: errorHandler
         });
@@ -174,7 +179,12 @@
                 InputsService.addItem(item)
                     .then(function () {
                         addItem(item);
+						
 						setDepartmentSum(vm.departmentID, vm.total);
+						setProjectSum(vm.projectID, vm.total);
+						setEmployeeSum(vm.employeeID, vm.total);
+						setStoreSum(vm.productID, vm.quantity);
+						
                         $rootScope.myError = false;
                         $state.go('inputs');
                     })
@@ -206,6 +216,36 @@
 						DepartmentsService.departments = departments;
 					}
 				}
+        }
+        function setProjectSum(id, sum) {
+            var projects = ProjectsService.projects;
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].id == id) {
+                    projects[i].sum = parseFloat(projects[i].sum) + parseFloat(sum);
+                    ProjectsService.projects = projects;
+                }
+            }
+        }        
+		
+		function setEmployeeSum(id, sum) {
+            var employees = EmployeesService.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employees[i].sum = parseFloat(employees[i].sum) + parseFloat(sum);
+                    EmployeesService.employees = employees;
+                }
+            }
+        }
+		
+        function setStoreSum(id, quantity) {
+            var goods = GoodsService.goods;
+            for (var i = 0; i < goods.length; i++) {
+                if (goods[i].id == id) {
+                    goods[i].quantity = parseFloat(goods[i].quantity) + parseFloat(quantity);
+                    goods[i].store = true;
+                    GoodsService.goods = goods;
+                }
+            }
         }
 		
         function inputsAddBack() {
