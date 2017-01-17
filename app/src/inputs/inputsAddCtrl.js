@@ -7,11 +7,13 @@
 
     InputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'InputsService', 'InputsLocalStorage',
         '$stateParams', 'employees', 'departments', 'projects', 'goods',
-		'InputsTransactionLocalStorage'];
+		'InputsTransactionLocalStorage',
+		'DepartmentsService'];
 
     function InputsAddCtrl($state, $rootScope, $filter, $timeout, InputsService, InputsLocalStorage,
                            $stateParams, employees, departments, projects, goods,
-						   InputsTransactionLocalStorage) {
+						   InputsTransactionLocalStorage,
+						   DepartmentsService) {
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
@@ -36,6 +38,7 @@
  
             inputsAddSubmit: inputsAddSubmit,
             _addItem: addItem,
+			_setDepartmentSum: setDepartmentSum,
             inputsAddBack: inputsAddBack,
             _errorHandler: errorHandler
         });
@@ -171,6 +174,7 @@
                 InputsService.addItem(item)
                     .then(function () {
                         addItem(item);
+						setDepartmentSum(vm.departmentID, vm.total);
                         $rootScope.myError = false;
                         $state.go('inputs');
                     })
@@ -193,7 +197,17 @@
         function addItem(item) {
             InputsService.inputs.push(item);
         }
-
+		
+        function setDepartmentSum(id, sum) {
+            var departments = DepartmentsService.departments;
+				for (var i = 0; i < departments.length; i++) {
+					if (departments[i].id == id) {
+						departments[i].sum = parseFloat(departments[i].sum) + parseFloat(sum);
+						DepartmentsService.departments = departments;
+					}
+				}
+        }
+		
         function inputsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
