@@ -7,11 +7,13 @@
 
     OutputsAddCtrl.$inject = ['$state', '$rootScope', '$filter', '$timeout', 'OutputsService', 'OutputsLocalStorage',
         '$stateParams', 'employees', 'departments', 'projects', 'goods',
-		'OutputsTransactionLocalStorage'];
+		'OutputsTransactionLocalStorage',
+		'DepartmentsService', 'ProjectsService', 'EmployeesService', 'GoodsService'];
 
     function OutputsAddCtrl($state, $rootScope, $filter, $timeout, OutputsService, OutputsLocalStorage,
                            $stateParams, employees, departments, projects, goods,
-						   OutputsTransactionLocalStorage) {
+						   OutputsTransactionLocalStorage,
+						   DepartmentsService, ProjectsService, EmployeesService, GoodsService) {
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
@@ -35,8 +37,14 @@
             updateChangeProduct: updateChangeProduct,
  
             outputsAddSubmit: outputsAddSubmit,
-            _addItem: addItem,
-            outputsAddBack: outputsAddBack,
+			
+			_addItem: addItem,
+			_setDepartmentSum: setDepartmentSum,
+			_setProjectSum: setProjectSum,
+			_setEmployeeSum: setEmployeeSum,
+			_setStoreSum: setStoreSum,
+            
+			outputsAddBack: outputsAddBack,
             _errorHandler: errorHandler
         });
 
@@ -171,6 +179,12 @@
                 OutputsService.addItem(item)
                     .then(function () {
                         addItem(item);
+						
+						setDepartmentSum(vm.departmentID, vm.total);
+						setProjectSum(vm.projectID, vm.total);
+						setEmployeeSum(vm.employeeID, vm.total);
+						setStoreSum(vm.productID, vm.quantity);
+						
                         $rootScope.myError = false;
                         $state.go('outputs');
                     })
@@ -193,7 +207,47 @@
         function addItem(item) {
             OutputsService.outputs.push(item);
         }
-
+		
+        function setDepartmentSum(id, sum) {
+            var departments = DepartmentsService.departments;
+				for (var i = 0; i < departments.length; i++) {
+					if (departments[i].id == id) {
+						departments[i].sum = parseFloat(departments[i].sum) - parseFloat(sum);
+						DepartmentsService.departments = departments;
+					}
+				}
+        }
+        function setProjectSum(id, sum) {
+            var projects = ProjectsService.projects;
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].id == id) {
+                    projects[i].sum = parseFloat(projects[i].sum) - parseFloat(sum);
+                    ProjectsService.projects = projects;
+                }
+            }
+        }        
+		
+		function setEmployeeSum(id, sum) {
+            var employees = EmployeesService.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employees[i].sum = parseFloat(employees[i].sum) - parseFloat(sum);
+                    EmployeesService.employees = employees;
+                }
+            }
+        }
+		
+        function setStoreSum(id, quantity) {
+            var goods = GoodsService.goods;
+            for (var i = 0; i < goods.length; i++) {
+                if (goods[i].id == id) {
+                    goods[i].quantity = parseFloat(goods[i].quantity) - parseFloat(quantity);
+                    goods[i].store = true;
+                    GoodsService.goods = goods;
+                }
+            }
+        }
+		
         function outputsAddBack() {
             $rootScope.loading = true;
             $timeout(function () {
