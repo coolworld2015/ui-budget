@@ -45,7 +45,6 @@
 
         function deleteItem(item) {
             var url = webUrl + 'api/inputs/delete';
-	console.log(item);
             return $http.post(url, item)
                 .then(function (result) {
                     return result;

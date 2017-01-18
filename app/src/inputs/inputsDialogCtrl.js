@@ -6,19 +6,28 @@
         .controller('InputsDialogCtrl', InputsDialogCtrl);
 
     InputsDialogCtrl.$inject = ['$state', '$q', '$rootScope', '$timeout', 'InputsService', 'InputsLocalStorage',
-        'InputsInvoiceService', 'InputsInvoiceLocalStorage', 'GoodsService', 'ProjectsService', '$stateParams',
-        'InputsTransactionLocalStorage'];
-
+        'InputsInvoiceService', 'InputsInvoiceLocalStorage', '$stateParams',
+        'InputsTransactionLocalStorage',
+		'DepartmentsService', 'ProjectsService', 'EmployeesService', 'GoodsService'];
+		
     function InputsDialogCtrl($state, $q, $rootScope, $timeout, InputsService, InputsLocalStorage,
-                              InputsInvoiceService, InputsInvoiceLocalStorage, GoodsService, ProjectsService, $stateParams,
-                              InputsTransactionLocalStorage) {
+                              InputsInvoiceService, InputsInvoiceLocalStorage, $stateParams,
+                              InputsTransactionLocalStorage,
+							  DepartmentsService, ProjectsService, EmployeesService, GoodsService) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
             _getInputInvoicesOn: getInputInvoicesOn,
             inputsDelete: inputsDelete,
-            _deleteItem: deleteItem,
+            
+			_deleteItem: deleteItem,
+			_setDepartmentSum: setDepartmentSum,
+			_setProjectSum: setProjectSum,
+			_setEmployeeSum: setEmployeeSum,
+			_setStoreSum: setStoreSum,
+			
+			
             _fillRequests: fillRequests,
             _modifyGoods: modifyGoods,
             _findGood: findGood,
@@ -95,41 +104,20 @@
                 description: vm.description
             };
 			
-			console.log(item);
-			
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
                 InputsService.deleteItem(item)
                     .then(function () {
                         deleteItem(vm.id);
+						
+						setDepartmentSum(vm.departmentID, vm.total);
+						setProjectSum(vm.projectID, vm.total);
+						setEmployeeSum(vm.employeeID, vm.total);
+						setStoreSum(vm.productID, vm.quantity);
+						
                         $rootScope.myError = false;
                         $state.go('inputs');
                     })
                     .catch(errorHandler);
-
-//                fillRequests();
-//
-//                $q.serial(vm.requests)
-//                    .catch(errorHandler);
-//
-//                ProjectsService.findClient($stateParams.item.clientID)
-//                    .then(function (client) {
-//                        client.data.sum = parseFloat(client.data.sum) - parseFloat($stateParams.item.total);
-//
-//                        ProjectsService.editItem(client.data)
-//                            .then(function () {
-//
-//                                InputsService.deleteItem(vm.id)
-//                                    .then(function () {
-//                                        deleteItem(vm.id);
-//                                        $rootScope.myError = false;
-//                                        $state.go('inputs');
-//                                    })
-//                                    .catch(errorHandler);
-//
-//                            })
-//                            .catch(errorHandler);
-//                    })
-//                    .catch(errorHandler);
             } else {
                 var sum = parseFloat($stateParams.item.total);
                 var quantity = parseFloat($stateParams.item.quantity);
@@ -156,7 +144,47 @@
                 }
             }
         }
-
+		
+        function setDepartmentSum(id, sum) {
+            var departments = DepartmentsService.departments;
+				for (var i = 0; i < departments.length; i++) {
+					if (departments[i].id == id) {
+						departments[i].sum = parseFloat(departments[i].sum) - parseFloat(sum);
+						DepartmentsService.departments = departments;
+					}
+				}
+        }
+        function setProjectSum(id, sum) {
+            var projects = ProjectsService.projects;
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].id == id) {
+                    projects[i].sum = parseFloat(projects[i].sum) - parseFloat(sum);
+                    ProjectsService.projects = projects;
+                }
+            }
+        }        
+		
+		function setEmployeeSum(id, sum) {
+            var employees = EmployeesService.employees;
+            for (var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employees[i].sum = parseFloat(employees[i].sum) - parseFloat(sum);
+                    EmployeesService.employees = employees;
+                }
+            }
+        }
+		
+        function setStoreSum(id, quantity) {
+            var goods = GoodsService.goods;
+            for (var i = 0; i < goods.length; i++) {
+                if (goods[i].id == id) {
+                    goods[i].quantity = parseFloat(goods[i].quantity) - parseFloat(quantity);
+                    goods[i].store = true;
+                    GoodsService.goods = goods;
+                }
+            }
+        }
+		
         function fillRequests() {
             vm.inputInvoices.forEach(function (el) {
                 if (el.invoiceID == $stateParams.item.id) {
