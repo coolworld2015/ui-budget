@@ -49,11 +49,8 @@
                 });
         }
 
-        function deleteItem(id) {
+        function deleteItem(item) {
             var url = webUrl + 'api/outputs/delete';
-            var item = {
-                "id": id
-            };
             return $http.post(url, item)
                 .then(function (result) {
                     return result;

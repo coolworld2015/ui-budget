@@ -151,9 +151,8 @@
 			vm.price = parseFloat(vm.price).toFixed(2);
 			vm.quantity = parseFloat(vm.quantity).toFixed(2);
 			
-            var id = (Math.random() * 1000000).toFixed();
             var item = {
-                id: id,
+                id: + new Date,
                 invoiceID: vm.invoiceID,
 				
                 project: vm.selectedProject.name,
