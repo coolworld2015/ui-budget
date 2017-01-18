@@ -72,8 +72,33 @@
             $rootScope.loading = true;
             $rootScope.myError = false;
 
+            var item = {
+                id: vm.id,
+                invoiceID: vm.invoiceID,
+				
+                project: vm.project,
+                projectID: vm.projectID,
+				
+                department: vm.department,
+                departmentID: vm.departmentID,
+       
+                employee: vm.employee,
+                employeeID: vm.employeeID,
+
+                product: vm.product,
+                productID: vm.productID,
+				quantity: vm.quantity,
+				price: vm.price,
+				
+				date: vm.date,
+                total: vm.total,
+                description: vm.description
+            };
+			
+			console.log(item);
+			
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
-                InputsService.deleteItem(vm.id)
+                InputsService.deleteItem(item)
                     .then(function () {
                         deleteItem(vm.id);
                         $rootScope.myError = false;

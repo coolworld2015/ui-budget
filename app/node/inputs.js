@@ -138,7 +138,6 @@ function addInput(req, res) {
             if (err) {
                 return res.send({error: 'Server error'});
             } else {
-				console.log(input);
 				
 				// Goods start here
 				GoodsModel.findOne({
@@ -159,7 +158,6 @@ function addInput(req, res) {
 								if (err) {
 									res.send(err);
 								} else {
-									console.log(item);
 																	
 									// Departments start here
 									DepartmentsModel.findOne({
@@ -180,7 +178,6 @@ function addInput(req, res) {
 													if (err) {
 														res.send(err);
 													} else {
-														console.log(department);
 														
 														// Projects start here
 														ProjectsModel.findOne({
@@ -201,7 +198,6 @@ function addInput(req, res) {
 																		if (err) {
 																			res.send(err);
 																		} else {
-																			console.log(project);
 																			
 																			// Employees start here
 																			EmployeesModel.findOne({
@@ -222,7 +218,7 @@ function addInput(req, res) {
 																						if (err) {
 																							res.send(err);
 																						} else {
-																							console.log(employee);
+																							console.log('Input with id: ', input.id, ' added');
 																							res.send(employee);
 																						}
 																					});
@@ -253,8 +249,108 @@ function removeAllInputs(req, res, err) {
 function removeInput(req, res) {
     InputsModel.remove({
         "id": req.body.id
-    }, function () {
-        console.log('Input with id: ', req.body.id, ' was removed');
+    }, function (err) {
+		if (err) {
+			res.send({error: err.message});
+            } else {
+				
+				// Goods start here
+				GoodsModel.findOne({
+					id: req.body.productID
+				}, 
+				function (err, item) {
+						if (err) {
+							res.send({error: err.message});
+						} else {
+
+							item.name = item.name;
+							item.price = item.price;
+							item.quantity = +item.quantity - +req.body.quantity;
+							item.store = true;
+							item.description = item.description;
+
+							item.save(function (err) {
+								if (err) {
+									res.send(err);
+								} else {
+																	
+									// Departments start here
+									DepartmentsModel.findOne({
+										id: req.body.departmentID
+									}, 
+									function (err, department) {
+											if (err) {
+												res.send({error: err.message});
+											} else {
+
+												department.name = department.name;
+												department.address = department.address;
+												department.phone = department.phone;
+												department.description = department.description;
+												department.sum = +department.sum - +req.body.total;
+
+												department.save(function (err) {
+													if (err) {
+														res.send(err);
+													} else {
+														
+														// Projects start here
+														ProjectsModel.findOne({
+															id: req.body.projectID
+														}, 
+														function (err, project) {
+																if (err) {
+																	res.send({error: err.message});
+																} else {
+
+																	project.name = project.name;
+																	project.address = project.address;
+																	project.phone = project.phone;
+																	project.description = project.description;
+																	project.sum = +project.sum - +req.body.total;
+
+																	project.save(function (err) {
+																		if (err) {
+																			res.send(err);
+																		} else {
+																			
+																			// Employees start here
+																			EmployeesModel.findOne({
+																				id: req.body.employeeID
+																			}, 
+																			function (err, employee) {
+																				if (err) {
+																					res.send({error: err.message});
+																				} else {
+
+																					employee.name = employee.name;
+																					employee.address = employee.address;
+																					employee.phone = employee.phone;
+																					employee.description = employee.description;
+																					employee.sum = +employee.sum - +req.body.total;
+
+																					employee.save(function (err) {
+																						if (err) {
+																							res.send(err);
+																						} else {
+																							console.log('Input with id: ', req.body.id, ' was removed');
+																							res.send();
+																						}
+																					});
+																				}
+																			});
+																		}
+																	});
+																}
+														});
+													}
+												});
+											}
+									});
+								}
+							});
+						}
+				});
+			}
     });
-    res.send('Input with id: ' + req.body.id + ' was removed');
 }
