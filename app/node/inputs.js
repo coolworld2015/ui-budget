@@ -116,7 +116,7 @@ function updateInput(req, res) {
 
 function addInput(req, res) {
     InputsModel.create({
-            id: + new Date,
+            id: req.body.id,
             invoiceID: req.body.invoiceID,
             project: req.body.project,
             projectID: req.body.projectID,
