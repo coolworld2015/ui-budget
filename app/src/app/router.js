@@ -84,7 +84,10 @@
                     switch (state) {
                         case 'goods':
                             if ($rootScope.goods === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         GoodsService.goods = result.data;
                                         $rootScope.goods = true;
@@ -103,7 +106,10 @@
 
                         case 'departments':
                             if ($rootScope.departments === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         DepartmentsService.departments = result.data;
                                         $rootScope.departments = true;
@@ -122,7 +128,10 @@
 
                         case 'projects':
                             if ($rootScope.projects === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         ProjectsService.projects = result.data;
                                         $rootScope.projects = true;
@@ -141,7 +150,10 @@
 
                         case 'employees':
                             if ($rootScope.employees === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         EmployeesService.employees = result.data;
                                         $rootScope.employees = true;
@@ -160,7 +172,10 @@
 
                         case 'users':
                             if ($rootScope.users === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         UsersService.users = result.data;
                                         $rootScope.users = true;
@@ -179,7 +194,10 @@
 
                         case 'inputs':
                             if ($rootScope.inputs === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         InputsService.inputs = result.data;
                                         $rootScope.inputs = true;
@@ -198,7 +216,10 @@
 
                         case 'outputs':
                             if ($rootScope.outputs === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         OutputsService.outputs = result.data;
                                         $rootScope.outputs = true;
@@ -217,7 +238,10 @@
 
                         case 'inputInvoices':
                             if ($rootScope.inputInvoices === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         InputsInvoiceService.inputInvoices = result.data;
                                         $rootScope.inputInvoices = true;
@@ -236,7 +260,10 @@
 
                         case 'outputInvoices':
                             if ($rootScope.outputInvoices === undefined) {
-                                return $http.get(webUrl + url)
+								return $http.get(webUrl + url,
+									{
+										headers: {'Authorization': $rootScope.access_token}
+									})
                                     .then(function (result) {
                                         OutputsInvoiceService.outputInvoices = result.data;
                                         $rootScope.outputInvoices = true;
