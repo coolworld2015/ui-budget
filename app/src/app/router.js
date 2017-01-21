@@ -254,8 +254,10 @@
                             break;
 
                         case 'audit':
-                            webUrl = $rootScope.myConfig.webUrl + url;
-                            return $http.get(webUrl)
+							return $http.get(webUrl + url,
+								{
+									headers: {'Authorization': $rootScope.access_token}
+								})
                                 .then(function (result) {
                                     $rootScope.loading = false;
                                     return result.data;

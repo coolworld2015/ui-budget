@@ -5,14 +5,15 @@
         .module('app')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$rootScope', '$state', 'UsersService', 'UsersLocalStorage', 'AuditService'];
+    LoginCtrl.$inject = ['$rootScope', '$state', '$http', 'UsersService', 'UsersLocalStorage'];
 
-    function LoginCtrl($rootScope, $state, UsersService, UsersLocalStorage, AuditService) {
+    function LoginCtrl($rootScope, $state, $http, UsersService, UsersLocalStorage) {
         var vm = this;
 
         angular.extend(vm, {
             init: init,
             toLogin: toLogin,
+			onLogin: onLogin,
             checkUser: checkUser,
             _check: check,
             _errorHandler: errorHandler
@@ -25,15 +26,41 @@
             $rootScope.loading = false;
             $rootScope.error = false;
             $rootScope.message = false;
+			
+			vm.name = '1';
+			vm.pass = '1';
         }
 
         function toLogin() {
             if (vm.form.$invalid) {
                 return;
             }
-            checkUser(vm.name, vm.pass);
+            //checkUser(vm.name, vm.pass);
+			onLogin();
         }
-
+		
+		function onLogin() {
+			$rootScope.loading = true;
+			$rootScope.error = false;
+			var webUrl = $rootScope.myConfig.webUrl;
+			
+			var item = {
+				"name": vm.name,
+				"pass": vm.pass,
+				"description": navigator.userAgent
+			};
+			
+			$http.post(webUrl + 'api/login', item)
+					.then(function (results) {
+						$rootScope.loading = false;
+						$rootScope.access_token = results.data;
+						console.log(results);
+						$rootScope.currentUser = vm.name;
+						$state.go('main');
+					})
+					.catch(errorHandler);
+		}
+		
         function checkUser(name, pass) {
             $rootScope.myError = false;
             $rootScope.loading = true;
