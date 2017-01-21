@@ -13,10 +13,10 @@
         return {
             users: [],
 			getUsers: getUsers,
-            findByName: findByName,
             addItem: addItem,
             editItem: editItem,
-            deleteItem: deleteItem
+            deleteItem: deleteItem,
+			findByName: findByName
         };
 		
         function getUsers() {
@@ -31,17 +31,7 @@
                 });
         }
 
-        function findByName(name) {
-            var url = webUrl + 'api/users/findByName/' + name;
-			return $http.get(url,
-				{
-					headers: {'Authorization': $rootScope.access_token}
-				})
-                .then(function (result) {
-                    result.data;
-                    return result;
-                });
-        }
+
 
          function addItem(item) {
             var url = webUrl + 'api/users/add';
@@ -69,6 +59,18 @@
 			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
+                    return result;
+                });
+        }
+		
+		function findByName(name) {
+            var url = webUrl + 'api/users/findByName/' + name;
+			return $http.get(url,
+				{
+					headers: {'Authorization': $rootScope.access_token}
+				})
+                .then(function (result) {
+                    result.data;
                     return result;
                 });
         }

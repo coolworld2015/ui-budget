@@ -22,7 +22,10 @@
 		
         function getEmployees() {
             var url = webUrl + 'api/employees/get';
-            return $http.get(url)
+			return $http.get(url,
+				{
+					headers: {'Authorization': $rootScope.access_token}
+				})
                 .then(function (result) {
                     result.data.sort(sort);
                     return result;
@@ -31,6 +34,7 @@
 		
         function addItem(item) {
             var url = webUrl + 'api/employees/add';
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -39,6 +43,7 @@
 		
         function editItem(item) {
             var url = webUrl + 'api/employees/update';
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -50,6 +55,7 @@
             var item = {
                 "id": id
             };
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -61,6 +67,7 @@
             var item = {
                 "id": id
             };
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
