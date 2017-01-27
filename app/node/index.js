@@ -39,6 +39,7 @@ var AuditModel = require('./mongo').AuditModel;
 var UsersModel = require('./mongo').UsersModel;
 var EmployeesModel = require('./mongo').EmployeesModel;
 var DepartmentsModel = require('./mongo').DepartmentsModel;
+var ProjectsModel = require('./mongo').ProjectsModel;
 
 //------------------------------------------------------------------------ API
 app.post('/api/login', Login);
@@ -60,6 +61,11 @@ app.get('/api/departments/get', getDepartments);
 app.post('/api/departments/add', addDepartment);
 app.post('/api/departments/update', updateDepartment);
 app.post('/api/departments/delete', deleteDepartment);
+
+app.get('/api/projects/get', getProjects);
+app.post('/api/projects/add', addProject);
+app.post('/api/projects/update', updateProject);
+app.post('/api/projects/delete', deleteProject);
 
 //------------------------------------------------------------------------ Login
 function Login(req, res) {
@@ -482,6 +488,117 @@ function deleteDepartment(req, res) {
 				} else {
 					console.log('Department with id: ', req.body.id, ' was removed');
 					res.send('Department with id: ' + req.body.id + ' was removed');
+				}
+			});
+		}
+	});
+}
+
+//------------------------------------------------------------------------ Projects
+function getProjects(req, res) {
+	var agent = req.headers.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			return ProjectsModel.find(function (err, projects) {
+				if (err) {
+					return res.send({error: 'Server error'});
+				} else {
+					res.send(projects);
+				}
+			});
+		}
+	});
+}
+
+function addProject(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			ProjectsModel.create({
+					id: req.body.id,
+					name: req.body.name,
+					address: req.body.address,
+					phone: req.body.phone,
+					description: req.body.description,
+					sum: req.body.sum
+				},
+				function (err, project) {
+					if (err) {
+						return res.send({error: 'Server error'});
+					} else {
+						res.send(project);
+					}
+				});
+		}
+	});
+}
+
+function updateProject(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			ProjectsModel.findOne({
+				id: req.body.id
+			}, function (err, project) {
+				if (err) {
+					return res.send({error: err.message});
+				} else {
+					project.name = req.body.name;
+					project.address = req.body.address;
+					project.phone = req.body.phone;
+					project.description = req.body.description;
+					project.sum = req.body.sum;
+
+					project.save(function (err) {
+						if (err) {
+							return res.send({error: 'Server error'});
+						} else {
+							res.send(project);
+						}
+					});
+				}	
+			});
+		}
+	});
+}
+
+function deleteProject(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			ProjectsModel.remove({
+				"id": req.body.id
+			}, 
+			function (err) {
+				if (err) {
+					return res.send({error: 'Server error'});
+				} else {
+					console.log('Project with id: ', req.body.id, ' was removed');
+					res.send('Project with id: ' + req.body.id + ' was removed');
 				}
 			});
 		}
