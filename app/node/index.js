@@ -40,6 +40,7 @@ var UsersModel = require('./mongo').UsersModel;
 var EmployeesModel = require('./mongo').EmployeesModel;
 var DepartmentsModel = require('./mongo').DepartmentsModel;
 var ProjectsModel = require('./mongo').ProjectsModel;
+var GoodsModel = require('./mongo').GoodsModel;
 
 //------------------------------------------------------------------------ API
 app.post('/api/login', Login);
@@ -66,6 +67,11 @@ app.get('/api/projects/get', getProjects);
 app.post('/api/projects/add', addProject);
 app.post('/api/projects/update', updateProject);
 app.post('/api/projects/delete', deleteProject);
+
+app.get('/api/goods/get', getGoods);
+app.post('/api/goods/add', addGood);
+app.post('/api/goods/update', updateGood);
+app.post('/api/goods/delete', deleteGood);
 
 //------------------------------------------------------------------------ Login
 function Login(req, res) {
@@ -599,6 +605,118 @@ function deleteProject(req, res) {
 				} else {
 					console.log('Project with id: ', req.body.id, ' was removed');
 					res.send('Project with id: ' + req.body.id + ' was removed');
+				}
+			});
+		}
+	});
+}
+
+//------------------------------------------------------------------------ Goods
+function getGoods(req, res) {
+	var agent = req.headers.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			return GoodsModel.find(function (err, goods) {
+				if (err) {
+					return res.send({error: 'Server error'});
+				} else {
+					res.send(goods);
+				}
+			});
+		}
+	});
+}
+
+function addGood(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			GoodsModel.create({
+					id: req.body.id,
+					name: req.body.name,
+					price: req.body.price,
+					quantity: req.body.quantity,
+					store: req.body.store,
+					description: req.body.description
+				},
+				function (err, good) {
+					if (err) {
+						return res.send({error: 'Server error'});
+					} else {
+						res.send(good);
+					}
+				});
+		}
+	});
+}
+
+function updateGood(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			GoodsModel.findOne({
+				id: req.body.id
+			}, function (err, good) {
+				if (err) {
+					return res.send({error: err.message});
+				} else {
+					good.name = req.body.name;
+					good.address = req.body.address;
+					good.price = req.body.price;
+					good.quantity = req.body.quantity;
+					good.store = req.body.store;
+					good.description = req.body.description;
+
+					good.save(function (err) {
+						if (err) {
+							return res.send({error: 'Server error'});
+						} else {
+							res.send(good);
+						}
+					});
+				}	
+			});
+		}
+	});
+}
+
+function deleteGood(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			GoodsModel.remove({
+				"id": req.body.id
+			}, 
+			function (err) {
+				if (err) {
+					return res.send({error: 'Server error'});
+				} else {
+					console.log('Good with id: ', req.body.id, ' was removed');
+					res.send('Good with id: ' + req.body.id + ' was removed');
 				}
 			});
 		}
