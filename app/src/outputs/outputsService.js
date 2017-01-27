@@ -20,7 +20,10 @@
 		
         function getOutputs() {
             var url = webUrl + 'api/outputs/get';
-            return $http.get(url)
+			return $http.get(url,
+				{
+					headers: {'Authorization': $rootScope.access_token}
+				})
                 .then(function (result) {
                     result.data.sort();
                     return result;
@@ -29,6 +32,7 @@
 		
         function addItem(item) {
             var url = webUrl + 'api/outputs/add';
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -40,6 +44,7 @@
 
         function editItem(item) {
             var url = webUrl + 'api/outputs/update';
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;
@@ -51,6 +56,7 @@
 
         function deleteItem(item) {
             var url = webUrl + 'api/outputs/delete';
+			item.authorization = $rootScope.access_token;
             return $http.post(url, item)
                 .then(function (result) {
                     return result;

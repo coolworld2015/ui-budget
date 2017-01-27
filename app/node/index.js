@@ -42,6 +42,7 @@ var DepartmentsModel = require('./mongo').DepartmentsModel;
 var ProjectsModel = require('./mongo').ProjectsModel;
 var GoodsModel = require('./mongo').GoodsModel;
 var InputsModel = require('./mongo').InputsModel;
+var OutputsModel = require('./mongo').OutputsModel;
 
 //------------------------------------------------------------------------ API
 app.post('/api/login', Login);
@@ -77,6 +78,10 @@ app.post('/api/goods/delete', deleteGood);
 app.get('/api/inputs/get', getInputs);
 app.post('/api/inputs/add', addInput);
 app.post('/api/inputs/delete', deleteInput);
+
+app.get('/api/outputs/get', getOutputs);
+app.post('/api/outputs/add', addOutput);
+app.post('/api/outputs/delete', deleteOutput);
 
 //------------------------------------------------------------------------ Login
 function Login(req, res) {
@@ -728,7 +733,6 @@ function deleteGood(req, res) {
 	});
 }
 
-
 //------------------------------------------------------------------------ Inputs
 function getInputs(req, res) {
 	var agent = req.headers.authorization;
@@ -985,6 +989,285 @@ function deleteInput(req, res) {
 																									res.send(err);
 																								} else {
 																									console.log('Input with id: ', req.body.id, ' was removed');
+																									res.send();
+																								}
+																							});
+																						}
+																					});
+																				}
+																			});
+																		}
+																});
+															}
+														});
+													}
+											});
+										}
+									});
+								}
+						});
+					}
+				});
+			}
+	});				
+}
+
+//------------------------------------------------------------------------ Outputs
+function getOutputs(req, res) {
+	var agent = req.headers.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			return OutputsModel.find(function (err, outputs) {
+				if (err) {
+					return res.send({error: 'Server error'});
+				} else {
+					res.send(outputs);
+				}
+			});
+		}
+	});
+}
+
+function addOutput(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			OutputsModel.create({
+					id: req.body.id,
+					invoiceID: req.body.invoiceID,
+					project: req.body.project,
+					projectID: req.body.projectID,
+
+					department: req.body.department,
+					departmentID: req.body.departmentID,
+					employee: req.body.employee,
+					employeeID: req.body.employeeID,
+					product: req.body.product,
+					productID: req.body.productID,
+					quantity: req.body.quantity,
+					price: req.body.price,
+
+					date: req.body.date,
+					total: req.body.total,
+					description: req.body.description
+				},
+				function (err, output) {
+					if (err) {
+						return res.send({error: 'Server error'});
+					} else {
+						
+						// Goods start here
+						GoodsModel.findOne({
+							id: req.body.productID
+						}, 
+						function (err, item) {
+								if (err) {
+									res.send({error: err.message});
+								} else {
+
+									item.name = item.name;
+									item.price = item.price;
+									item.quantity = +item.quantity - +req.body.quantity;
+									item.store = true;
+									item.description = item.description;
+
+									item.save(function (err) {
+										if (err) {
+											res.send(err);
+										} else {
+																			
+											// Departments start here
+											DepartmentsModel.findOne({
+												id: req.body.departmentID
+											}, 
+											function (err, department) {
+													if (err) {
+														res.send({error: err.message});
+													} else {
+
+														department.name = department.name;
+														department.address = department.address;
+														department.phone = department.phone;
+														department.description = department.description;
+														department.sum = +department.sum - +req.body.total;
+
+														department.save(function (err) {
+															if (err) {
+																res.send(err);
+															} else {
+																
+																// Projects start here
+																ProjectsModel.findOne({
+																	id: req.body.projectID
+																}, 
+																function (err, project) {
+																		if (err) {
+																			res.send({error: err.message});
+																		} else {
+
+																			project.name = project.name;
+																			project.address = project.address;
+																			project.phone = project.phone;
+																			project.description = project.description;
+																			project.sum = +project.sum - +req.body.total;
+
+																			project.save(function (err) {
+																				if (err) {
+																					res.send(err);
+																				} else {
+																					
+																					// Employees start here
+																					EmployeesModel.findOne({
+																						id: req.body.employeeID
+																					}, 
+																					function (err, employee) {
+																						if (err) {
+																							res.send({error: err.message});
+																						} else {
+
+																							employee.name = employee.name;
+																							employee.address = employee.address;
+																							employee.phone = employee.phone;
+																							employee.description = employee.description;
+																							employee.sum = +employee.sum - +req.body.total;
+
+																							employee.save(function (err) {
+																								if (err) {
+																									res.send(err);
+																								} else {
+																									console.log('Output with id: ', output.id, ' added');
+																									res.send(employee);
+																								}
+																							});
+																						}
+																					});
+																				}
+																			});
+																		}
+																});
+															}
+														});
+													}
+											});
+										}
+									});
+								}
+						});
+					}
+				});
+			}
+	});	
+}
+
+function deleteOutput(req, res) {
+	var agent = req.body.authorization;
+	
+	jwt.verify(agent, secret, function(err, decoded) {
+		if (err) {
+			return res.status(403).send({ 
+				success: false, 
+				message: 'No token provided.' 
+			});
+		} else {
+			OutputsModel.remove({
+				"id": req.body.id
+			}, function (err) {
+				if (err) {
+					res.send({error: err.message});
+					} else {
+						
+						// Goods start here
+						GoodsModel.findOne({
+							id: req.body.productID
+						}, 
+						function (err, item) {
+								if (err) {
+									res.send({error: err.message});
+								} else {
+
+									item.name = item.name;
+									item.price = item.price;
+									item.quantity = +item.quantity + +req.body.quantity;
+									item.store = true;
+									item.description = item.description;
+
+									item.save(function (err) {
+										if (err) {
+											res.send(err);
+										} else {
+																			
+											// Departments start here
+											DepartmentsModel.findOne({
+												id: req.body.departmentID
+											}, 
+											function (err, department) {
+													if (err) {
+														res.send({error: err.message});
+													} else {
+
+														department.name = department.name;
+														department.address = department.address;
+														department.phone = department.phone;
+														department.description = department.description;
+														department.sum = +department.sum + +req.body.total;
+
+														department.save(function (err) {
+															if (err) {
+																res.send(err);
+															} else {
+																
+																// Projects start here
+																ProjectsModel.findOne({
+																	id: req.body.projectID
+																}, 
+																function (err, project) {
+																		if (err) {
+																			res.send({error: err.message});
+																		} else {
+
+																			project.name = project.name;
+																			project.address = project.address;
+																			project.phone = project.phone;
+																			project.description = project.description;
+																			project.sum = +project.sum + +req.body.total;
+
+																			project.save(function (err) {
+																				if (err) {
+																					res.send(err);
+																				} else {
+																					
+																					// Employees start here
+																					EmployeesModel.findOne({
+																						id: req.body.employeeID
+																					}, 
+																					function (err, employee) {
+																						if (err) {
+																							res.send({error: err.message});
+																						} else {
+
+																							employee.name = employee.name;
+																							employee.address = employee.address;
+																							employee.phone = employee.phone;
+																							employee.description = employee.description;
+																							employee.sum = +employee.sum + +req.body.total;
+
+																							employee.save(function (err) {
+																								if (err) {
+																									res.send(err);
+																								} else {
+																									console.log('Output with id: ', req.body.id, ' was removed');
 																									res.send();
 																								}
 																							});
