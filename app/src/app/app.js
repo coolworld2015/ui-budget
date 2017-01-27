@@ -64,8 +64,8 @@
         $rootScope.numPerPageItems = 10;
 
         $rootScope.myConfig = {
-            //webUrl: 'http://ui-budget.herokuapp.com/' //TODO Heroku MongoDB
-            webUrl: 'http://localhost:3000/' //TODO Local MongoDB
+            webUrl: 'http://jwt-budget.herokuapp.com/' //TODO Heroku MongoDB
+            //webUrl: 'http://localhost:3000/' //TODO Local MongoDB
             //webUrl: 'http://localhost:3000/file/' //TODO Local JSON DB
         };
 
