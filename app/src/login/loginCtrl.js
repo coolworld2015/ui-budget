@@ -53,7 +53,7 @@
 			$http.post(webUrl + 'api/login', item)
 					.then(function (results) {
 						$rootScope.loading = false;
-						$rootScope.access_token = results.data;
+						$rootScope.access_token = results.data.token;
 						console.log(results);
 						$rootScope.currentUser = vm.name;
 						$state.go('main');

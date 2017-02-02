@@ -108,7 +108,7 @@ function Login(req, res) {
 					if (err) {
 						return res.send({error: 'Server error'});
 					} else {
-						res.send(token); // Send TOKEN here !!!
+						res.send({token: token}); // Send TOKEN here !!!
 					}
 				});
 				// Audit end
