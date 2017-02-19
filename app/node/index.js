@@ -281,7 +281,7 @@ function deleteUser(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('User with id: ', req.body.id, ' was removed');
-					res.send('User with id: ' + req.body.id + ' was removed');
+					res.send({text: 'User with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
@@ -392,7 +392,7 @@ function deleteEmployee(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('Employee with id: ', req.body.id, ' was removed');
-					res.send('Employee with id: ' + req.body.id + ' was removed');
+					res.send({text: 'Employee with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
@@ -503,7 +503,7 @@ function deleteDepartment(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('Department with id: ', req.body.id, ' was removed');
-					res.send('Department with id: ' + req.body.id + ' was removed');
+					res.send({text: 'Department with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
@@ -614,7 +614,7 @@ function deleteProject(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('Project with id: ', req.body.id, ' was removed');
-					res.send('Project with id: ' + req.body.id + ' was removed');
+					res.send({text: 'Project with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
@@ -726,7 +726,7 @@ function deleteGood(req, res) {
 					return res.send({error: 'Server error'});
 				} else {
 					console.log('Good with id: ', req.body.id, ' was removed');
-					res.send('Good with id: ' + req.body.id + ' was removed');
+					res.send({text: 'Good with id: ' + req.body.id + ' was removed'});
 				}
 			});
 		}
@@ -989,7 +989,7 @@ function deleteInput(req, res) {
 																									res.send(err);
 																								} else {
 																									console.log('Input with id: ', req.body.id, ' was removed');
-																									res.send();
+																									res.send({text: 'Input with id: ' + req.body.id + ' was removed'});
 																								}
 																							});
 																						}
@@ -1268,7 +1268,7 @@ function deleteOutput(req, res) {
 																									res.send(err);
 																								} else {
 																									console.log('Output with id: ', req.body.id, ' was removed');
-																									res.send();
+																									res.send({text: 'Output with id: ' + req.body.id + ' was removed'});
 																								}
 																							});
 																						}
