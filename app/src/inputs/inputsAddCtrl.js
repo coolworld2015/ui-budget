@@ -17,7 +17,7 @@
         var vm = this;
 
         var optionalProject = {name: 'Select project'};
-        var optionalDepartment = {name: 'Select department'};
+        var optionalDepartment = {name: 'Select department', id: 0};
         var optionalEmployee = {name: 'Select employee'};
         var optionalProduct = {name: 'Select resource'};
 
@@ -75,7 +75,8 @@
             vm.departmentsOptions.unshift(optionalDepartment);
 
             vm.employees = employees;
-            vm.employeesOptions = [].concat(vm.employees);
+            //vm.employeesOptions = [].concat(vm.employees);
+            vm.employeesOptions = [];
             vm.employeesOptions.unshift(optionalEmployee);
 
             vm.products = goods;
@@ -97,14 +98,32 @@
         }
 
         function updateChangeDepartment(item) {
-            vm.errorDepartment = false;
-            vm.departmentID = item.id;
+			if (item) {
+				vm.errorDepartment = false;
+				vm.errorEmployee = false;
+				vm.departmentID = item.id;
+				
+				var arrEmployees = [].concat(vm.employees);	 
+				vm.employeesOptions = arrEmployees.filter(function(el) {
+					return (el.departmentID == item.id);
+				});
+				
+				vm.employeeID = vm.employeesOptions[0].id;
+				
+				if (vm.employeesOptions.length == 0) {
+					vm.employeesOptions.unshift({name: 'Select employee'});
+				}
+				
+				vm.selectedEmployee = vm.employeesOptions[0];
+			}	
         }
 		
         function updateChangeEmployee(item) {
-            vm.errorEmployee = false;
-            vm.employeeID = item.id;
-        }        
+			if (item) {
+				vm.errorEmployee = false;
+				vm.employeeID = item.id;
+			}   
+		}        
 		
 		function updateChangeProduct(item) {
             vm.errorProduct = false;
