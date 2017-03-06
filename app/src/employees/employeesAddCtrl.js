@@ -13,6 +13,8 @@
 		var optionalDepartment = {name: 'Select department'};
 		
         angular.extend(vm, {
+			selectedDepartment: optionalDepartment,
+			
             init: init,
 			updateChangeDepartment: updateChangeDepartment,
             employeesAddSubmit: employeesAddSubmit,
