@@ -10,13 +10,9 @@
 		<table class="table table-bordered">
 			<tr>
 				<td>
-					<input type="text" class="form-control input" required
-						   placeholder="Name" name="name"
+					<input readonly type="text" class="form-control readonly"
+						   placeholder="Name"
 						   ng-model="projectsEditCtrl.name">
-
-					<div ng-if="projectsEditCtrl.form.$submitted">
-						<div ng-show="projectsEditCtrl.form.name.$error.required" class="valid">Value required</div>
-					</div>
 				</td>
 			</tr>
 
@@ -59,7 +55,7 @@
 			<tr>
 				<td>
 					<input readonly type="text" class="form-control readonly"
-						   placeholder="Category"
+						   placeholder="Total"
 						   ng-model="projectsEditCtrl.total">
 				</td>
 			</tr>
