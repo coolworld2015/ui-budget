@@ -326,6 +326,8 @@ function addEmployee(req, res) {
 					address: req.body.address,
 					phone: req.body.phone,
 					description: req.body.description,
+					departmentID: req.body.departmentID,
+					department: req.body.department,
 					sum: req.body.sum
 				},
 				function (err, employee) {
@@ -359,6 +361,8 @@ function updateEmployee(req, res) {
 					employee.address = req.body.address;
 					employee.phone = req.body.phone;
 					employee.description = req.body.description;
+					employee.departmentID = req.body.departmentID;
+					employee.department = req.body.department;
 					employee.sum = req.body.sum;
 
 					employee.save(function (err) {

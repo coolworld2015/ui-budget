@@ -49,6 +49,8 @@ var Employees = new Schema({
     address: {type: String, required: true},
     phone: {type: String, required: true},
     description: {type: String, required: true},
+    departmentID: {type: String, required: true},
+    department: {type: String, required: true},
     sum: {type: String, required: true}
 });
 
