@@ -10,6 +10,19 @@
         <table class="table table-bordered">
             <tr>
                 <td>
+                    <select required class="form-control select"
+                            ng-model="employeesAddCtrl.selectedDepartment"
+                            ng-options="departmentsOption.name for departmentsOption in employeesAddCtrl.departmentsOptions
+							track by departmentsOption.name"
+                            ng-change="employeesAddCtrl.updateChangeDepartment(employeesAddCtrl.selectedDepartment)">
+                    </select>
+
+                    <div ng-show="employeesAddCtrl.errorDepartment" class="valid">Value required</div>
+                </td>
+            </tr>	
+			
+            <tr>
+                <td>
                     <input type="text" class="form-control input" required
                            placeholder="Name" name="name"
                            ng-model="employeesAddCtrl.name">

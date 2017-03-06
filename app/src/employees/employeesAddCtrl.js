@@ -5,13 +5,16 @@
         .module('app')
         .controller('EmployeesAddCtrl', EmployeesAddCtrl);
 
-    EmployeesAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'EmployeesService', 'EmployeesLocalStorage'];
+    EmployeesAddCtrl.$inject = ['$state', '$rootScope', '$timeout', 'departments', 'EmployeesService', 'EmployeesLocalStorage'];
 
-    function EmployeesAddCtrl($state, $rootScope, $timeout, EmployeesService, EmployeesLocalStorage) {
+    function EmployeesAddCtrl($state, $rootScope, $timeout, departments, EmployeesService, EmployeesLocalStorage) {
         var vm = this;
-
+        
+		var optionalDepartment = {name: 'Select department'};
+		
         angular.extend(vm, {
             init: init,
+			updateChangeDepartment: updateChangeDepartment,
             employeesAddSubmit: employeesAddSubmit,
             _addItem: addItem,
             employeesAddBack: employeesAddBack,
@@ -26,9 +29,28 @@
 
         function init() {
             $rootScope.loading = false;
+			
+            vm.departments = departments;
+            vm.departmentsOptions = [].concat(vm.departments);
+console.log(vm.departmentsOptions)
+            vm.departmentsOptions.unshift(optionalDepartment);			
+console.log(vm.departmentsOptions)
         }
-
+		
+        function updateChangeDepartment(item) {
+            vm.errorDepartment = false;
+            vm.departmentID = item.id;
+        }
+		
         function employeesAddSubmit() {
+			if (vm.selectedDepartment.name == 'Select department') {
+                vm.errorDepartment = true;
+            }
+			
+            if (vm.errorDepartment == true) {
+                return;
+            }
+			
             if (vm.form.$invalid) {
                 return;
             }
@@ -36,12 +58,13 @@
             $rootScope.myError = false;
             $rootScope.loading = true;
 			
-            var id = (Math.random() * 1000000).toFixed();
             var item = {
-                id: id,
+                id: + new Date,
                 name: vm.name,
                 address: vm.address,
                 phone: vm.phone,
+                department: vm.selectedDepartment.name,
+                departmentID: vm.departmentID,				
                 description: vm.description,
                 sum: 0
             };

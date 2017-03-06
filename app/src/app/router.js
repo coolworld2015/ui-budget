@@ -500,7 +500,10 @@
                 },
                 templateUrl: 'employees/employees-add.html',
                 controller: 'EmployeesAddCtrl',
-                controllerAs: 'employeesAddCtrl'
+                controllerAs: 'employeesAddCtrl',
+				resolve: {
+                    departments: resolveResource('api/departments/get', 'departments', sort)
+                }
             })
 
             .state('employees-edit', {
