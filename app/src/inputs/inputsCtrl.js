@@ -31,7 +31,8 @@
         init();
 
         function init() {
-            vm.title = 'Payments';
+            //vm.title = 'Inputs';
+            vm.title = 'Приход';
             vm.sort = 'name';
             vm.inputs = [].concat(inputs);
             vm.inputs = vm.inputs.reverse();

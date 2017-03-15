@@ -25,6 +25,9 @@
         init();
 
         function init() {
+            //vm.title = 'Search items';
+            vm.title = 'Отчеты';
+			
             vm.options = [
                 {name: 'Select search'},
                 {name: 'Search by Name'},

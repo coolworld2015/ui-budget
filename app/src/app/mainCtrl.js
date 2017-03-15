@@ -12,7 +12,8 @@
 
         angular.extend(vm, {
             init: init,
-            go: go
+            go: go,
+			language: $rootScope.language
         });
 
         $timeout(function () {
@@ -22,6 +23,7 @@
         init();
 
         function init() {
+			console.log
             $rootScope.myError = false;
             $rootScope.loading = false;
             $rootScope.message = false;

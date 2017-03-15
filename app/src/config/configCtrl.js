@@ -15,6 +15,7 @@
         angular.extend(vm, {
             init: init,
             toggleMode: toggleMode,
+            toggleLanguage: toggleLanguage,
             doAction: doAction,
 			_getClientsHeroku: getClientsHeroku,
 			_getGoodsHeroku: getGoodsHeroku,
@@ -22,7 +23,8 @@
 			_loading: loading,
 			_error: error,
 			_complete: complete,
-            toMain: toMain
+            toMain: toMain,
+			language: $rootScope.language
         });
 		
         $timeout(function () {
@@ -36,7 +38,8 @@
             vm.mode = $rootScope.mode;
             $rootScope.myError = false;
             $rootScope.loading = false;
-
+			vm.lang = $rootScope.lang;
+			
             vm.options = [
                 {name: 'Select transaction', value: 'none'},
                 //{name: 'Get clients (Heroku)', value: 'heroku.clients.get'},
@@ -56,6 +59,17 @@
             }
             localStorage.setItem('ui-budget.mode', JSON.stringify(vm.mode));
             toMain();
+        }        
+		
+		function toggleLanguage() {
+            if ($rootScope.lang == 'English') {
+				$rootScope.lang = 'Русский';
+				$rootScope.language = $rootScope.rus;
+            } else {
+				$rootScope.lang = 'English';
+                $rootScope.language = $rootScope.eng;
+            }
+			toMain();
         }
 
         function doAction() {

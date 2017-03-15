@@ -31,7 +31,8 @@
         init();
 
         function init() {
-            vm.title = 'Projects';
+            //vm.title = 'Projects';
+            vm.title = 'Проекты';
             vm.sort = 'name';
             vm.projects = projects;
             vm.projectsFilter = [];
