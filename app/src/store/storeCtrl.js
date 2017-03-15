@@ -22,7 +22,8 @@
             goToBack: goToBack,
 			goToHead: goToHead,			
             storeBack: storeBack,
-			_errorHandler: errorHandler	
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         $timeout(function () {

@@ -1,5 +1,5 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{storeCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="storeCtrl.goToBack()">
     <hr>
@@ -10,7 +10,7 @@
 
     <div>
         <input type="text" class="form-control input"
-               placeholder="Search here"
+               placeholder={{storeCtrl.language.find}}
                ng-model="storeCtrl.query.name">
     </div>
 
@@ -20,8 +20,7 @@
 
             <td class="input">
                 <div class="name-div">
-                    {{item.name}} <br>
-                    Quantity: {{item.quantity | number:2}}
+                    {{item.name}}: {{item.quantity | number:2}}
                 </div>
             </td>
 
@@ -29,7 +28,7 @@
     </table>
 
     <hr class="fix-hr">
-		<span class="label label-primary per-page">Items per page:
+		<span class="label label-primary per-page">{{storeCtrl.language.records}}
 			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
 		</span>
 
@@ -38,6 +37,6 @@
                     boundary-links="true"></pagination>
     </div>
 
-    <button class="btn btn-primary button" ng-click="storeCtrl.storeBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="storeCtrl.storeBack()" scroll-here>{{storeCtrl.language.back}}</button>
     <div class="blanker"></div>
 </center>

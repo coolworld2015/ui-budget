@@ -28,8 +28,8 @@
             $rootScope.error = false;
             $rootScope.message = false;
 			
-			//vm.name = '1';
-			//vm.pass = '1';
+			vm.name = '1';
+			vm.pass = '1';
         }
 
         function toLogin() {
