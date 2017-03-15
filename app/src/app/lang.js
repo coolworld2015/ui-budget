@@ -11,6 +11,8 @@
 		$rootScope.language = {};
 
 		var rus = {
+			phone: 'Телефон',
+			address: 'Адрес',
 			yes: 'Да',
 			no: 'Нет',
 			conform: 'Вы уверены, что хотите удалить ',
@@ -33,10 +35,12 @@
 			back : 'Назад',
 			assets: 'Активы',
 			reports: 'Отчеты',
+			resource: 'Ресурс',
 			resources: 'Ресурсы',
 			find : 'Поиск',
 			outputs : 'Расход',
 			inputs : 'Приход',
+			project : 'Проект',
 			projects : 'Проекты',
 			departments : 'Подразделения',
 			employees : 'Сотрудники',
@@ -65,6 +69,8 @@
 		$rootScope.rus = rus;
 
 		var eng = {
+			phone: 'Phone',
+			address: 'Address',
 			yes: 'Yes',
 			no: 'No',
 			conform: 'Are you sure you want to delete ',
@@ -87,10 +93,12 @@
 			back : 'Back',
 			assets: 'Assets',
 			reports: 'Reports',
+			resource: 'Resource',
 			resources: 'Resources',
-			find : 'Search',
+			find : 'Search here',
 			outputs : 'Outputs',
 			inputs : 'Inputs',
+			project : 'Project',
 			projects : 'Projects',
 			departments : 'Departaments',
 			employees : 'Employees',

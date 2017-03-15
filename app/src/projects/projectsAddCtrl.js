@@ -15,7 +15,8 @@
             projectsAddSubmit: projectsAddSubmit,
             _addItem: addItem,
             projectsAddBack: projectsAddBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
 		$timeout(function () {

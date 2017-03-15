@@ -21,7 +21,8 @@
             goToBack: goToBack,
             goToHead: goToHead,
             projectsBack: projectsBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         $timeout(function () {
@@ -31,8 +32,6 @@
         init();
 
         function init() {
-            //vm.title = 'Projects';
-            vm.title = 'Проекты';
             vm.sort = 'name';
             vm.projects = projects;
             vm.projectsFilter = [];
