@@ -20,7 +20,8 @@
             employeesAddSubmit: employeesAddSubmit,
             _addItem: addItem,
             employeesAddBack: employeesAddBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
 		$timeout(function () {
@@ -34,9 +35,7 @@
 			
             vm.departments = departments;
             vm.departmentsOptions = [].concat(vm.departments);
-console.log(vm.departmentsOptions)
             vm.departmentsOptions.unshift(optionalDepartment);			
-console.log(vm.departmentsOptions)
         }
 		
         function updateChangeDepartment(item) {

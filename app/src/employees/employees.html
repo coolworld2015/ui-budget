@@ -1,16 +1,16 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{employeesCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="employeesCtrl.goToBack()">
     <hr>
 
     <div class="header" ng-click="employeesCtrl.goToBack()">
-        {{employeesCtrl.title}} ({{employeesFilter.length}} / {{employeesCtrl.employees.length}})
+        {{employeesCtrl.language.employee}} ({{employeesFilter.length}} / {{employeesCtrl.employees.length}})
     </div>
 
     <div>
         <input type="text" class="form-control input"
-               placeholder="Search here"
+               placeholder={{employeesCtrl.language.find}}
                ng-model="employeesCtrl.query.name">
     </div>
 
@@ -22,7 +22,7 @@
             <td class="input">
                 <div class="name-div">
                     {{item.name}} <br>
-                    Sum: {{item.sum | number:2}}
+                    {{employeesCtrl.language.total}}: {{item.sum | number:2}}
                 </div>
             </td>
 
@@ -30,7 +30,7 @@
     </table>
 
     <hr class="fix-hr">
-		<span class="label label-primary per-page">Items per page:
+		<span class="label label-primary per-page">{{employeesCtrl.language.records}}
 			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
 		</span>
 
@@ -39,7 +39,7 @@
                     boundary-links="true"></pagination>
     </div>
 
-    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesAdd()">Add</button>&nbsp
-    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesAdd()">{{employeesCtrl.language.add}}</button>&nbsp
+    <button class="btn btn-primary button" ng-click="employeesCtrl.employeesBack()" scroll-here>{{employeesCtrl.language.back}}</button>
     <div class="blanker"></div>
 </center>

@@ -1,5 +1,5 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{employeesEditCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
@@ -10,16 +10,14 @@
 		<table class="table table-bordered">
 			<tr>
 				<td>
-					<input readonly type="text" class="form-control readonly"
-						   placeholder="Name"
-						   ng-model="employeesEditCtrl.name">
+					<div class="form-control readonly">{{employeesEditCtrl.language.employee}}: {{employeesEditCtrl.name}}</div>
 				</td>
 			</tr>
 
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Address" name="address"
+						   placeholder={{employeesEditCtrl.language.address}} name="address"
 						   ng-model="employeesEditCtrl.address">
 
 					<div ng-if="employeesEditCtrl.form.$submitted">
@@ -31,7 +29,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Phone" name="phone"
+						   placeholder={{employeesEditCtrl.language.phone}} name="phone"
 						   ng-model="employeesEditCtrl.phone">
 
 					<div ng-if="employeesEditCtrl.form.$submitted">
@@ -43,7 +41,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Description" name="description"
+						   placeholder={{employeesEditCtrl.language.description}} name="description"
 						   ng-model="employeesEditCtrl.description">
 
 					<div ng-if="employeesEditCtrl.form.$submitted">
@@ -61,10 +59,10 @@
 			</tr>
 		</table>
 
-		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesDialog()">Delete</button>
+		<button type="submit" class="btn btn-primary button">{{employeesEditCtrl.language.submit}}</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesDialog()">{{employeesEditCtrl.language.delete}}</button>
 		<br><br>
-		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesEditBack()">Back</button>
+		<button type="button" class="btn btn-primary button" ng-click="employeesEditCtrl.employeesEditBack()">{{employeesEditCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>

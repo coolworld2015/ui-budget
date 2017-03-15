@@ -15,7 +15,8 @@
             employeesDelete: employeesDelete,
             _deleteItem: deleteItem,
             employeesEditBack: employeesEditBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);

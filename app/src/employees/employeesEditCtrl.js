@@ -16,7 +16,8 @@
             _editItem: editItem,
             employeesDialog: employeesDialog,
             employeesEditBack: employeesEditBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);
@@ -48,8 +49,10 @@
                 name: vm.name,
                 address: vm.address,
                 phone: vm.phone,
-                sum: vm.sum,
-                description: vm.description
+				department: vm.department,
+                departmentID: vm.departmentID,	
+                description: vm.description,
+                sum: vm.sum
             };
             if ($rootScope.mode == 'ON-LINE (Heroku)') {
                 EmployeesService.editItem(item)
