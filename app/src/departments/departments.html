@@ -1,16 +1,16 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{departmentsCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="departmentsCtrl.goToBack()">
     <hr>
 
     <div class="header" ng-click="departmentsCtrl.goToBack()">
-        {{departmentsCtrl.title}} ({{departmentsFilter.length}} / {{departmentsCtrl.departments.length}})
+        {{departmentsCtrl.language.departments}} ({{departmentsFilter.length}} / {{departmentsCtrl.departments.length}})
     </div>
 
     <div>
         <input type="text" class="form-control input"
-               placeholder="Search here"
+               placeholder={{departmentsCtrl.language.find}}
                ng-model="departmentsCtrl.query.name">
     </div>
 
@@ -22,7 +22,7 @@
             <td class="input">
                 <div class="name-div">
                     {{item.name}} <br>
-                    Sum: {{item.sum | number:2}}
+                    {{departmentsCtrl.language.total}}: {{item.sum | number:2}}
                 </div>
             </td>
 
@@ -30,7 +30,7 @@
     </table>
 
     <hr class="fix-hr">
-		<span class="label label-primary per-page">Items per page:
+		<span class="label label-primary per-page">{{departmentsCtrl.language.records}}
 			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
 		</span>
 
@@ -39,7 +39,7 @@
                     boundary-links="true"></pagination>
     </div>
 
-    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsAdd()">Add</button>&nbsp
-    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsAdd()">{{departmentsCtrl.language.add}}</button>&nbsp
+    <button class="btn btn-primary button" ng-click="departmentsCtrl.departmentsBack()" scroll-here>{{departmentsCtrl.language.back}}</button>
     <div class="blanker"></div>
 </center>

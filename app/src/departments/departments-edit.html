@@ -1,5 +1,5 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{departmentsEditCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
@@ -10,16 +10,14 @@
 		<table class="table table-bordered">
 			<tr>
 				<td>
-					<input readonly type="text" class="form-control readonly"
-						   placeholder="Name"
-						   ng-model="departmentsEditCtrl.name">
+					<div class="form-control readonly">{{departmentsEditCtrl.language.department}}: {{departmentsEditCtrl.name}}</div>
 				</td>
 			</tr>
 
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Address" name="address"
+						   placeholder={{departmentsEditCtrl.language.address}} name="address"
 						   ng-model="departmentsEditCtrl.address">
 
 					<div ng-if="departmentsEditCtrl.form.$submitted">
@@ -31,7 +29,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Phone" name="phone"
+						   placeholder={{departmentsEditCtrl.language.phone}} name="phone"
 						   ng-model="departmentsEditCtrl.phone">
 
 					<div ng-if="departmentsEditCtrl.form.$submitted">
@@ -43,7 +41,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Description" name="description"
+						   placeholder={{departmentsEditCtrl.language.description}} name="description"
 						   ng-model="departmentsEditCtrl.description">
 
 					<div ng-if="departmentsEditCtrl.form.$submitted">
@@ -61,10 +59,10 @@
 			</tr>
 		</table>
 
-		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="departmentsEditCtrl.departmentsDialog()">Delete</button>
+		<button type="submit" class="btn btn-primary button">{{departmentsEditCtrl.language.submit}}</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="departmentsEditCtrl.departmentsDialog()">{{departmentsEditCtrl.language.delete}}</button>
 		<br><br>
-		<button type="button" class="btn btn-primary button" ng-click="departmentsEditCtrl.departmentsEditBack()">Back</button>
+		<button type="button" class="btn btn-primary button" ng-click="departmentsEditCtrl.departmentsEditBack()">{{departmentsEditCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>

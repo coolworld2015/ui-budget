@@ -15,7 +15,8 @@
             departmentsAddSubmit: departmentsAddSubmit,
             _addItem: addItem,
             departmentsAddBack: departmentsAddBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
 		$timeout(function () {

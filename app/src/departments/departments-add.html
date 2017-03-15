@@ -1,17 +1,17 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{departmentsAddCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo">
     <hr>
 
     <form ng-submit="departmentsAddCtrl.departmentsAddSubmit()" novalidate name="departmentsAddCtrl.form" autocomplete="off">
-        <div class="header">New record</div>
+        <div class="header">{{departmentsAddCtrl.language.newrec}}</div>
         <br><br>
         <table class="table table-bordered">
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Name" name="name"
+                           placeholder={{departmentsAddCtrl.language.name}} name="name"
                            ng-model="departmentsAddCtrl.name">
 
                     <div ng-if="departmentsAddCtrl.form.$submitted">
@@ -23,7 +23,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Address" name="address"
+                           placeholder={{departmentsAddCtrl.language.address}} name="address"
                            ng-model="departmentsAddCtrl.address">
 
                     <div ng-if="departmentsAddCtrl.form.$submitted">
@@ -35,7 +35,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Phone" name="phone"
+                           placeholder={{departmentsAddCtrl.language.phone}} name="phone"
                            ng-model="departmentsAddCtrl.phone">
 
                     <div ng-if="departmentsAddCtrl.form.$submitted">
@@ -47,7 +47,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Description" name="description"
+                           placeholder={{departmentsAddCtrl.language.description}} name="description"
                            ng-model="departmentsAddCtrl.description">
 
                     <div ng-if="departmentsAddCtrl.form.$submitted">
@@ -58,8 +58,8 @@
             </tr>
         </table>
 
-        <button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-        <button type="button" class="btn btn-primary button" ng-click="departmentsAddCtrl.departmentsAddBack()">Back</button>
+        <button type="submit" class="btn btn-primary button">{{departmentsAddCtrl.language.submit}}</button>&nbsp
+        <button type="button" class="btn btn-primary button" ng-click="departmentsAddCtrl.departmentsAddBack()">{{departmentsAddCtrl.language.back}}</button>
     </form>
 	<div class="blanker"></div>
 </center>

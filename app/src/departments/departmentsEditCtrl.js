@@ -16,7 +16,8 @@
             _editItem: editItem,
             departmentsDialog: departmentsDialog,
             departmentsEditBack: departmentsEditBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);
