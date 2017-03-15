@@ -16,7 +16,8 @@
 			onLogin: onLogin,
             checkUser: checkUser,
             _check: check,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         init();
@@ -27,8 +28,8 @@
             $rootScope.error = false;
             $rootScope.message = false;
 			
-			vm.name = '1';
-			vm.pass = '1';
+			//vm.name = '1';
+			//vm.pass = '1';
         }
 
         function toLogin() {

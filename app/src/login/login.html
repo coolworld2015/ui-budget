@@ -1,16 +1,16 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{loginCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
 	<form ng-submit="loginCtrl.toLogin()" novalidate name="loginCtrl.form" autocomplete="off">
-		<div class="header">Login</div>
+		<div class="header">{{loginCtrl.language.log}}</div>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Login" name="name"
+						   placeholder={{loginCtrl.language.login}} name="name"
 						   ng-model="loginCtrl.name">
 
 					<div ng-if="loginCtrl.form.$submitted">
@@ -21,7 +21,7 @@
 			<tr>
 				<td>
 					<input type="password" class="form-control input" required
-						   placeholder="Password" name="pass"
+						   placeholder={{loginCtrl.language.pass}} name="pass"
 						   ng-model="loginCtrl.pass">
 
 					<div ng-if="loginCtrl.form.$submitted">
@@ -34,6 +34,6 @@
 				Error. Wrong name or password
 			</div>
 
-		<button type="submit" class="btn btn-primary button">Login</button>&nbsp
+		<button type="submit" class="btn btn-primary button">{{loginCtrl.language.enter}}</button>&nbsp
 	</form>
 </center>
