@@ -15,7 +15,8 @@
             goodsAddSubmit: goodsAddSubmit,
             _addItem: addItem,
             goodsAddBack: goodsAddBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 		
         $timeout(function () {

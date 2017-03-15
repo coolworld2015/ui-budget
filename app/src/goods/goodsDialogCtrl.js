@@ -15,7 +15,8 @@
             goodsDelete: goodsDelete,
             _deleteItem: deleteItem,
             goodsEditBack: goodsEditBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);

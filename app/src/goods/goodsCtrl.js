@@ -21,7 +21,8 @@
             goToBack: goToBack,
             goToHead: goToHead,
             goodsBack: goodsBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         $timeout(function () {
@@ -31,8 +32,6 @@
         init();
 
         function init() {
-            //vm.title = 'Resources';
-            vm.title = 'Ресурсы';
             vm.sort = 'name';
             vm.goods = goods;
             vm.goodsFilter = [];

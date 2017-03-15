@@ -11,6 +11,13 @@
 		$rootScope.language = {};
 
 		var rus = {
+			yes: 'Да',
+			no: 'Нет',
+			conform: 'Вы уверены, что хотите удалить ',
+			delete: 'Удалить',
+			price: 'Цена',
+			submit: 'Применить',
+			newrec: 'Новая запись',
 			trans: 'Транзакция',
 			app: 'Режим приложения',
 			lang: 'Выбор языка',
@@ -50,7 +57,7 @@
 			name : 'Наименование',
 			sum : 'Сумма',
 			add : 'Добавить',
-			desc : 'Описание',
+			description : 'Описание',
 			grn : 'Гривны',
 			grns : ' грн.',
 			total : 'Итого'
@@ -58,6 +65,13 @@
 		$rootScope.rus = rus;
 
 		var eng = {
+			yes: 'Yes',
+			no: 'No',
+			conform: 'Are you sure you want to delete ',
+			delete: 'Delete',			
+			price: 'Price',
+			submit: 'Submit',
+			newrec: 'New record',
 			trans: 'Transaction',			
 			app: 'Application mode',			
 			lang: 'Language mode',
@@ -96,8 +110,8 @@
 			records : 'Records per page: ',
 			name : 'Name',
 			sum : 'Total',
-			add : 'New',
-			desc : 'Description',
+			add : 'Add',
+			description : 'Description',
 			grn : 'UAH',
 			grns : ' uah.',
 			total : 'Total'

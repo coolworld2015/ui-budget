@@ -1,5 +1,5 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{goodsEditCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
@@ -11,7 +11,7 @@
 			<tr>
 				<td>
 					<input readonly type="text" class="form-control readonly"
-						   placeholder="Name"
+						   placeholder={{goodsEditCtrl.language.name}}
 						   ng-model="goodsEditCtrl.name">
 				</td>
 			</tr>
@@ -19,7 +19,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Price" name="price"
+						   placeholder={{goodsEditCtrl.language.price}} name="price"
 						   ng-model="goodsEditCtrl.price">
 
 					<div ng-if="goodsEditCtrl.form.$submitted">
@@ -31,7 +31,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Description" name="description"
+						   placeholder={{goodsEditCtrl.language.description}} name="description"
 						   ng-model="goodsEditCtrl.description">
 
 					<div ng-if="goodsEditCtrl.form.$submitted">
@@ -41,10 +41,10 @@
 			</tr>
 		</table>
 
-		<input type="submit" class="btn btn-primary button" value="Submit">&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="goodsEditCtrl.goodsDialog()">Delete</button>
+		<input type="submit" class="btn btn-primary button" value={{goodsEditCtrl.language.submit}}>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="goodsEditCtrl.goodsDialog()">{{goodsEditCtrl.language.delete}}</button>
 		<br><br>
-		<button type="button" class="btn btn-primary button" ng-click="goodsEditCtrl.goodsEditBack()">Back</button>
+		<button type="button" class="btn btn-primary button" ng-click="goodsEditCtrl.goodsEditBack()">{{goodsEditCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>

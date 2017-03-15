@@ -1,17 +1,17 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{goodsAddCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
 
 	<form ng-submit="goodsAddCtrl.goodsAddSubmit()" novalidate name="goodsAddCtrl.form" autocomplete="off">
-		<div class="header">New record</div>
+		<div class="header">{{goodsAddCtrl.language.newrec}}</div>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Name" name="name"
+						   placeholder={{goodsAddCtrl.language.name}} name="name"
 						   ng-model="goodsAddCtrl.name">
 
 					<div ng-if="goodsAddCtrl.form.$submitted">
@@ -23,7 +23,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Price" name="price"
+						   placeholder={{goodsAddCtrl.language.price}} name="price"
 						   ng-model="goodsAddCtrl.price">
 
 					<div ng-if="goodsAddCtrl.form.$submitted">
@@ -35,7 +35,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control input" required
-						   placeholder="Description" name="description"
+						   placeholder={{goodsAddCtrl.language.description}} name="description"
 						   ng-model="goodsAddCtrl.description">
 
 					<div ng-if="goodsAddCtrl.form.$submitted">
@@ -45,8 +45,8 @@
 			</tr>
 		</table>
 
-		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="goodsAddCtrl.goodsAddBack()">Back</button>
+		<button type="submit" class="btn btn-primary button">{{goodsAddCtrl.language.submit}}</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="goodsAddCtrl.goodsAddBack()">{{goodsAddCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>
