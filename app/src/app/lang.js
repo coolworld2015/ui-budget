@@ -11,6 +11,10 @@
 		$rootScope.language = {};
 
 		var rus = {
+			trans: 'Транзакция',
+			app: 'Режим приложения',
+			lang: 'Выбор языка',
+			action: 'Применить',
 			title : 'Управление проектами',
 			menu : 'Главное меню',
 			config: 'Настройки',
@@ -54,6 +58,10 @@
 		$rootScope.rus = rus;
 
 		var eng = {
+			trans: 'Transaction',			
+			app: 'Application mode',			
+			lang: 'Language mode',
+			action: 'Action',
 			title : 'Project Management',
 			menu : 'Main menu',
 			config: 'Configurations',

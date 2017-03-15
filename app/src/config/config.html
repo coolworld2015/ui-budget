@@ -1,5 +1,5 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{configCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="categoriesCtrl.goToBack()">
     <hr>
@@ -8,7 +8,7 @@
     <table class="table table-bordered">
         <tr>
             <td>
-                <span class="input">Application mode</span>
+                <span class="input">{{configCtrl.language.app}}</span>
                 <input type="text"
                        class="form-control"
                        ng-model="configCtrl.mode"
@@ -18,7 +18,7 @@
         </tr>        
 		<tr>
             <td>
-                <span class="input">Language mode</span>
+                <span class="input">{{configCtrl.language.lang}}</span>
                 <input type="text"
                        class="form-control"
                        ng-model="configCtrl.lang"
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>
-                <span class="input">Transaction</span>
+                <span class="input">{{configCtrl.language.trans}}</span>
                 <select class="form-control"
                         scroll-there
                         require
@@ -45,7 +45,7 @@
         </tr>
     </table>
 
-    <button class="btn btn-primary button" ng-click="configCtrl.doAction()">Action</button>&nbsp
-    <button class="btn btn-primary button" ng-click="configCtrl.toMain()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="configCtrl.doAction()">{{configCtrl.language.action}}</button>&nbsp
+    <button class="btn btn-primary button" ng-click="configCtrl.toMain()" scroll-here>{{configCtrl.language.back}}</button>
     <div class="blanker"></div>
 </center>

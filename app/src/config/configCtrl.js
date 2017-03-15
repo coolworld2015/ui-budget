@@ -41,7 +41,7 @@
 			vm.lang = $rootScope.lang;
 			
             vm.options = [
-                {name: 'Select transaction', value: 'none'},
+                {name: $rootScope.language.trans, value: 'none'},
                 //{name: 'Get clients (Heroku)', value: 'heroku.clients.get'},
                 //{name: 'Get goods (Heroku)', value: 'heroku.goods.get'},
                 {name: 'JSON (Projects - Goods)', value: 'json.projects'}
