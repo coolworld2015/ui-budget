@@ -1,10 +1,10 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{searchCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
 	<div class="header">
-		{{searchCtrl.title}}
+		{{searchCtrl.language.reports}}
 	</div>
 	<br><br>
 	<form ng-submit="searchCtrl.searchSubmit()" novalidate name="searchCtrl.form" autocomplete="off">
@@ -35,8 +35,8 @@
 			</tr>
 		</table>
 
-		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="searchCtrl.searchBack()">Back</button>
+		<button type="submit" class="btn btn-primary button">{{searchCtrl.language.submit}}</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="searchCtrl.searchBack()">{{searchCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>

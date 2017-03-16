@@ -1,14 +1,14 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{searchResultsCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="searchResultsCtrl.goToBack()">
     <hr>
     <div class="header" ng-click="searchResultsCtrl.goToBack()">
-        {{searchResultsCtrl.title}} ({{itemsFilter.length}} / {{searchResultsCtrl.items.length}})
+        {{searchResultsCtrl.language.results}} ({{itemsFilter.length}} / {{searchResultsCtrl.items.length}})
     </div>
     <div>
         <input type="text" class="form-control input"
-               placeholder="Search here"
+               placeholder={{searchResultsCtrl.language.find}}
                ng-model="searchResultsCtrl.query">
     </div>
     <table class="table table-striped input">
@@ -26,7 +26,7 @@
         </tr>
     </table>
     <hr class="fix-hr">
-		<span class="label label-primary per-page">Items per page:
+		<span class="label label-primary per-page">{{searchResultsCtrl.language.records}}
 			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}
                    ng-change="searchResultsCtrl.updateChange()">
 		</span>
@@ -35,6 +35,6 @@
         <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm"
                     boundary-links="true"></pagination>
     </div>
-    <button class="btn btn-primary button" ng-click="searchResultsCtrl.itemsBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="searchResultsCtrl.itemsBack()" scroll-here>{{searchResultsCtrl.language.back}}</button>
     <br><br>
 </center>

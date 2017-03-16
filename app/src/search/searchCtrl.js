@@ -15,7 +15,8 @@
             updateChange: updateChange,
             searchSubmit: searchSubmit,
             searchBack: searchBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         $timeout(function () {
@@ -24,10 +25,7 @@
 
         init();
 
-        function init() {
-            //vm.title = 'Search items';
-            vm.title = 'Отчеты';
-			
+        function init() {		
             vm.options = [
                 {name: 'Select search'},
                 {name: 'Search by Name'},
