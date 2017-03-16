@@ -1,5 +1,5 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{usersEditCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="usersEditCtrl.goToBack()">
     <hr>
@@ -10,7 +10,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Name" name="name"
+                           placeholder={{usersEditCtrl.language.login}} name="name"
                            ng-model="usersEditCtrl.name">
 
                     <div ng-if="usersEditCtrl.form.$submitted">
@@ -22,7 +22,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Password" name="pass"
+                           placeholder={{usersEditCtrl.language.pass}} name="pass"
                            ng-model="usersEditCtrl.pass">
 
                     <div ng-if="usersEditCtrl.form.$submitted">
@@ -34,7 +34,7 @@
             <tr>
                 <td>
 					<textarea rows=5 type="text" class="form-control input" required
-                              placeholder="Description" name="description"
+                              placeholder={{usersEditCtrl.language.description}} name="description"
                               ng-model="usersEditCtrl.description">
 					</textarea>
 
@@ -45,10 +45,10 @@
             </tr>
         </table>
 
-        <button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-        <button type="button" class="btn btn-primary button" ng-click="usersEditCtrl.usersDialog()">Delete</button>
+        <button type="submit" class="btn btn-primary button">{{usersEditCtrl.language.submit}}</button>&nbsp
+        <button type="button" class="btn btn-primary button" ng-click="usersEditCtrl.usersDialog()">{{usersEditCtrl.language.delete}}</button>
         <br><br>
-        <button type="button" class="btn btn-primary button" ng-click="usersEditCtrl.usersEditBack()">Back</button>
+        <button type="button" class="btn btn-primary button" ng-click="usersEditCtrl.usersEditBack()">{{usersEditCtrl.language.back}}</button>
     </form>
     <br><br>
 </center>

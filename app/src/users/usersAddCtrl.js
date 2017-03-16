@@ -14,7 +14,8 @@
             init: init,
             usersAddSubmit: usersAddSubmit,
             usersAddBack: usersAddBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         init();
