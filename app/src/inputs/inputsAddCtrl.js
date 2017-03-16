@@ -45,7 +45,8 @@
 			_setStoreSum: setStoreSum,
 			
             inputsAddBack: inputsAddBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
 		$timeout(function () {

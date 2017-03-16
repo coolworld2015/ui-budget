@@ -1,17 +1,17 @@
 <center>
-	<div class="header">Budget</div>
+	<div class="header">{{inputsDialogCtrl.language.title}}</div>
 	<br><br>
 	<img ng-src="logo.jpg" class="logo">
 	<hr>
 
 	<br>
 		<span class="dialog">
-				Are you sure you want to delete invoiceID: {{inputsDialogCtrl.invoiceID}}?
+				{{inputsDialogCtrl.language.conform}} ID: {{inputsDialogCtrl.invoiceID}}?
 		</span>
 	<br><br>
 	<hr>
 	<br>		
-	<button class="btn btn-primary button" ng-click="inputsDialogCtrl.inputsDelete()">Yes</button>&nbsp
-	<button class="btn btn-primary button" ng-click="inputsDialogCtrl.inputsEditBack()">No</button>
+	<button class="btn btn-primary button" ng-click="inputsDialogCtrl.inputsDelete()">{{inputsDialogCtrl.language.yes}}</button>&nbsp
+	<button class="btn btn-primary button" ng-click="inputsDialogCtrl.inputsEditBack()">{{inputsDialogCtrl.language.no}}</button>
 	<div class="blanker"></div>
 </center>

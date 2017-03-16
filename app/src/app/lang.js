@@ -11,6 +11,8 @@
 		$rootScope.language = {};
 
 		var rus = {
+			quantity: 'Количесто',
+			date: 'Дата',
 			phone: 'Телефон',
 			address: 'Адрес',
 			yes: 'Да',
@@ -71,6 +73,8 @@
 		$rootScope.rus = rus;
 
 		var eng = {
+			quantity: 'Quantity',
+			date: 'Date',
 			phone: 'Phone',
 			address: 'Address',
 			yes: 'Yes',

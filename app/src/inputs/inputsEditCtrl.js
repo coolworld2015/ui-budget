@@ -15,7 +15,8 @@
             inputsSubmit: inputsSubmit,
             _editItem: editItem,
             inputsDialog: inputsDialog,
-            inputsEditBack: inputsEditBack
+            inputsEditBack: inputsEditBack,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);

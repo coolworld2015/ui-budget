@@ -1,11 +1,11 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{inputsEditCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo">
     <hr>
 	
 	<form ng-submit="inputsEditCtrl.inputsSubmit()" novalidate name="inputsEditCtrl.form">
-		<div class="header" ng-click="inputsEditCtrl.goInputs()">InvoiceID: {{inputsEditCtrl.invoiceID}}</div>
+		<div class="header" ng-click="inputsEditCtrl.goInputs()">ID: {{inputsEditCtrl.invoiceID}}</div>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
@@ -15,7 +15,7 @@
 				</td>
 				<td class="width100">
 					<input type="text" class="form-control readonly" required readonly
-						   placeholder="Transaction ID" name="invoiceID"
+						   placeholder="ID" name="invoiceID"
 						   ng-model="inputsEditCtrl.invoiceID">
 
 					<div ng-if="inputsEditCtrl.form.$submitted">
@@ -27,7 +27,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Date:">
+						   readonly value="{{inputsEditCtrl.language.date}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -43,7 +43,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Project:">
+						   readonly value="{{inputsEditCtrl.language.project}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -54,7 +54,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Department:">
+						   readonly value="{{inputsEditCtrl.language.department}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -70,7 +70,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Employee:">
+						   readonly value="{{inputsEditCtrl.language.employee}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -81,7 +81,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Resource:">
+						   readonly value="{{inputsEditCtrl.language.resource}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -92,7 +92,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Price:">
+						   readonly value="{{inputsEditCtrl.language.price}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -103,7 +103,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Quantity:">
+						   readonly value="{{inputsEditCtrl.language.quantity}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -114,7 +114,7 @@
 			<tr>
 				<td>
 					<textarea rows=5 class="form-control readonly caption"
-						   readonly>Description:
+						   readonly>{{inputsEditCtrl.language.description}}:
 				    </textarea>
 				</td>
 				<td>
@@ -132,7 +132,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Total:">
+						   readonly value="{{inputsEditCtrl.language.total}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -141,10 +141,10 @@
 			</tr>
 		</table>
 
-		<input type="submit" class="btn btn-primary button" value="Edit">&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="inputsEditCtrl.inputsDialog()">Delete</button>
+		<input type="submit" class="btn btn-primary button" value={{inputsEditCtrl.language.submit}}>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="inputsEditCtrl.inputsDialog()">{{inputsEditCtrl.language.delete}}</button>
 		<br><br>
-		<button type="button" class="btn btn-primary button" ng-click="inputsEditCtrl.inputsEditBack()">Back</button>
+		<button type="button" class="btn btn-primary button" ng-click="inputsEditCtrl.inputsEditBack()">{{inputsEditCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>

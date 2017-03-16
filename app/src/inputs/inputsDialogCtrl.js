@@ -34,7 +34,8 @@
             _editGood: editGood,
             _deleteInputsInvoiceItem: deleteInputsInvoiceItem,
             inputsEditBack: inputsEditBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);
