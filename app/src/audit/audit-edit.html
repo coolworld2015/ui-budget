@@ -1,5 +1,5 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{auditEditCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="auditEditCtrl.goToBack()">
     <hr>
@@ -10,7 +10,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control input" required
-                           placeholder="Name" name="name"
+                           placeholder={{auditEditCtrl.language.name}} name="name"
                            ng-model="auditEditCtrl.name">
 
                     <div ng-if="auditEditCtrl.form.$submitted">
@@ -34,7 +34,7 @@
             <tr>
                 <td>
 					<textarea rows=5 type="text" class="form-control input" required
-                              placeholder="Description" name="description"
+                              placeholder={{auditEditCtrl.language.description}} name="description"
                               ng-model="auditEditCtrl.description">
 					</textarea>
 
@@ -45,7 +45,7 @@
             </tr>
         </table>
 
-        <button type="button" class="btn btn-primary button" ng-click="auditEditCtrl.auditEditBack()">Back</button>
+        <button type="button" class="btn btn-primary button" ng-click="auditEditCtrl.auditEditBack()">{{auditEditCtrl.language.back}}</button>
     </form>
     <br><br>
 </center>

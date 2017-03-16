@@ -13,7 +13,8 @@
         angular.extend(vm, {
             init: init,
             auditEditBack: auditEditBack,
-			_errorHandler: errorHandler
+			_errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         angular.extend(vm, $stateParams.item);

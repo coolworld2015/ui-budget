@@ -20,7 +20,8 @@
             goToBack: goToBack,
             goToHead: goToHead,
             auditBack: auditBack,
-            _errorHandler: errorHandler
+            _errorHandler: errorHandler,
+			language: $rootScope.language
         });
 
         $timeout(function () {
