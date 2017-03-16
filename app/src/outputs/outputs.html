@@ -1,17 +1,17 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{outputsCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo" ng-click="outputsCtrl.goToBack()">
     <hr>
 
     <div class="header" ng-click="outputsCtrl.goToBack()">
-        {{outputsCtrl.title}} ({{outputsFilter.length}} / {{outputsCtrl.outputs.length}})
+        {{outputsCtrl.language.outputs}} ({{outputsFilter.length}} / {{outputsCtrl.outputs.length}})
     </div>
 
     <div>
         <input type="text" class="form-control input"
-               placeholder="Search here"
-               ng-model="outputsCtrl.query.name">
+               placeholder={{outputsCtrl.language.find}}
+               ng-model="outputsCtrl.query.invoiceID">
     </div>
 
     <table class="table table-striped input">
@@ -21,12 +21,13 @@
 
             <td class="input">
                 <div>
+                <div>
                     ID: {{item.invoiceID}} <br>
-                    Date: {{item.date}} <br>
+                    {{outputsCtrl.language.date}}: {{item.date}} <br>
                     {{item.project}} - {{item.department}} - {{item.employee}} <br>
-                    Resource: {{item.product}} <br>
-                    Description: {{item.description}} <br>
-                    Total: {{item.total | number:2}}
+                    {{outputsCtrl.language.resource}}: {{item.product}} <br>
+                    {{outputsCtrl.language.description}}: {{item.description}} <br>
+                    {{outputsCtrl.language.total}}: {{item.total | number:2}}
                 </div>
             </td>
 
@@ -34,7 +35,7 @@
     </table>
 
     <hr class="fix-hr">
-		<span class="label label-primary per-page">Items per page:
+		<span class="label label-primary per-page">{{outputsCtrl.language.records}}
 			<input class="per-page-input" type="text" ng-model="numPerPage" value={{numPerPage}}>
 		</span>
 
@@ -43,7 +44,7 @@
                     boundary-links="true"></pagination>
     </div>
 
-    <button class="btn btn-primary button" ng-click="outputsCtrl.outputsAdd()">Add</button>&nbsp
-    <button class="btn btn-primary button" ng-click="outputsCtrl.outputsBack()" scroll-here>Back</button>
+    <button class="btn btn-primary button" ng-click="outputsCtrl.outputsAdd()">{{outputsCtrl.language.add}}</button>&nbsp
+    <button class="btn btn-primary button" ng-click="outputsCtrl.outputsBack()" scroll-here>{{outputsCtrl.language.back}}</button>
     <div class="blanker"></div>
 </center>

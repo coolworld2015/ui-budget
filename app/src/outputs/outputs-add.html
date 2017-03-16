@@ -1,12 +1,12 @@
 <center>
-    <div class="header">Budget</div>
+    <div class="header">{{outputsAddCtrl.language.title}}</div>
     <br><br>
     <img ng-src="logo.jpg" class="logo">
     <hr>
 
 	<form ng-submit="outputsAddCtrl.outputsAddSubmit()" novalidate name="outputsAddCtrl.form" autocomplete="off">
 		<div class="header">
-			New record
+			{{outputsAddCtrl.language.newrec}}
 		</div>
 		<br><br>
 		<table class="table table-bordered">
@@ -17,7 +17,7 @@
 				</td>
 				<td class="width100">
 					<input type="text" class="form-control input" required digits-only
-						   placeholder="invoiceID" name="invoiceID"
+						   placeholder="ID" name="invoiceID"
 						   ng-model="outputsAddCtrl.invoiceID">
 
 					<div ng-if="outputsAddCtrl.form.$submitted">
@@ -29,7 +29,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Date:">
+						   readonly value="{{outputsAddCtrl.language.date}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control input" required
@@ -45,7 +45,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
-                           readonly value="Project:">
+                           readonly value="{{outputsAddCtrl.language.project}}:">
                 </td>
                 <td>
                     <select required class="form-control select"
@@ -62,7 +62,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
-                           readonly value="Department:">
+                           readonly value="{{outputsAddCtrl.language.department}}:">
                 </td>
                 <td>
                     <select required class="form-control select"
@@ -79,7 +79,7 @@
             <tr>
                 <td>
                     <input type="text" class="form-control readonly caption"
-                           readonly value="Employee:">
+                           readonly value="{{outputsAddCtrl.language.employee}}:">
                 </td>
                 <td>
                     <select required class="form-control select"
@@ -96,7 +96,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Resource:">
+						   readonly value="{{outputsAddCtrl.language.resource}}:">
 				</td>
                 <td>
                     <select required class="form-control select"
@@ -113,11 +113,11 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Price:">
+						   readonly value="{{outputsAddCtrl.language.price}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control input" required digits-only
-						   placeholder="Price" name="price"
+						   placeholder={{outputsAddCtrl.language.price}} name="price"
 						   ng-model="outputsAddCtrl.price"
 						   ng-change="outputsAddCtrl.updateChange()">
 
@@ -130,11 +130,11 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Quantity:">
+						   readonly value="{{outputsAddCtrl.language.quantity}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control input" required digits-only
-						   placeholder="Quantity" name="quantity"
+						   placeholder={{outputsAddCtrl.language.quantity}} name="quantity"
 						   ng-model="outputsAddCtrl.quantity"
 						   ng-change="outputsAddCtrl.updateChange()">
 
@@ -147,11 +147,11 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Description:">
+						   readonly value="{{outputsAddCtrl.language.description}}:">
 				</td>
 				<td>
 					<textarea rows=5 type="text" class="form-control input" required
-                              placeholder="Description" name="description"
+                              placeholder={{outputsAddCtrl.language.description}} name="description"
                               ng-model="outputsAddCtrl.description">
 					</textarea>
  
@@ -164,7 +164,7 @@
 			<tr>
 				<td>
 					<input type="text" class="form-control readonly caption"
-						   readonly value="Total:">
+						   readonly value="{{outputsAddCtrl.language.total}}:">
 				</td>
 				<td>
 					<input type="text" class="form-control readonly" required readonly
@@ -178,8 +178,8 @@
 			</tr>			
 		</table>
 
-		<button type="submit" class="btn btn-primary button">Submit</button>&nbsp
-		<button type="button" class="btn btn-primary button" ng-click="outputsAddCtrl.outputsAddBack()">Back</button>
+		<button type="submit" class="btn btn-primary button">{{outputsAddCtrl.language.submit}}</button>&nbsp
+		<button type="button" class="btn btn-primary button" ng-click="outputsAddCtrl.outputsAddBack()">{{outputsAddCtrl.language.back}}</button>
 	</form>
 	<div class="blanker"></div>
 </center>
